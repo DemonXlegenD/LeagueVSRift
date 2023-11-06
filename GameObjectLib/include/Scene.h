@@ -49,14 +49,12 @@ public:
 	GameObject* CreateButtonGameObject(const std::string& name, float x, float y, unsigned int fontSize);
 	GameObject* CreatePlatformObject(const std::string& name, float x, float y, float scaleX, float scaleY, const sf::Texture texture, sf::IntRect* _rectSource);
 
-	GameObject* CreateBackgroundGameObject(const std::string& name, float x, float y, sf::Color _color);
 	GameObject* CreateBackgroundGameObject(const std::string& name, float x, float y, sf::Texture texture);
 
 
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _maxData);
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _minData, float _maxData);
 
-	//GameObject* CreateDecorGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
 
 protected:

@@ -1,7 +1,6 @@
 
 #include "Components/Entities/Player.h"
 #include "SceneManager.h"
-#include "Components/Armes.h"
 
 Player::Player() : Entity(200, 30, 20.f)
 {
@@ -36,7 +35,6 @@ void Player::Update(sf::Time _delta)
         || GetOwner()->GetPosition().GetX() < 0
         )
     { 
-        GetOwner()->GetComponent<Armes>()->ClearBullets();
         this->Die();
         SceneManager::GetActiveScene()->RemoveGameObject(GetOwner());
         SceneManager::RunScene("SceneMainMenu");

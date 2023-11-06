@@ -1,5 +1,4 @@
 #include "Components/Entities/EnemyAbstract.h"
-#include "Scenes/SceneGame1.h"
 #include "Components/SpriteRenderer.h"
 
 class Grunt : public EnemyAbstract

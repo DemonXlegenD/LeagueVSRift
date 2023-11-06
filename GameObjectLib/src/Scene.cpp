@@ -2,15 +2,8 @@
 #include "SceneManager.h"
 
 #include "Components/Button.h"
-#include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
-#include "Components/Gravity.h"
-#include "Components/Platforme.h"
-#include "Components/Entities/Enemies/Grunt.h"
-#include "Components/Entities/Enemies/Turret.h"
-#include "Components/FireBullet.h"
-#include "Components/Rectangle.h"
-#include "Components/Armes.h"
+#include "Components/SquareCollider.h"
 #include "Components/Slider.h"
 
 sf::RenderWindow* Scene::window = nullptr;
@@ -48,23 +41,14 @@ void Scene::Update(sf::Time _delta)
 		if (event.type == sf::Event::Closed) window->close();
 		if (event.type == sf::Event::KeyPressed)
 		{
-			/*if (event.key.code == sf::Keyboard::Escape) window->close();*/
 			if (event.key.code == sf::Keyboard::LAlt) if (event.key.code == sf::Keyboard::F4) window->close();
 		}
-
 	}
 
 	for (size_t i = 0; i < gameObjects.size(); i++)
 	{
 		gameObjects[i]->Update(_delta);
 	}
-
-	//TODO: Ne pas faire de foreach lorsqu'on modifie le nombre d'élément dans le vector
-	//for (GameObject* const& gameObject : gameObjects)
-	//{
-	//	std::cout << gameObject->GetName() << std::endl;
-	//	gameObject->Update(_delta);
-	//}
 }
 
 void Scene::Render(sf::RenderWindow* _window)
@@ -134,16 +118,6 @@ GameObject* Scene::CreateDecorObject(const std::string& name, float x, float y, 
 	return gameObject;
 }
 
-GameObject* Scene::CreateBackgroundGameObject(const std::string& name, float x, float y, sf::Color _color) {
-
-	GameObject* gameObject = CreateGameObject(name);
-	gameObject->SetPosition(Maths::Vector2f(x, y));
-
-	Rectangle* background = gameObject->CreateComponent<Rectangle>();
-	background->Create(SceneManager::GetWindow()->getSize().x, SceneManager::GetWindow()->getSize().y, _color);
-	
-	return gameObject;
-}
 
 GameObject* Scene::CreateBackgroundGameObject(const std::string& name, float x, float y, const sf::Texture texture) {
 	GameObject* gameObject = CreateGameObject(name);
@@ -193,24 +167,3 @@ GameObject* Scene::CreateSliderGameObject(const std::string& name, float _x, flo
 
 	return gameObject;
 }
-
-//GameObject* Scene::CreateDecorObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture)
-//{
-//	GameObject* gameObject = CreateGameObject(name);
-//	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
-//
-//	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
-//	squareCollider->SetWidth(60.f);
-//	squareCollider->SetHeight(60.f);
-//
-//	Sprite* spriteBullet = gameObject->CreateComponent<Sprite>();
-//	spriteBullet->SetTexture(_texture);
-//	spriteBullet->SetScale(scalex, scaley);
-//
-//	Gravity* gravity = gameObject->CreateComponent<Gravity>();
-//
-//
-//	return gameObject;
-//
-//}
-

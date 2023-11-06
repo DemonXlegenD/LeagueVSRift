@@ -6,13 +6,9 @@
 #include "Components/Button.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
-#include "Components/Gravity.h"
-#include "Components/Platforme.h"
 #include "Components/Entities/Enemies/Grunt.h"
 #include "Components/Entities/Enemies/Turret.h"
 #include "Components/FireBullet.h"
-#include "Components/Armes.h"
-#include "Components/Atout.h"
 #include "Components/HealthPointBar.h"
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
@@ -83,7 +79,6 @@ void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 void SceneGameAbstract::CreateAtout()
 {
 	CreateAtoutGameObject("Atout", 0, 0.5f, 0.5f);
-	Atout* atout = player->CreateComponent<Atout>();
 }
 
 void SceneGameAbstract::Collision(GameObject* _entity)
@@ -96,14 +91,7 @@ void SceneGameAbstract::Collision(GameObject* _entity)
 		}
 	}
 
-	if (colliding)
-	{
-		_entity->GetComponent<Gravity>()->Stop();
-	}
-	else
-	{
-		_entity->GetComponent<Gravity>()->Start();
-	}
+	
 }
 
 void SceneGameAbstract::ManageMenuPause(bool _state) {
@@ -219,9 +207,6 @@ GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name
 
 	Player* player = gameObject->CreateComponent<Player>();
 
-	Armes* arme = gameObject->CreateComponent<Armes>();
-	arme->SetDamage(player->GetDamage());
-
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
 	sprite->SetScale(scalex, scaley);
@@ -230,8 +215,6 @@ GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	Gravity* gravity = gameObject->CreateComponent<Gravity>();
 
 	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
 	inputHandlerPlayer = inputPlayer;
@@ -272,8 +255,6 @@ GameObject* SceneGameAbstract::CreateGruntGameObject(const std::string& name, fl
 	healthPointBar->SetSize(sprite->GetBounds().x, 5);
 	healthPointBar->SetScale(scalex, scaley);
 	healthPointBar->SetHealthPointBar();
-
-	Gravity* gravity = gameObject->CreateComponent<Gravity>();
 
 
 	return gameObject;
@@ -318,13 +299,3 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 	return gameObject;
 
 }
-
-GameObject* SceneGameAbstract::CreateAtoutGameObject(const std::string& name, int bonus, float positionx, float positiony)
-{
-	GameObject* gameObject = CreateGameObject(name);
-	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
-	gameObject->SetBonus(bonus);
-
-
-	return gameObject;
-};

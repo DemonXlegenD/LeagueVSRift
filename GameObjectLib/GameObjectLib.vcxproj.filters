@@ -20,7 +20,6 @@
     <ClCompile Include="src\Components\FireBullet.cpp" />
     <ClCompile Include="src\SceneManager.cpp" />
     <ClCompile Include="src\Components\Entities\Player.cpp" />
-    <ClCompile Include="src\Components\GamePauseMenu.cpp" />
     <ClCompile Include="src\AssetManager.cpp" />
     <ClCompile Include="src\Components\Rectangle.cpp" />
     <ClCompile Include="src\Scenes\SceneGame2.cpp" />

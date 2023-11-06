@@ -1,8 +1,8 @@
 #include "AudioManager.h"
 #include <iostream>
 
-int AudioManager::volume = 100;
-int AudioManager::maxVolume = 100;
+float AudioManager::volume = 100.f;
+float AudioManager::maxVolume = 100.f;
 sf::Music* AudioManager::music = nullptr;
 sf::Music* AudioManager::sound = nullptr;
 std::map<std::string, sf::Music*> AudioManager::musics;

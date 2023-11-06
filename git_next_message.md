@@ -1,4 +1,4 @@
-FIX: Fix master
+NEW: Début Projet
 
-- Jet PACK CAR LE JUMP DE HUGO MARCHETOUJOURS PAS 
+- Création du Projet: Legends VS Rift
 

@@ -1,6 +1,5 @@
 #include "Components/Inputs/InputPlayer.h"
 #include "Commands/CommandsPlayer.h"
-#include "Components/Armes.h"
 #include "Components/SpriteRenderer.h"
 #include "SceneManager.h"
 
@@ -90,8 +89,6 @@ void InputPlayer::Jump(sf::Time _delta)
 
 void InputPlayer::MoveRightBullet()
 {
-	player = SceneManager::GetActiveScene()->GetGameObject("Player");
-	player->GetComponent<Armes>()->Shoot();
 }
 
 void InputPlayer::GamePauseMenu()
