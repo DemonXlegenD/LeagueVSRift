@@ -1,4 +1,4 @@
-NEW: Début Projet
+ENH: Création d'un Scene Game 
 
-- Création du Projet: Legends VS Rift
+- Création d'un Scene Game 
 

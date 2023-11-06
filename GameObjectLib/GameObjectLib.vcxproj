@@ -44,8 +44,10 @@
     <ClInclude Include="include\Scenes\SceneGameAbstract.h" />
     <ClInclude Include="include\Scenes\SceneSuccessMenu.h" />
     <ClInclude Include="include\Scenes\SceneRankMenu.h" />
+    <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Components\Entity.cpp" />
     <ClCompile Include="src\Components\HealthPointBar.cpp" />
     <ClCompile Include="src\Scenes\SceneRankMenu.cpp" />

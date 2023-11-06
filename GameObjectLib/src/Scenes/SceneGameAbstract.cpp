@@ -27,14 +27,10 @@ void SceneGameAbstract::Create() {
 	this->CreatePauseMenuButtons();
 	gamePause = false;
 	escapeIsPress = false;
-	speed = false;
-	damage = false;
-	health = false;
 }
 
 void SceneGameAbstract::Delete() {
 	this->enemies.clear();
-	this->platforms.clear();
 	delete texture;
 	Scene::Delete();
 }
@@ -56,18 +52,8 @@ void SceneGameAbstract::Awake() {
 
 void SceneGameAbstract::CreatePlayer() {
 	player = this->CreateCharacterGameObject("Player", SceneManager::GetWindowWidth() / 2, 50.f, AssetManager::GetAsset("Player0"), 2.5f, 2.5f);	
-  CreateAtout();
 }
 
-void SceneGameAbstract::CreateGrunt()
-{
-	if (!platforms.empty()) {
-		int random = rand() % platforms.size();
-		GameObject* rand_platform = platforms[random];
-		int rand_grunt = rand() % (int)(rand_platform->GetComponent<Sprite>()->GetSize().x) - rand_platform->GetComponent<Sprite>()->GetSize().x /2;
-		enemies.push_back(CreateGruntGameObject("Grunt", rand_platform->GetPosition().GetX() - rand_grunt, rand_platform->GetPosition().GetY() - rand_platform->GetComponent<Sprite>()->GetBottom(), 2.5f, 2.5f, AssetManager::GetAsset("Grunt0")));
-	}
-}
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 	enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
@@ -76,23 +62,6 @@ void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 		}), enemies.end());
 }
 
-void SceneGameAbstract::CreateAtout()
-{
-	CreateAtoutGameObject("Atout", 0, 0.5f, 0.5f);
-}
-
-void SceneGameAbstract::Collision(GameObject* _entity)
-{
-	bool colliding = false;
-	for (GameObject* platform : this->platforms) {
-		if (SquareCollider::IsColliding(*(_entity->GetComponent<SquareCollider>()), *(platform->GetComponent<SquareCollider>()))) {
-			colliding = true;
-			break;
-		}
-	}
-
-	
-}
 
 void SceneGameAbstract::ManageMenuPause(bool _state) {
 	escapeIsPress = _state;
@@ -113,9 +82,6 @@ void SceneGameAbstract::ManageSceneGameButtonsPause()
 		for (GameObject* enemy : this->enemies) {
 			enemy->SetActive(false);
 		}
-		for (GameObject* platform : this->platforms) {
-			platform->SetActive(false);
-		}
 	}
 	else if (pauseInput && escapeIsPress) {
 		pauseInput->Execute();
@@ -123,9 +89,6 @@ void SceneGameAbstract::ManageSceneGameButtonsPause()
 		this->ManageMenuPause(false);
 		for (GameObject* enemy : this->enemies) {
 			enemy->SetActive(true);
-		}
-		for (GameObject* platform : this->platforms) {
-			platform->SetActive(true);
 		}
 	}
 }
@@ -137,12 +100,10 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 	if (!gamePause)
 	{
 		Scene::Update(_delta);
-		this->Collision(this->player);
 		this->player->GetComponent<Sprite>()->PlayerPlayAnimation();
 		for (GameObject* enemy : this->enemies) {
 			if (enemy->GetName() != "Turret")
 			{
-				this->Collision(enemy);
 				enemy->GetComponent<Sprite>()->GruntPlayAnimation();
 			}
 		}
@@ -163,9 +124,6 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 			this->ManageMenuPause(false);
 			for (GameObject* enemy : this->enemies) {
 				enemy->SetActive(true);
-			}
-			for (GameObject* platform : platforms) {
-				platform->SetActive(true);
 			}
 		}
 		if (pauseMenuPrincipalButton->GetComponent<Button>()->IsClicked()) {
