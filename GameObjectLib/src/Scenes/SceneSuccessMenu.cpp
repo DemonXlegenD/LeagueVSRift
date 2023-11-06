@@ -18,7 +18,7 @@ void SceneSuccessMenu::Create() {
 	Scene::Create();
 	sf::Texture backgroundTexture2;
 
-	if (!backgroundTexture2.loadFromFile("../assets/Sprite/titlescreen/main_title_bg.png"))
+	if (!backgroundTexture2.loadFromFile("../assets/Sprite_LOL/background/background2_lol.png"))
 	{
 		std::cout << "pas d'image" << std::endl;
 	}

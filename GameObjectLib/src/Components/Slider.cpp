@@ -1,6 +1,8 @@
 #include "Components/Slider.h"
 #include "WindowManager.h"
 #include "AudioManager.h"
+#include "SceneManager.h"
+
 
 Slider::Slider() {
 	minData = 0.f;
