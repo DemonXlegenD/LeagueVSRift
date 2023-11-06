@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "AudioManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
 #include "SceneRankMenu.h"
@@ -10,7 +11,7 @@
 GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 	this->window = _window;
 	this->FPS = _FPS;
-	SceneManager::SetFps(this->FPS);
+	WindowManager::SetFps(this->FPS);
 }
 
 

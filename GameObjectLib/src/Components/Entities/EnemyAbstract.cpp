@@ -1,4 +1,5 @@
 #include "Components/Entities/EnemyAbstract.h"
+#include "WindowManager.h"
 #include "SceneManager.h"
 
 EnemyAbstract::EnemyAbstract() : Entity() {}
@@ -8,8 +9,8 @@ void EnemyAbstract::Update(sf::Time _delta)
 {
 	Entity::Update(_delta);
 
-	if (GetOwner()->GetPosition().GetX() > SceneManager::GetWindowWidth()
-		|| GetOwner()->GetPosition().GetY() > SceneManager::GetWindowHeight()
+	if (GetOwner()->GetPosition().GetX() > WindowManager::GetWindowWidth()
+		|| GetOwner()->GetPosition().GetY() > WindowManager::GetWindowHeight()
 		|| GetOwner()->GetPosition().GetY() < 0
 		|| GetOwner()->GetPosition().GetX() < 0
 		)

@@ -2,6 +2,7 @@
 
 #include "SceneManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
 
 #include "Components/Button.h"
 #include "Components/SquareCollider.h"
@@ -35,10 +36,10 @@ void SceneGameAbstract::Delete() {
 
 
 void SceneGameAbstract::CreatePauseMenuButtons() {
-	pausePlayButton = CreateButtonGameObject("Continue", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 4.0, 50);
-	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2.5, 50);
-	pauseOptionsButton = CreateButtonGameObject("Options", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 1.8, 50);
-	pauseQuitButton = CreateButtonGameObject("Quit", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 1.4, 50);
+	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
+	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
+	pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
+	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
 
@@ -47,7 +48,7 @@ void SceneGameAbstract::Awake() {
 }
 
 void SceneGameAbstract::CreatePlayer() {
-	player = this->CreateCharacterGameObject("Player", SceneManager::GetWindowWidth() / 2, 50.f, *AssetManager::GetAsset("Player0"), 2.5f, 2.5f);
+	player = this->CreateCharacterGameObject("Player", WindowManager::GetWindowWidth() / 2, 50.f, *AssetManager::GetAsset("Player0"), 2.5f, 2.5f);
 }
 
 
@@ -95,7 +96,7 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 			std::cout << "Options" << std::endl;
 		}
 		else if (pauseQuitButton->GetComponent<Button>()->IsClicked()) {
-			SceneManager::GetWindow()->close();
+			WindowManager::GetWindow()->close();
 		}
 	}
 }
@@ -111,7 +112,7 @@ void SceneGameAbstract::CreateBackground()
 	{
 		std::cout << "pas d'image" << std::endl;
 	}
-	GameObject* background1 = CreateBackgroundGameObject("Background1", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture1);
+	GameObject* background1 = CreateBackgroundGameObject("Background1", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture1);
 };
 
 void SceneGameAbstract::Render(sf::RenderWindow* _window) {

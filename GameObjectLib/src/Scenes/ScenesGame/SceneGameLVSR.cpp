@@ -1,6 +1,7 @@
 #include "Scenes/ScenesGame/SceneGameLVSR.h"
 #include "SceneManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
 
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
@@ -17,7 +18,7 @@ void SceneGameLVSR::Awake()
 void SceneGameLVSR::Create() 
 {
 	SceneGameAbstract::Create();
-	GameObject* background = CreateBackgroundGameObject("Background", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
 }
 
 void SceneGameLVSR::Delete() 

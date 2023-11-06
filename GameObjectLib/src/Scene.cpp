@@ -1,5 +1,5 @@
 #include "Scene.h"
-#include "SceneManager.h"
+#include "WindowManager.h"
 
 #include "Components/Button.h"
 #include "Components/SpriteRenderer.h"
@@ -128,8 +128,8 @@ GameObject* Scene::CreateBackgroundGameObject(const std::string& name, float x, 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
 
-	float scalerX = (float)SceneManager::GetWindow()->getSize().x / texture.getSize().x;
-	float scalerY = (float)SceneManager::GetWindow()->getSize().y / texture.getSize().y;
+	float scalerX = (float)WindowManager::GetWindow()->getSize().x / texture.getSize().x;
+	float scalerY = (float)WindowManager::GetWindow()->getSize().y / texture.getSize().y;
 	sprite->SetScale(scalerX, scalerY);
 	sprite->SetSprite();
 
