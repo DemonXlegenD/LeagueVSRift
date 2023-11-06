@@ -2,7 +2,7 @@
 #include "SceneManager.h"
 #include "Components/Button.h"
 #include "Components/Slider.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 
 SceneMainMenu::SceneMainMenu(sf::RenderWindow* _window) : Scene(_window) {
 	texture = nullptr;
@@ -12,18 +12,12 @@ SceneMainMenu::SceneMainMenu(sf::RenderWindow* _window) : Scene(_window) {
 void SceneMainMenu::Create() {
 	Scene::Create();
 	sf::Texture backgroundTexture1;
-	sf::Texture backgroundTexture2;
-	if (!backgroundTexture1.loadFromFile("../assets/Sprite/background/background_color.png"))
-	{
-		std::cout << "pas d'image" << std::endl;
-	}
-	if (!backgroundTexture2.loadFromFile("../assets/Sprite/background/jungle_bg_trees.png"))
+	if (!backgroundTexture1.loadFromFile("../assets/Sprite_LOL/background/background_lol.png"))
 	{
 		std::cout << "pas d'image" << std::endl;
 	}
 
 	GameObject* background1 = CreateBackgroundGameObject("Background1", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture1);
-	GameObject* background2 = CreateBackgroundGameObject("Background2", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture2);
 	this->CreateSceneButtonsMenu();
 	this->activeOption(false);
 	this->activeMenu(true);
@@ -49,7 +43,7 @@ void SceneMainMenu::CreateSceneButtonsMenu () {
 	rankButton = CreateButtonGameObject("Rank", widthScreen / 1.2, heightScreen / 10, 25);
 	backButton = CreateButtonGameObject("Back", widthScreen / 10, heightScreen / 10, 20);
 	sliderFPS = CreateSliderGameObject("SliderFPS", widthScreen / 2, heightScreen / 2, 1200, 40, 50, 50, 20, SceneManager::GetFps(), SceneManager::GetMinFps(), SceneManager::GetMaxFps());
-	sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
+	//sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
 }
 
 void SceneMainMenu::Update(sf::Time _delta) {
@@ -80,7 +74,7 @@ void SceneMainMenu::Update(sf::Time _delta) {
 	}
 	else if (sliderVolume)
 	{
-		AudioManager::SetVolume(sliderVolume->GetComponent<Slider>()->GetDataInt());
+		//AudioManager::SetVolume(sliderVolume->GetComponent<Slider>()->GetDataInt());
 	}
 }
 
@@ -93,7 +87,7 @@ void SceneMainMenu::activeMenu(bool _state) {
 void SceneMainMenu::activeOption(bool _state) {
 	this->backButton->SetActive(_state);
 	this->sliderFPS->SetActive(_state);
-	this->sliderVolume->SetActive(_state);
+	//this->sliderVolume->SetActive(_state);
 }
 
 SceneMainMenu::~SceneMainMenu() {
