@@ -23,6 +23,7 @@ private:
 	GameObject* backButton = nullptr;
 	GameObject* successButton = nullptr;
 	GameObject* rankButton = nullptr;
+	GameObject* creditsButton = nullptr;
 	GameObject* player = nullptr;
 	GameObject* bullet = nullptr;
 	GameObject* sliderVolume = nullptr;

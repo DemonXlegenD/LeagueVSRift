@@ -47,8 +47,10 @@
     <ClInclude Include="include\Scenes\SceneRankMenu.h" />
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
+    <ClInclude Include="include\Scenes\SceneCreditsMenu.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Scenes\SceneCreditsMenu.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />
     <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />

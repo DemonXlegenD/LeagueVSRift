@@ -4,6 +4,7 @@
 #include "AssetManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
+#include "SceneCreditsMenu.h"
 #include "SceneRankMenu.h"
 #include "SceneGameLVSR.h"
 
@@ -30,6 +31,7 @@ void GameState::PreloadScenes() {
 	SceneManager::AddScene("SceneMainMenu", new SceneMainMenu(this->window));
 	SceneManager::AddScene("SceneSuccessMenu", new SceneSuccessMenu(this->window));
 	SceneManager::AddScene("SceneRankMenu", new SceneRankMenu(this->window));
+	SceneManager::AddScene("SceneCreditsMenu", new SceneCreditsMenu(this->window));
 	SceneManager::AddScene("SceneGameLVSR", new SceneGameLVSR(this->window));
 }
 
@@ -52,7 +54,7 @@ void GameState::PreloadAssets() {
 	AssetManager::AddAsset("minionMelee", "../assets/Sprite_LOL/Minions/minion_melee.png");
 	AssetManager::AddAsset("minionSiege", "../assets/Sprite_LOL/Minions/minion_siege.png");
 	//Batiments
-	for (size_t i = 0; i < 4; i++)
+	for (size_t i = 0; i < 3; i++)
 	{
 		AssetManager::AddAsset("batiments" + std::to_string(i), "../assets/Sprite_LOL/Batiments/batiments_" + std::to_string(i) + ".png");
 	}
