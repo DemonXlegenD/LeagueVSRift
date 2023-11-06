@@ -34,7 +34,33 @@ void GameState::PreloadScenes() {
 }
 
 void GameState::PreloadAssets() {
+	//Map
 	AssetManager::AddAsset("mapLol", "../assets/Sprite_LOL/Map/map.jpg");
+	//BackGrund
+	AssetManager::AddAsset("backgroundMenu", "../assets/Sprite_LOL/Background/background_lol.png");
+	AssetManager::AddAsset("backgroundOtherMenu", "../assets/Sprite_LOL/Background/background2_lol.png");
+	//Boss
+	AssetManager::AddAsset("bossErald", "../assets/Sprite_LOL/Boss/erald.png");
+	AssetManager::AddAsset("bossVeigar", "../assets/Sprite_LOL/Boss/veigar.png");
+	//Champions
+	AssetManager::AddAsset("championsJin", "../assets/Sprite_LOL/Champions/jin.png");
+	AssetManager::AddAsset("championsLulu", "../assets/Sprite_LOL/Champions/lulu.png");
+	AssetManager::AddAsset("championsMalphite", "../assets/Sprite_LOL/Champions/malphite.png");
+	AssetManager::AddAsset("championsXinZhao", "../assets/Sprite_LOL/Champions/xinZhao.png");
+	//Minions
+	AssetManager::AddAsset("minionMage", "../assets/Sprite_LOL/Minions/minion_mage.png");
+	AssetManager::AddAsset("minionMelee", "../assets/Sprite_LOL/Minions/minion_melee.png");
+	AssetManager::AddAsset("minionSiege", "../assets/Sprite_LOL/Minions/minion_siege.png");
+	//Batiments
+	for (size_t i = 0; i < 4; i++)
+	{
+		AssetManager::AddAsset("batiments" + std::to_string(i), "../assets/Sprite_LOL/Batiments/batiments_" + std::to_string(i) + ".png");
+	}
+	//Bullet
+	for (size_t i = 0; i < 6; i++)
+	{
+		AssetManager::AddAsset("bullet" + std::to_string(i), "../assets/Sprite_LOL/Bullet/bullet_" + std::to_string(i) + ".png");
+	}
 }
 
 void GameState::PreloadAudio() {
