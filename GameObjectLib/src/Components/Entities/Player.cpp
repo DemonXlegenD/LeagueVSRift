@@ -1,6 +1,7 @@
 
 #include "Components/Entities/Player.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
 
 Player::Player() : Entity(200, 30, 20.f)
 {
@@ -29,8 +30,8 @@ void Player::Update(sf::Time _delta)
     {
         directionPlayer = false;
     }
-    if (GetOwner()->GetPosition().GetX() > SceneManager::GetWindowWidth()
-        || GetOwner()->GetPosition().GetY() > SceneManager::GetWindowHeight()
+    if (GetOwner()->GetPosition().GetX() > WindowManager::GetWindowWidth()
+        || GetOwner()->GetPosition().GetY() > WindowManager::GetWindowHeight()
         || GetOwner()->GetPosition().GetY() < 0
         || GetOwner()->GetPosition().GetX() < 0
         )
