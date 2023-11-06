@@ -13,7 +13,6 @@ public:
 	Command* HandleInput();
 	Command* JumpInput();
 	Command* FireInput();
-	Command* PauseInput();
 	void MoveRight(sf::Time _delta);
 	void MoveRightBullet();
 	void GamePauseMenu();
@@ -34,5 +33,4 @@ private:
 	Command* KeyQ_;
 	Command* KeySpace_;
 	GameObject* player;
-	Command* KeyEscape_;
 };

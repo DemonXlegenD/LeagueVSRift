@@ -8,7 +8,6 @@ InputPlayer::InputPlayer() {
 	this->KeyD_ = new MoveToRightCommand(this);
 	this->KeyQ_ = new MoveToLeftCommand(this);
 	this->KeySpace_ = new MoveToRightBulletCommand(this);
-	this->KeyEscape_ = new GamePause(this);
 	this->KeyZ_ = new JumpCommand(this);
 }
 
@@ -48,21 +47,6 @@ Command* InputPlayer::FireInput() {
 	return nullptr;
 }
 
-Command* InputPlayer::PauseInput() {
-	static bool isPressedEscape = false;
-
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !isPressedEscape) {
-		isPressedEscape = true;
-		return KeyEscape_;
-	}
-
-	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-		isPressedEscape = false;
-	}
-
-	return nullptr;
-}
-
 void InputPlayer::MoveRight(sf::Time _delta)
 {
 	GetOwner()->SetPosition(GetOwner()->GetPosition() + Maths::Vector2f::Right + Maths::Vector2f(25, 0) * _delta.asSeconds() * speed);
@@ -99,6 +83,5 @@ InputPlayer::~InputPlayer() {
 	delete 	this->KeyD_;
 	delete 	this->KeyQ_;
 	delete 	this->KeySpace_;
-	delete 	this->KeyEscape_;
 	delete 	this->KeyZ_;
 }

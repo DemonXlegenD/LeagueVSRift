@@ -40,10 +40,4 @@ public:
 	InputPlayer* inputPlayer;
 };
 
-class GamePause : public Command
-{
-public:
-	GamePause(InputPlayer* _inputPlayer);
-	void Execute() override;
-	InputPlayer* inputPlayer;
-};
+

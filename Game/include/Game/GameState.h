@@ -12,12 +12,16 @@ public:
 	void Update();
 	void Create();
 
+	void PreloadScenes();
+	void PreloadAssets();
+	void PreloadAudio();
+
 	~GameState();
 
 private:
 	int FPS;
 	sf::Clock clock;
-
+	sf::Event event;
 	sf::RenderWindow* window;
 };
 

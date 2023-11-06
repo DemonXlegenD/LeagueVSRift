@@ -25,20 +25,7 @@ sf::Vector2f Sprite::GetBounds()
 
 void Sprite::LoadPlayAnimation()
 {
-	for (int i = 0; i <= 4; i++) {
-		std::string filename = "../assets/Sprite/player/playerStatic/john_idle_" + std::to_string(i) + ".png";
 
-		AssetManager::AddAsset("Player" + std::to_string(i), sf::Texture());
-		AssetManager::LoadAsset("Player" + std::to_string(i), filename);
-		animPlayer.push_back(AssetManager::GetAsset("Player" + std::to_string(i)));
-	}
-	for (int i = 0; i <= 9; i++) {
-		std::string filename = "../assets/Sprite/player/playerRun/john_run_" + std::to_string(i) + ".png";
-
-		AssetManager::AddAsset("Player" + std::to_string(i), sf::Texture());
-		AssetManager::LoadAsset("Player" + std::to_string(i), filename);
-		animPlayerRun.push_back(AssetManager::GetAsset("Player" + std::to_string(i)));
-	}
 }
 
 void Sprite::PlayerPlayAnimation()
@@ -64,19 +51,6 @@ void Sprite::PlayerPlayAnimationRun()
 void Sprite::LoadPlayAnimationGrunt()
 {
 
-	std::string filename = "../assets/Sprite/enemy/enemyStatic/grunt_idle_0.png";
-
-	AssetManager::AddAsset("Grunt0", sf::Texture());
-	AssetManager::LoadAsset("Grunt0", filename);
-	animGrunt.push_back(AssetManager::GetAsset("Grunt0"));
-
-	for (int i = 0; i <= 9; i++) {
-		std::string filename = "../assets/Sprite/enemy/enemyRun/grunt_run_" + std::to_string(i) + ".png";
-
-		AssetManager::AddAsset("Grunt" + std::to_string(i), sf::Texture());
-		AssetManager::LoadAsset("Grunt" + std::to_string(i), filename);
-		animGruntRun.push_back(AssetManager::GetAsset("Grunt" + std::to_string(i)));
-	}
 }
 
 void Sprite::GruntPlayAnimation()

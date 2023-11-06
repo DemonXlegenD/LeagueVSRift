@@ -5,7 +5,6 @@ class Command
 {
 public:
 	~Command();
-	virtual void Execute();
-	virtual void Execute(sf::Time delta);
+	virtual void Execute(sf::Time delta) = 0;
 };
 

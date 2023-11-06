@@ -6,7 +6,7 @@
 
 #include "GameObject.h"
 #include "Components/Entities/Player.h"
-#include "Components/Inputs/InputPlayer.h"
+#include "Components/Inputs/InputGame.h"
 
 
 class Scene
@@ -41,6 +41,10 @@ public:
 		return nullptr;
 	}
 
+	bool GetIsActive() { return isActive; }
+	void SetIsActive(bool _state);
+
+
 	GameObject* CreateGameObject(const std::string& _name);
 
 	//GAME ELEMENT
@@ -58,11 +62,12 @@ public:
 
 
 protected:
+	InputGame* inputGame = nullptr;
 	std::vector<GameObject*> gameObjects;
 	static sf::RenderWindow* window;
 	std::vector<GameObject*> gameObjectsGrunt;
-	InputPlayer* inputHandlerPlayer;
 	bool balleTiree;
+	bool isActive = true;
 	sf::Time interval;
 	sf::Clock clock;
 };

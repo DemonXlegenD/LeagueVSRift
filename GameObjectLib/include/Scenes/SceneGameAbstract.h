@@ -13,10 +13,8 @@ public:
 	void CreatePlayer();
 	void RemoveEnemy(GameObject* _enemyToRemove);
 
-	bool PauseMenu() { return gamePause; }
-
-	void ManageSceneGameButtonsPause();
-	void ManageMenuPause(bool _states);
+	void ManagePause();
+	void ManageSceneGameButtonsPause(bool _states);
 	void CreatePauseMenuButtons();
 
 	//PLAYER 
@@ -46,7 +44,5 @@ protected:
 	GameObject* pauseQuitButton = nullptr;
 	GameObject* pauseBongoButton = nullptr;
 	sf::Texture* texture;
-	bool gamePause;
-	bool escapeIsPress;
 };
 

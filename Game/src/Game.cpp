@@ -9,9 +9,8 @@ Game::Game() {
 
 void Game::run() {
 	sf::RenderWindow* window = config->GetWindow();
-	state->Create();
 	state->Preload();
-	
+	state->Create();
 
 	while (window->isOpen())
 	{

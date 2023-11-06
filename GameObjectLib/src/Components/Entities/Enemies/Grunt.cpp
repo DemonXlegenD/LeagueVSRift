@@ -1,7 +1,6 @@
 #include "Components/Entities/Enemies/Grunt.h"
 #include "AssetManager.h"
 
-std::map<std::string, sf::Texture> AssetManager::assets;
 
 Grunt::Grunt() : EnemyAbstract(200, 10, 20) {}
 Grunt::Grunt(int _hp, int _damage, float _speed) : EnemyAbstract(_hp, _damage, _speed) {}

@@ -11,7 +11,7 @@ sf::RenderWindow* Scene::window = nullptr;
 Scene::Scene(sf::RenderWindow* _window) {
 	window = _window;
 	this->balleTiree = false;
-	this->inputHandlerPlayer = nullptr;
+	this->inputGame = new InputGame();
 }
 
 void Scene::Create() {
@@ -35,28 +35,30 @@ void Scene::Awake() {
 
 void Scene::Update(sf::Time _delta)
 {
-	sf::Event event;
-	while (window->pollEvent(event))
+	if (isActive)
 	{
-		if (event.type == sf::Event::Closed) window->close();
-		if (event.type == sf::Event::KeyPressed)
+		for (size_t i = 0; i < gameObjects.size(); i++)
 		{
-			if (event.key.code == sf::Keyboard::LAlt) if (event.key.code == sf::Keyboard::F4) window->close();
+			gameObjects[i]->Update(_delta);
 		}
 	}
 
-	for (size_t i = 0; i < gameObjects.size(); i++)
-	{
-		gameObjects[i]->Update(_delta);
-	}
 }
 
 void Scene::Render(sf::RenderWindow* _window)
 {
+
+
 	for (GameObject* const& gameObject : gameObjects)
 	{
 		gameObject->Render(_window);
 	}
+
+}
+
+void Scene::SetIsActive(bool _state)
+{
+	isActive = _state;
 }
 
 GameObject* Scene::CreateGameObject(const std::string& _name)
@@ -101,7 +103,7 @@ GameObject* Scene::CreatePlatformObject(const std::string& name, float x, float 
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scaleX, scaleY);
 
-	
+
 
 	return gameObject;
 }
@@ -125,7 +127,7 @@ GameObject* Scene::CreateBackgroundGameObject(const std::string& name, float x, 
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
-	
+
 	float scalerX = (float)SceneManager::GetWindow()->getSize().x / texture.getSize().x;
 	float scalerY = (float)SceneManager::GetWindow()->getSize().y / texture.getSize().y;
 	sprite->SetScale(scalerX, scalerY);
