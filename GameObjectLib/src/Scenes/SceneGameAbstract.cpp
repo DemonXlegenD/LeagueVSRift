@@ -6,6 +6,7 @@
 #include "Components/Button.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/Ressource.h"
 #include "Components/Entities/Enemies/Grunt.h"
 #include "Components/Entities/Enemies/Turret.h"
 #include "Components/FireBullet.h"
@@ -62,8 +63,8 @@ void SceneGameAbstract::CreateTower()
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreateJinGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
-	ressource = this->CreateJinGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
+	ressource = this->CreateRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
+	ressource = this->CreateRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -159,8 +160,11 @@ GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name,
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
-	gameObject->SetPrix(prixGold);
-	gameObject->SetPrix(prixMana);
+
+	Ressource* gold = gameObject->CreateComponent<Ressource>();
+	gold->SetRessource(prixGold);
+	Ressource* mana = gameObject->CreateComponent<Ressource>();
+	mana->SetRessource(prixGold);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -183,11 +187,15 @@ GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name,
 
 	return gameObject;
 }
-GameObject* SceneGameAbstract::CreateResourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressource)
+GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
-	gameObject->SetRessource(ressource);
+
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetRessource(ressourceGold);
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetRessource(ressourceGold);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
