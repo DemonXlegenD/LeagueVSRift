@@ -1,4 +1,4 @@
-ENH: Création d'un Scene Game 
+NEW: Création input Wheel 
 
-- Création d'un Scene Game 
+- Création input Wheel  
 

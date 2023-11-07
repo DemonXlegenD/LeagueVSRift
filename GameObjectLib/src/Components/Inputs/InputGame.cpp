@@ -38,7 +38,8 @@ Command* InputGame::PauseInput()
 
 Command* InputGame::WheelMouseInput()
 {
-
+	sf::Vector2i mousePosition = sf::Mouse::getPosition();
+	sf::Vector2i delta = mousePosition - lastMousePosition;
 
 	if (delta.y > 0) {
 		WheelMouseScroll_ = new DezoomCommand();
