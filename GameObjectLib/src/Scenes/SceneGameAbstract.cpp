@@ -47,9 +47,24 @@ void SceneGameAbstract::Awake() {
 }
 
 void SceneGameAbstract::CreatePlayer() {
-	player = this->CreateCharacterGameObject("Player", SceneManager::GetWindowWidth() / 2, 50.f, *AssetManager::GetAsset("Player0"), 2.5f, 2.5f);
+	//player = this->CreateCharacterGameObject("Player", SceneManager::GetWindowWidth() / 2, 50.f, *AssetManager::GetAsset("Player0"), 2.5f, 2.5f);
 }
 
+void SceneGameAbstract::CreateTower()
+{
+	jiin = this->CreateBatimantGameObject("Jin", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	lulu = this->CreateBatimantGameObject("lulu", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	malphite = this->CreateBatimantGameObject("malphite", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	xinZhao = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
+	xinZhao = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
+};
+
+void SceneGameAbstract::CreateRessource()
+{
+	ressource = this->CreateJinGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
+	ressource = this->CreateJinGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
+};
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 	enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
@@ -119,13 +134,11 @@ void SceneGameAbstract::Render(sf::RenderWindow* _window) {
 }
 
 
-GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley)
+GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley)
 {
 	GameObject* gameObject = CreateGameObject(name);
-	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
 
-
-	Player* player = gameObject->CreateComponent<Player>();
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -138,17 +151,59 @@ GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name
 
 	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
 
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	
+
+	return gameObject;
+}
+GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+	gameObject->SetPrix(prixGold);
+	gameObject->SetPrix(prixMana);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
+
+	/*HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
 	healthPointBar->SetHealthPoint(player->GetHealthPoint());
 	healthPointBar->SetMaxHealthPoint(player->GetMaxHealthPoint());
 	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
 	healthPointBar->SetSize(sprite->GetBounds().x, 5);
 	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
+	healthPointBar->SetHealthPointBar();*/
 
 	return gameObject;
 }
+GameObject* SceneGameAbstract::CreateResourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressource)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+	gameObject->SetRessource(ressource);
 
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
+
+
+	return gameObject;
+
+}
 //ENEMY
 GameObject* SceneGameAbstract::CreateGruntGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
 {

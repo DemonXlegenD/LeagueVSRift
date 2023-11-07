@@ -26,6 +26,15 @@ public:
 	void SetBonus(int _bonus) { bonus = _bonus; }
 	int GetBonus() { return bonus; }
 
+	void SetPrixGold(float _prix) { prixGold = _prix; }
+	float GetPrixGold() { return prixGold; }
+
+	void SetPrixMana(float _prix) { prixMana = _prix; }
+	float GetPrixMana() { return prixMana; }
+
+	void SetRessource(float _ressource) { ressource = _ressource; }
+	float GetRessource() { return ressource; }
+
 	void AddComponent(Component* _component);
 
 	template<typename T>
@@ -62,4 +71,7 @@ protected:
 	std::vector<Component*> components;
 	bool isActive = true;
 	int bonus = 0; 
+	float prixGold;
+	float prixMana;
+	float ressource;
 };
