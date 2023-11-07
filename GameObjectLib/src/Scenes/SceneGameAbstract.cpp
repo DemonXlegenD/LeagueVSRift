@@ -59,6 +59,14 @@ void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 		}), enemies.end());
 }
 
+void SceneGameAbstract::RemoveTower(GameObject* _towerToRemove) {
+	towers.erase(std::remove_if(towers.begin(), towers.end(),
+		[_towerToRemove](GameObject* obj) {
+			return obj == _towerToRemove;
+		}), enemies.end());
+}
+
+
 
 void SceneGameAbstract::ManageSceneGameButtonsPause(bool _state) {
 	this->pauseMenuPrincipalButton->SetActive(_state);
