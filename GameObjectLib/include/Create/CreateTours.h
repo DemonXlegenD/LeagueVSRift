@@ -2,6 +2,7 @@
 #include <vector>
 #include "GameObject.h"
 #include "SceneManager.h"
+#include "Components/Ressource.h"
 
 class CreateTours
 {
