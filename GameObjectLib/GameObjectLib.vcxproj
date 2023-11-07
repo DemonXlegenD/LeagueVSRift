@@ -51,6 +51,7 @@
     <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="include\Components\Entities\Enemies\EnnemyA.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />

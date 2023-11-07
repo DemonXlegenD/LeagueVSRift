@@ -30,6 +30,7 @@
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
+    <ClCompile Include="include\Components\Entities\Enemies\EnnemyA.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />

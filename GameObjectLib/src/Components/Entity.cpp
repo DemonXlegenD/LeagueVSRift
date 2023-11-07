@@ -4,7 +4,7 @@
 #include "AudioManager.h"
 
 Entity::Entity() : healthPoint(100), maxHealthPoint(100), damage(10), speed(20.f) {}
-Entity::Entity(int _hp, int _damage, float _speed) : healthPoint(_hp), maxHealthPoint(_hp), damage(_damage), speed(_speed) {}
+Entity::Entity(int _hp, int _damage, int _lane,float _speed, float _attackSpeed) : healthPoint(_hp), maxHealthPoint(_hp), damage(_damage), lane(_lane), speed(_speed), attackSpeed(_attackSpeed) {}
 
 void Entity::TakeDamage(int _damage) {
 	if (healthPoint > damage)
