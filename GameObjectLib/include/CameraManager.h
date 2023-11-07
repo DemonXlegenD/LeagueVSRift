@@ -5,16 +5,20 @@
 class CameraManager
 {
 public:
-	CameraManager(sf::RenderWindow* _window);
 
-    void Update();
+    static void SetWindow(sf::RenderWindow* _window);
 
-    void Move(float offsetX, float offsetY);
+    static void Update(sf::Time _delta);
+    static void Update();
 
-    void SetCenter(float x, float y);
+    static void Move(float offsetX, float offsetY);
+
+    static void SetCenter(float x, float y);
+
+    static void Zoom(float factor);
 
 private:
-    sf::RenderWindow* window;
-    sf::View view;
+    static sf::RenderWindow* window;
+    static sf::View view;
 };
 

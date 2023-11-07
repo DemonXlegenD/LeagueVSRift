@@ -18,7 +18,7 @@ void SceneMainMenu::Create() {
 		std::cout << "pas d'image" << std::endl;
 	}
 
-	GameObject* background1 = CreateBackgroundGameObject("Background1", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture1);
+	GameObject* background1 = CreateBackgroundGameObject("Background1", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture1);
 	this->CreateSceneButtonsMenu();
 	this->activeOption(false);
 	this->activeMenu(true);

@@ -3,6 +3,7 @@
 
 InputGame::InputGame() 
 {
+	sf::Vector2i lastMousePosition = sf::Mouse::getPosition();
 	this->KeyEscape_ = new PauseCommand();
 }
 void InputGame::Update(sf::Time _delta)
@@ -13,6 +14,13 @@ void InputGame::Update(sf::Time _delta)
 	{
 		pauseInput->Execute(_delta);
 	} 
+
+	Command* wheelScroll = this->WheelMouseInput();
+	if (wheelScroll)
+	{
+		std::cout << "wheel" << std::endl;
+		wheelScroll->Execute(_delta);
+	}
 }
 
 Command* InputGame::PauseInput()
@@ -27,4 +35,23 @@ Command* InputGame::PauseInput()
 	return nullptr;
 
 }
+
+Command* InputGame::WheelMouseInput()
+{
+
+
+	if (delta.y > 0) {
+		WheelMouseScroll_ = new DezoomCommand();
+		return WheelMouseScroll_;
+	}
+	else if (delta.y < 0) {
+		WheelMouseScroll_ = new ZoomCommand();
+		return WheelMouseScroll_;
+	}
+	return nullptr;
+
+}
+
+
+
 

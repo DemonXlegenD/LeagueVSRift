@@ -1,18 +1,30 @@
 #include "CameraManager.h"
 
-CameraManager::CameraManager(sf::RenderWindow* _window) {
-	this->window = _window;
-	this->view = this->window->getDefaultView();
+sf::RenderWindow* CameraManager::window;
+sf::View CameraManager::view;
+
+
+void CameraManager::SetWindow(sf::RenderWindow* _window) {
+    CameraManager::window = _window;
+    CameraManager::view = CameraManager::window->getDefaultView();
 }
 
 void CameraManager::Update() {
-    this->window->setView(view);
+    CameraManager::window->setView(view);
+}
+
+void CameraManager::Update(sf::Time _delta) {
+    CameraManager::window->setView(view);
 }
 
 void CameraManager::Move(float offsetX, float offsetY) {
-    this->view.move(offsetX, offsetY);
+    CameraManager::view.move(offsetX, offsetY);
 }
 
 void CameraManager::SetCenter(float x, float y) {
-    this->view.setCenter(x, y);
+    CameraManager::view.setCenter(x, y);
+}
+
+void CameraManager::Zoom(float factor) {
+    CameraManager::view.zoom(factor);
 }

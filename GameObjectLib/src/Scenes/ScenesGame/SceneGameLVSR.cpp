@@ -2,10 +2,12 @@
 #include "SceneManager.h"
 #include "AssetManager.h"
 #include "WindowManager.h"
+#include "CameraManager.h"
 
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
-	
+	scale = 1.f;
+	CameraManager::SetCenter(WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight()/2);
 }
 SceneGameLVSR::~SceneGameLVSR(){}
 
@@ -28,6 +30,7 @@ void SceneGameLVSR::Delete()
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
+	
 	SceneGameAbstract::Update(_delta);
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
