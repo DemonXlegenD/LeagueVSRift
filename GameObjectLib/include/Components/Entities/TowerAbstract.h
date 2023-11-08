@@ -5,7 +5,7 @@
 class TowerAbstract : public Entity {
 public:
     TowerAbstract();
-    TowerAbstract(int _hp, int _damage, float _speed, float _attackspeed, float _range);
+    TowerAbstract(int _hp, int _damage, int _lane, float _speed, float _attackspeed, float _range);
 
     void Update(sf::Time _delta) override;
 

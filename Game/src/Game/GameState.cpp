@@ -4,6 +4,8 @@
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "HUDManager.h"
+#include "EventManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
 #include "SceneRankMenu.h"
@@ -14,11 +16,12 @@ GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 	this->FPS = _FPS;
 	WindowManager::SetFps(this->FPS);
 	CameraManager::SetWindow(this->window);
+	EventManager::SetEvent(this->event);
 }
 
 
 void GameState::Preload() {
-	
+	HUDManager::Preload();
 	this->PreloadScenes();
 	this->PreloadAudio();
 	this->PreloadAssets();
@@ -46,15 +49,7 @@ void GameState::PreloadAudio() {
 
 
 void GameState::Update() {
-	while (window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed) window->close();
-		if (event.type == sf::Event::KeyPressed)
-		{
-			if (event.key.code == sf::Keyboard::LAlt) if (event.key.code == sf::Keyboard::F4) window->close();
-		}
-	}
-	// Mesurer le temps écoulé depuis le dernier frame
+	
 	sf::Time delta = this->clock.restart();
 
 	// limiter à un nombre fixe de FPS
@@ -66,6 +61,7 @@ void GameState::Update() {
 		delta = frameTime;
 	}
 
+	EventManager::Update(delta);
 	SceneManager::GetActiveScene()->Update(delta);
 
 	this->window->clear(sf::Color::Black);

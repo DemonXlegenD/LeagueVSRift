@@ -25,15 +25,22 @@
     <ClCompile Include="src\Components\Entity.cpp" />
     <ClCompile Include="src\Scenes\SceneSuccessMenu.cpp" />
     <ClCompile Include="src\Scenes\SceneRankMenu.cpp" />
-    <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
+    <ClCompile Include="src\Create\CreateTours.cpp" />
+    <ClCompile Include="src\Components\Ressource.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
-    <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
-    <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyA.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyB.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyC.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\HUDManager.cpp" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
     <ClCompile Include="src\Components\Carre.cpp" />
+    <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
+    <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -64,12 +71,26 @@
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
+    <ClInclude Include="include\Create\CreateTours.h" />
+    <ClInclude Include="include\Components\Ressource.h" />
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyA.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyB.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyC.h" />
+    <ClInclude Include="include\EventManager.h" />
+    <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
     <ClInclude Include="include\Components\Carre.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameObjectLib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Components\Entities\Enemies\Enemy.txt" />
   </ItemGroup>
 </Project>

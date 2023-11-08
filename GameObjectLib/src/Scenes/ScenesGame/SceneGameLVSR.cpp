@@ -5,6 +5,8 @@
 #include "CameraManager.h"
 #include "SceneManager.h"
 #include "Components/Carre.h"
+#include "Components/Entities/Enemies/EnemyA.h"
+#include "HUDManager.h"
 
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
@@ -52,6 +54,11 @@ void SceneGameLVSR::Create()
 	SceneGameAbstract::Create();
 	SceneGameLVSR::CreateSpawn();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
+		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
+		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
+		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
+		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
 }
 
 void SceneGameLVSR::Delete() 
@@ -61,7 +68,8 @@ void SceneGameLVSR::Delete()
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-	
+	EnemyA enemya;
+	enemya.Check();
 	SceneGameAbstract::Update(_delta);
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 

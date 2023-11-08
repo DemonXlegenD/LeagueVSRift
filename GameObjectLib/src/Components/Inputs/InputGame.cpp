@@ -1,5 +1,7 @@
 #include "Components/Inputs/InputGame.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
+#include "EventManager.h"
 
 InputGame::InputGame() 
 {
@@ -37,17 +39,24 @@ Command* InputGame::PauseInput()
 
 Command* InputGame::WheelMouseInput()
 {
-	sf::Vector2i mousePosition = sf::Mouse::getPosition();
-	sf::Vector2i delta = mousePosition - lastMousePosition;
+	sf::Event event = EventManager::GetEvent();
 
-	if (delta.y > 0) {
-		WheelMouseScroll_ = new DezoomCommand();
-		return WheelMouseScroll_;
+	while (WindowManager::GetWindow()->pollEvent(event)) {
+
+		// Gérer les événements de la molette de la souris
+		/*if (event.type == sf::Event::MouseWheelScrolled) {
+			std::cout << "BIM BAM BOUM";
+			if (event.mouseWheelScroll.delta > 0) {
+				WheelMouseScroll_ = new DezoomCommand();
+				return WheelMouseScroll_;
+			}
+			else if (event.mouseWheelScroll.delta < 0) {
+				WheelMouseScroll_ = new ZoomCommand();
+				return WheelMouseScroll_;
+			}
+		}*/
 	}
-	else if (delta.y < 0) {
-		WheelMouseScroll_ = new ZoomCommand();
-		return WheelMouseScroll_;
-	}
+
 	return nullptr;
 
 }
