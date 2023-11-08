@@ -38,6 +38,7 @@
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\HUDManager.cpp" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
+    <ClCompile Include="src\Components\Carre.cpp" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
   </ItemGroup>
@@ -80,6 +81,7 @@
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
+    <ClInclude Include="include\Components\Carre.h" />
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>

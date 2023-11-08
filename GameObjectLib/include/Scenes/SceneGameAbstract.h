@@ -35,6 +35,7 @@ public:
 
 	GameObject* CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
+	GameObject* CreateCarreGameObject(const std::string& name, float x, float y);
 
 	void CreatePlatform(sf::Texture texture);
 	void CreateBackground();

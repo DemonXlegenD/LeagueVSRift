@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Components\Carre.h" />
     <ClInclude Include="include\Create\CreateTours.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\EventManager.h" />
@@ -60,6 +61,8 @@
     <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Carre.cpp" />
+    <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Create\CreateTours.cpp" />
     <ClCompile Include="src\HUDManager.cpp" />
