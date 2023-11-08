@@ -3,7 +3,9 @@
 #include "SceneManager.h"
 
 EnemyAbstract::EnemyAbstract() : Entity() {}
-EnemyAbstract::EnemyAbstract(int _hp, int _damage, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, _speed, _attackspeed, _range) {}
+
+EnemyAbstract::EnemyAbstract(int _hp, int _damage, int _lane, float _speed,float _attackSpeed ) : Entity(_hp, _damage, _lane, _speed, _attackSpeed) {}
+
 
 void EnemyAbstract::Update(sf::Time _delta)
 {
@@ -24,3 +26,8 @@ void EnemyAbstract::Die()
 	SceneManager::GetActiveGameScene()->RemoveEnemy(GetOwner());
 	Entity::Die();
 }
+
+void EnemyAbstract::Attack(GameObject* tour) {
+	std::cout << "L'ennemie attaque la tour" << std::endl;
+}
+

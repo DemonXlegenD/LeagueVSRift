@@ -13,6 +13,9 @@
 #include "Components/FireBullet.h"
 #include "Components/HealthPointBar.h"
 #include "Components/Inputs/InputPlayer.h"
+#include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Entities/Enemies/EnemyB.h"
+#include "Components/Entities/Enemies/EnemyC.h"
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
 	this->Awake();
@@ -285,6 +288,96 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 
 	FireBullet* fireBullet = gameObject->CreateComponent<FireBullet>();
 	fireBullet->setDirection(_player);
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyA* enemy = gameObject->CreateComponent<EnemyA>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyC* enemy = gameObject->CreateComponent<EnemyC>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
 
 	return gameObject;
 
