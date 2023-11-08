@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />

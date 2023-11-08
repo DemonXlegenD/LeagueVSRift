@@ -35,7 +35,7 @@ public:
 	void Update(sf::Time _delta) override;
 	void Render(sf::RenderWindow* _window) override;
 	std::vector<GameObject*> GetEnemies() { return enemies; }
-	GameObject* GetEnemie(int _index) { return enemies[_index]; }
+	GameObject* GetEnemy(int _index) { return enemies[_index]; }
 	std::vector<GameObject*> GetTowers() { return towers; }
 	GameObject* GetTowers(int _index) { return towers[_index]; }
 

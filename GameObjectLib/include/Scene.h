@@ -55,6 +55,7 @@ public:
 
 	GameObject* CreateBackgroundGameObject(const std::string& name, float x, float y, sf::Texture texture);
 
+	GameObject* CreateEnemyGameObject(const std::string& name, float x, float y, const sf::Texture texture);
 
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _maxData);
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _minData, float _maxData);

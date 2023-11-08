@@ -30,7 +30,6 @@ void SceneGameLVSR::Delete()
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-	
 	SceneGameAbstract::Update(_delta);
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 

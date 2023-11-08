@@ -15,6 +15,8 @@ void Game::run() {
 	while (window->isOpen())
 	{
 		state->Update();
+
+
 	}
 }
 

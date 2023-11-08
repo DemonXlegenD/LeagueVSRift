@@ -136,6 +136,17 @@ GameObject* Scene::CreateBackgroundGameObject(const std::string& name, float x, 
 	return gameObject;
 }
 
+GameObject* Scene::CreateEnemyGameObject(const std::string& name, float x, float y, const sf::Texture texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(x, y));
+	gameObject->SetActive(true);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(texture);
+
+	return gameObject;
+}
 
 GameObject* Scene::CreateSliderGameObject(const std::string& name, float _x, float _y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _maxData) {
 	GameObject* gameObject = CreateGameObject(name);

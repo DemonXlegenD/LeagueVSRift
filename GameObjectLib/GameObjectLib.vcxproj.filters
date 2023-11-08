@@ -33,6 +33,7 @@
     <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
