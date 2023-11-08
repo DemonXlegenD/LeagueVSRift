@@ -32,6 +32,7 @@
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Maths\Vector2.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
+    <ClCompile Include="src\HUDManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -65,6 +66,7 @@
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\EventManager.h" />
+    <ClInclude Include="include\HUDManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

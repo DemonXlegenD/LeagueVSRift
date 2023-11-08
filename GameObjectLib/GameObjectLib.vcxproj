@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\HUDManager.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
