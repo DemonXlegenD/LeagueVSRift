@@ -21,6 +21,8 @@ void SceneGameLVSR::Create()
 {
 	SceneGameAbstract::Create();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+	GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f,*AssetManager::GetAsset("EnemyA"));
+	GameObject* nexus = CreateNexusGameObject();
 }
 
 void SceneGameLVSR::Delete() 

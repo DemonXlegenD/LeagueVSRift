@@ -4,7 +4,6 @@
 class EnemyA : public EnemyAbstract {
 public:
 	EnemyA();
-
 private:
 	Sprite sprite;
 };

@@ -1,12 +1,12 @@
 #include "Create/CreateTours.h"
 
 
-void CreateTours::CreateJiin(float _poisitionX, float _positionY, sf::Texture _texture) 
+void CreateTours::CreateVarus(float _poisitionX, float _positionY, sf::Texture _texture) 
 {
-	if (SceneManager::GetActiveGameScene()->GetGameObject("Jiin")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Gold")->GetComponent<Ressource>()->GetRessource() &&
-		SceneManager::GetActiveGameScene()->GetGameObject("Jiin")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Mana")->GetComponent<Ressource>()->GetRessource())
+	if (SceneManager::GetActiveGameScene()->GetGameObject("Varus")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Gold")->GetComponent<Ressource>()->GetRessource() &&
+		SceneManager::GetActiveGameScene()->GetGameObject("Varus")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Mana")->GetComponent<Ressource>()->GetRessource())
 	{
-		tower.push_back(SceneManager::GetActiveGameScene()->CreateBatimantGameObject("Jiin", _poisitionX, _positionY, _texture, 4.f, 4.f, 400.f, 30.f));
+		tower.push_back(SceneManager::GetActiveGameScene()->CreateBatimantGameObject("Varus", _poisitionX, _positionY, _texture, 4.f, 4.f, 400.f, 30.f));
 	}
 }
 void CreateTours::CreateLulu(float _poisitionX, float _positionY, sf::Texture _texture)

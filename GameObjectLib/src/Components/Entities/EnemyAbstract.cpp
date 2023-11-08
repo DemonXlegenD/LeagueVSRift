@@ -1,4 +1,5 @@
 #include "Components/Entities/EnemyAbstract.h"
+#include "Components/Entities/TowerAbstract.h"
 #include "WindowManager.h"
 #include "SceneManager.h"
 
@@ -27,7 +28,15 @@ void EnemyAbstract::Die()
 	Entity::Die();
 }
 
-void EnemyAbstract::Attack(GameObject* tour) {
-	std::cout << "L'ennemie attaque la tour" << std::endl;
+void EnemyAbstract::Attack(GameObject* _nexus) {
+	_nexus->GetComponent<TowerAbstract>()->SetHealthPoint(-this->GetDamage());
+}
+
+void EnemyAbstract::setLane(int _lane) {
+	this->lane = _lane;
+}
+
+int EnemyAbstract::getLane() {
+	return this->lane;
 }
 

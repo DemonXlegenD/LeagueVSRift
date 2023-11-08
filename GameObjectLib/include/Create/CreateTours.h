@@ -8,7 +8,7 @@ class CreateTours
 {
 public:
 	CreateTours();
-	void CreateJiin(float _poisionX, float _positionY, sf::Texture);
+	void CreateVarus(float _poisionX, float _positionY, sf::Texture);
 	void CreateLulu (float _poisionX, float _positionY, sf::Texture);
 	void CreateMalphite(float _poisionX, float _positionY, sf::Texture);
 	void CreateXinZhao(float _poisionX, float _positionY, sf::Texture);

@@ -11,5 +11,10 @@ public:
 
     void Die() override;
 
-    void Attack(GameObject* tour);
+    void Attack(GameObject* _nexus);
+
+    void setLane(int _lane);
+    int getLane();
+private :
+    int lane;
 };

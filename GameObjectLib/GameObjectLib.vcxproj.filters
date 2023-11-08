@@ -40,6 +40,14 @@
     <ClCompile Include="src\Round\CreateRoud.cpp" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Nexus.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Varus.cpp" />
+    <ClCompile Include="include\Components\Entities\Towers\Malphite.h" />
+    <ClCompile Include="src\Components\Entities\Towers\Lulu.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Malphite.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\XinZhao.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Bat1.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Bat2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -80,6 +88,13 @@
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
+    <ClInclude Include="include\Components\Entities\TowerAbstract.h" />
+    <ClInclude Include="include\Components\Entities\Towers\Nexus.h" />
+    <ClInclude Include="include\Components\Entities\Towers\Varus.h" />
+    <ClInclude Include="include\Components\Entities\Towers\Lulu.h" />
+    <ClInclude Include="include\Components\Entities\Towers\XinZhao.h" />
+    <ClInclude Include="include\Components\Entities\Towers\Bat1.h" />
+    <ClInclude Include="include\Components\Entities\Towers\Bat2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
