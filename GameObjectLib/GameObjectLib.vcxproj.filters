@@ -30,6 +30,8 @@
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
+    <ClCompile Include="src\EventManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -62,6 +64,7 @@
     <ClInclude Include="include\Commands\CommandsGame.h" />
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
+    <ClInclude Include="include\EventManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

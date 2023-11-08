@@ -6,38 +6,34 @@ class InputPlayer;
 class MoveToRightCommand : public Command
 {
 public:
-	MoveToRightCommand(InputPlayer* _inputPlayer);
+	MoveToRightCommand(GameObject* _player);
 	void Execute(sf::Time _delta) override;
 
-	InputPlayer* inputPlayer;
 };
 
 class MoveToLeftCommand : public Command
 {
 public:
-	MoveToLeftCommand(InputPlayer* _inputPlayer);
+	MoveToLeftCommand(GameObject* _player);
 
 	void Execute(sf::Time _delta) override;
 
-	InputPlayer* inputPlayer;
 };
 
 class JumpCommand : public Command
 {
 public:
-	JumpCommand(InputPlayer* _inputPlayer);
+	JumpCommand(GameObject* _player);
 	void Execute(sf::Time _delta) override;
 
-	InputPlayer* inputPlayer;
 };
 
 class MoveToRightBulletCommand : public Command
 {
 public:
-	MoveToRightBulletCommand(InputPlayer* _inputPlayer);
+	MoveToRightBulletCommand(GameObject* _player);
 	void Execute(sf::Time _delta) override;
 
-	InputPlayer* inputPlayer;
 };
 
 

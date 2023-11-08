@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
     <ClInclude Include="include\Components\Entity.h" />
@@ -51,9 +52,11 @@
     <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />
+    <ClCompile Include="src\Maths\Vector2.cpp" />
     <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Components\Entity.cpp" />
     <ClCompile Include="src\Components\HealthPointBar.cpp" />
