@@ -1,9 +1,10 @@
 #include "Game/GameState.h"
 #include "SceneManager.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "HUDManager.h"
 #include "EventManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
@@ -20,7 +21,7 @@ GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 
 
 void GameState::Preload() {
-	
+	HUDManager::Preload();
 	this->PreloadScenes();
 	this->PreloadAudio();
 	this->PreloadAssets();

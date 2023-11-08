@@ -37,6 +37,7 @@ public:
 	GameObject* CreateNexusGameObject();
 
 
+	GameObject* CreateCarreGameObject(const std::string& name, float x, float y);
 
 	void CreatePlatform(sf::Texture texture);
 	void CreateBackground();

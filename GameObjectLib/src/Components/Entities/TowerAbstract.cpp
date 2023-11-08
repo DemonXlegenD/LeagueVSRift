@@ -4,6 +4,7 @@
 
 TowerAbstract::TowerAbstract() : Entity() {}
 TowerAbstract::TowerAbstract(int _hp, int _damage, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, 0,_speed,_attackspeed, _range) {}
+TowerAbstract::TowerAbstract(int _hp, int _damage, int _lane, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, _lane, _speed, _attackspeed, _range) {}
 
 void TowerAbstract::Update(sf::Time _delta)
 {

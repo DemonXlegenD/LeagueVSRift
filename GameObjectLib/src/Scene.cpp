@@ -87,7 +87,6 @@ GameObject* Scene::CreateButtonGameObject(const std::string& name, float x, floa
 	return gameObject;
 }
 
-
 GameObject* Scene::CreatePlatformObject(const std::string& name, float x, float y, float scaleX, float scaleY, const sf::Texture texture, sf::IntRect* _rectSource) {
 
 	GameObject* gameObject = CreateGameObject(name);

@@ -1,7 +1,7 @@
 #include "Components/Entity.h"
 #include "SceneManager.h"
 #include "WindowManager.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 
 
 Entity::Entity() : healthPoint(100), maxHealthPoint(100), damage(10), speed(20.f) {}
