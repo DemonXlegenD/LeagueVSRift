@@ -61,5 +61,4 @@ protected:
 	Maths::Vector2<float> position = Maths::Vector2f::Zero;
 	std::vector<Component*> components;
 	bool isActive = true;
-	int bonus = 0; 
 };

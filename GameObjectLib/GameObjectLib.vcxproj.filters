@@ -28,6 +28,8 @@
     <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />
     <ClCompile Include="src\Commands\CommandsGame.cpp" />
+    <ClCompile Include="src\Create\CreateTours.cpp" />
+    <ClCompile Include="src\Components\Ressource.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="src\Maths\Vector2.cpp" />
@@ -66,6 +68,8 @@
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
+    <ClInclude Include="include\Create\CreateTours.h" />
+    <ClInclude Include="include\Components\Ressource.h" />
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\EventManager.h" />

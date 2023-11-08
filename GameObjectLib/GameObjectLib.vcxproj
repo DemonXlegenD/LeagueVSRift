@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Create\CreateTours.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
@@ -51,6 +52,11 @@
     <ClInclude Include="include\Scenes\SceneRankMenu.h" />
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
+    <ClInclude Include="include\Components\Ressource.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Components\Ressource.cpp" />
+    <ClCompile Include="src\Create\CreateTours.cpp" />
     <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
