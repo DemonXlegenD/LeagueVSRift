@@ -18,7 +18,6 @@ void ZoomCommand::Execute(sf::Time _delta) {
 }
 
 DezoomCommand::DezoomCommand() {
-
 }
 
 void DezoomCommand::Execute(sf::Time _delta) {
