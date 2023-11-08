@@ -1,4 +1,4 @@
-NEW: Création input Wheel 
+ENH: Affichage du HUD
 
-- Création input Wheel  
+- Affichage du HUD
 
