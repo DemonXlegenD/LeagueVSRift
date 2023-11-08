@@ -40,6 +40,7 @@ void GameState::PreloadScenes() {
 
 void GameState::PreloadAssets() {
 	AssetManager::AddAsset("mapLol", "../assets/Sprite_LOL/Map/map.jpg");
+	AssetManager::AddAsset("EnemyA", "../assets/Sprite_LOL/Sbires/minion_melee.png");
 }
 
 void GameState::PreloadAudio() {
