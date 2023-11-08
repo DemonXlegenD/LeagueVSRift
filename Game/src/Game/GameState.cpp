@@ -41,6 +41,14 @@ void GameState::PreloadScenes() {
 
 void GameState::PreloadAssets() {
 	AssetManager::AddAsset("mapLol", "../assets/Sprite_LOL/Map/map.jpg");
+	AssetManager::AddAsset("EnemyA", "../assets/Sprite_LOL/Sbires/minion_melee.png");
+	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus_lvl_1.png");
+	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/tour_lvl_1.png");
+	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/tour_lvl_2.png");
+	AssetManager::AddAsset("Varus", "../assets/Sprite_LOL/Champions/varus.png");
+	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Batiments/lulu.png");
+	AssetManager::AddAsset("Malphinte", "../assets/Sprite_LOL/Batiments/malphite.png");
+	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Batiments/Xin_Zhao.png");
 }
 
 void GameState::PreloadAudio() {

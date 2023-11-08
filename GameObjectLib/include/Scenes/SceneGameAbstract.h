@@ -34,6 +34,8 @@ public:
 	GameObject* CreateEnemyCGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
 	GameObject* CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateNexusGameObject();
+
 
 	GameObject* CreateCarreGameObject(const std::string& name, float x, float y);
 
@@ -52,12 +54,13 @@ protected:
 	std::vector<GameObject*> towers;
 	std::vector<GameObject*> enemies;
 	GameObject* player = nullptr;
-	GameObject* jiin = nullptr;
+	GameObject* varus = nullptr;
 	GameObject* lulu = nullptr;
 	GameObject* malphite = nullptr;
 	GameObject* xinZhao = nullptr;
 	GameObject* bat2 = nullptr;
 	GameObject* bat3 = nullptr;
+	GameObject* nexus = nullptr;
 	GameObject* ressource = nullptr;
 	GameObject* pausePlayButton = nullptr;
 	GameObject* pauseOptionsButton = nullptr;
