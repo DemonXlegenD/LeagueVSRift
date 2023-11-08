@@ -20,6 +20,7 @@ void SceneCreditsMenu::Create() {
 	}
 	GameObject* background2 = CreateBackgroundGameObject("Background2", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture2);
 	this->CreateSceneButtonsMenu();
+	this->LoadCreditsTexture();
 	//this->CreateCredits();
 }
 
@@ -36,18 +37,18 @@ void SceneCreditsMenu::CreateSceneButtonsMenu() {
 	float heightScreen = static_cast<float>(SceneManager::GetWindow()->getSize().y);
 	creditsButton = CreateButtonGameObject("Crédits", widthScreen / 2, heightScreen / 13, 50);
 	backButton = CreateButtonGameObject("Retour", widthScreen / 15, heightScreen / 13, 20);
-	//listCredits = CreateButtonGameObject("Game Master : LAHALLE Francois\nDéveloppeur : LAHALLE Francois, LEFORESTIER Quentin, ROY Hugo, NOM Maurad, DIFALLAH Kaïs, BRU Arthur\nSound Production : BRU Arthur\nAssets Production : BRU Arthur\nDiagramme Production : DIFALLAH Kaïs, LEFORESTIER Quentin", widthScreen / 2, heightScreen / 2, 20);
+}
 
-	sf::Texture textureFrancois;
+void SceneCreditsMenu::LoadCreditsTexture()
+{
+	float widthScreen = static_cast<float>(SceneManager::GetWindow()->getSize().x);
+	float heightScreen = static_cast<float>(SceneManager::GetWindow()->getSize().y);
 
-	if (!textureFrancois.loadFromFile("../assets/Sprite_LOL/Champions/malphite.png"))
+	for (size_t i = 0; i < 6; i++)
 	{
-		std::cout << "pas d'image" << std::endl;
+		imagesCredits.push_back(CreateDecorObject("TextureCredits1", widthScreen / 1.7, -500.0f, 0.5, 0.5, *AssetManager::GetAsset("credits" + std::to_string(i))));
+		texteCredits.push_back(CreateButtonGameObject(allTexteCredits[i], widthScreen / 1.7, -500.0f, 20));
 	}
-
-	imagesFrancois = CreateDecorObject("TextureFrancois1", widthScreen / 1.7, heightScreen / -4, 1.0, 1.0, textureFrancois);
-
-	creditsFrancois = CreateButtonGameObject("Game Master : LAHALLE François\nDéveloppeur : LAHALLE François\n", widthScreen / 1.7, heightScreen / -4.9, 20);
 }
 
 void SceneCreditsMenu::SetOrigin() {
@@ -57,41 +58,36 @@ void SceneCreditsMenu::SetOrigin() {
 	text.setOrigin(sf::Vector2f(widthScreen / 2, heightScreen / 2));
 }
 
-void SceneCreditsMenu::AnimFrancois(float _deltaSeconds, float _iteration, int _totalLoop)
-{
-	float startPosFrancoisX = imagesFrancois->GetPosition().x;
-	float startPosFrancoisY = imagesFrancois->GetPosition().y;
-	std::cout << _deltaSeconds << "\n";
+void SceneCreditsMenu::AnimCredits(float _deltaSeconds, float _iteration, int _totalLoop)
+{	
+	float widthScreen = static_cast<float>(SceneManager::GetWindow()->getSize().x);
+
+	startPosFrancoisX = imagesCredits[0]->GetPosition().x;
+	startPosFrancoisY = imagesCredits[0]->GetPosition().y;
+
+	Maths::Vector2f pointA(startPosFrancoisX, startPosFrancoisY);
+	Maths::Vector2f pointB(widthScreen / 1.7, 500.0f);
+
+	Maths::Vector2f playerPosition = pointA;
+	Maths::Vector2f displacement = pointB - pointA;
+
+
 	if (_deltaSeconds < _totalLoop)
 	{
-		if (startPosFrancoisY != 500.f)
-		{
-			this->imagesFrancois->SetPosition(this->imagesFrancois->GetPosition() + Maths::Vector2f::Up);
-			this->creditsFrancois->SetPosition(this->creditsFrancois->GetPosition() + Maths::Vector2f::Up);
-		}
-
-		//if (elapsedTime > sf::seconds(15.0f))
-		//{
-		//	std::cout << "15sec";
-		//	if (elapsedTime >= updateTime)
-		//	{
-		//		this->imagesFrancois->SetPosition(this->imagesFrancois->GetPosition() + Maths::Vector2f::Up * Maths::Vector2f(0, 25) * _delta.asSeconds() * speed);
-		//		this->creditsFrancois->SetPosition(this->creditsFrancois->GetPosition() + Maths::Vector2f::Up * Maths::Vector2f(0, 25) * _delta.asSeconds() * speed);
-
-		//		elapsedTime = sf::Time::Zero;
-		//	}
-		//}
-
+		this->imagesCredits[0]->SetPosition(playerPosition += (displacement / 1.0f) * _deltaSeconds);
+		this->texteCredits[0]->SetPosition(playerPosition += (displacement / 1.0f) * _deltaSeconds);
 	}
-	else if (_deltaSeconds > _totalLoop)
+	else if (_deltaSeconds > _totalLoop + 4)
 	{
 		if (startPosFrancoisX > -250.f)
 		{
-			this->imagesFrancois->SetPosition(this->imagesFrancois->GetPosition() + Maths::Vector2f::Left);
-			this->creditsFrancois->SetPosition(this->creditsFrancois->GetPosition() + Maths::Vector2f::Left);
+			this->imagesCredits[0]->SetPosition(playerPosition += ( Maths::Vector2f::DiagonaleLeft / 0.5f ) * _deltaSeconds);
+			this->texteCredits[0]->SetPosition(playerPosition + Maths::Vector2f::DiagonaleLeft * _deltaSeconds);
 		}
 		else
 		{
+			imagesCredits.erase(imagesCredits.begin());
+			texteCredits.erase(texteCredits.begin());
 			goodPosCredits = true;
 		}
 	}
@@ -107,8 +103,17 @@ void SceneCreditsMenu::Update(sf::Time _delta) {
 		deltaSeconds = 0;
 		goodPosCredits = false;
 	}
-
-	this->AnimFrancois(deltaSeconds, iteration, totalLoop);
+	
+	if (!imagesCredits.empty())
+	{
+		this->AnimCredits(deltaSeconds, iteration, totalLoop);
+	}
+	else if (imagesCredits.empty())
+	{
+		this->LoadCreditsTexture();
+		this->AnimCredits(deltaSeconds, iteration, totalLoop);
+	}
+	
 
 	if (backButton->GetComponent<Button>()->IsClicked()) {
 		SceneManager::RunScene("SceneMainMenu");

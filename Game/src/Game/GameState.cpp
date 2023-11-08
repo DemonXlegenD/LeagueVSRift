@@ -63,6 +63,11 @@ void GameState::PreloadAssets() {
 	{
 		AssetManager::AddAsset("bullet" + std::to_string(i), "../assets/Sprite_LOL/Bullet/bullet_" + std::to_string(i) + ".png");
 	}
+	//Credits
+	for (size_t i = 0; i < 6; i++)
+	{
+		AssetManager::AddAsset("credits" + std::to_string(i), "../assets/Sprite_LOL/Credits/credits_" + std::to_string(i) + ".png");
+	}
 }
 
 void GameState::PreloadAudio() {

@@ -8,11 +8,12 @@ public:
 	SceneCreditsMenu(sf::RenderWindow* window);
 
 	void CreateSceneButtonsMenu();
+	void LoadCreditsTexture();
 
 	GameObject* CreateCreditsGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley);
 	void CreateCredits();
 
-	void AnimFrancois(float _deltaSeconds, float _iteration, int _totalLoop);
+	void AnimCredits(float _deltaSeconds, float _iteration, int _totalLoop);
 
 	void SetOrigin();
 
@@ -22,20 +23,25 @@ public:
 private:
 	GameObject* creditsButton = nullptr;
 	GameObject* backButton = nullptr;
-	GameObject* creditsFrancois = nullptr;
 	GameObject* credits = nullptr;
-	GameObject* imagesFrancois = nullptr;
+	std::vector<GameObject*> imagesCredits;
+	std::vector<GameObject*> texteCredits;
+	std::vector<std::string> allTexteCredits = {
+		"Game Master : LAHALLE François\nDéveloppeur : LAHALLE François\n",
+		"Développeur : LEFORESTIER Quentin\nDiagramme Production : LEFORESTIER Quentin",
+		"Développeur : Maurad",
+		"Développeur : DIFALLAH Kaïs\nDiagramme Production : DIFALLAH Kaïs",
+		"Développeur : ROY Hugo",
+		"Développeur : BRU Arthur\nSound Production : BRU Arthur\nAssets Production : BRU Arthur"
+	};
 	sf::Text text;
 
-	sf::Time delta;
 	float deltaSeconds = 0.f;
-	int down = 0;
-	int up = 0;
-	float speed = 500.f;
-	int nombreSeconds = 1;
 	float iteration = 2.f;
-	int totalLoop = 20;
+	int totalLoop = 1;
 	bool goodPosCredits;
+	float startPosFrancoisX;
+	float startPosFrancoisY;
 };
 
 
