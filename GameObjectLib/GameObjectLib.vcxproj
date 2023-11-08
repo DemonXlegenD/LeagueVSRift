@@ -57,6 +57,7 @@
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
     <ClInclude Include="include\Components\Ressource.h" />
     <ClInclude Include="include\WindowManager.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
@@ -101,6 +102,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameObjectLib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Components\Entities\Enemies\Enemy.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

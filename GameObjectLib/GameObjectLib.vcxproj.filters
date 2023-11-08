@@ -80,8 +80,15 @@
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameObjectLib.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\Components\Entities\Enemies\Enemy.txt" />
   </ItemGroup>
 </Project>

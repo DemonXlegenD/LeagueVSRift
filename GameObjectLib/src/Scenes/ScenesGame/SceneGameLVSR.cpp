@@ -3,6 +3,7 @@
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "Components/Entities/Enemies/EnemyA.h"
 
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
@@ -30,7 +31,8 @@ void SceneGameLVSR::Delete()
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-	
+	EnemyA enemya;
+	enemya.Check();
 	SceneGameAbstract::Update(_delta);
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
