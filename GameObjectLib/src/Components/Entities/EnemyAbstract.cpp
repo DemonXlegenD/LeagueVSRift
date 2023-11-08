@@ -3,7 +3,7 @@
 #include "SceneManager.h"
 
 EnemyAbstract::EnemyAbstract() : Entity() {}
-EnemyAbstract::EnemyAbstract(int _hp, int _damage, float _speed) : Entity(_hp, _damage, _speed) {}
+EnemyAbstract::EnemyAbstract(int _hp, int _damage, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, _speed, _attackspeed, _range) {}
 
 void EnemyAbstract::Update(sf::Time _delta)
 {
