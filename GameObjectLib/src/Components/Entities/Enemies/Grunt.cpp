@@ -2,8 +2,8 @@
 #include "AssetManager.h"
 
 
-Grunt::Grunt() : EnemyAbstract(200, 10, 20.f,1.f,10.f) {}
-Grunt::Grunt(int _hp, int _damage, float _speed, float _attackspeed, float _range) : EnemyAbstract(_hp, _damage, _speed, _attackspeed, _range) {}
+Grunt::Grunt() : EnemyAbstract(200, 10, 20.f,1.f,10.f, 10.f) {}
+Grunt::Grunt(int _hp, int _damage, int _lane, float _speed, float _attackspeed, float _range) : EnemyAbstract(_hp, _damage, _lane, _speed, _attackspeed, _range) {}
 
 void Grunt::setDirection(Direction newDirection) {
     direction = newDirection;

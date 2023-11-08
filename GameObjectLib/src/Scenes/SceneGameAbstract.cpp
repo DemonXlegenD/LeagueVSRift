@@ -66,8 +66,8 @@ void SceneGameAbstract::CreateTower()
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreateRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
-	ressource = this->CreateRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -203,10 +203,10 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	Ressource* ressource = gameObject->CreateComponent<Ressource>();
-	ressource->SetRessource(ressourceGold);
-	Ressource* ressource = gameObject->CreateComponent<Ressource>();
-	ressource->SetRessource(ressourceGold);
+	Ressource* ressource1 = gameObject->CreateComponent<Ressource>();
+	ressource1->SetRessource(ressourceGold);
+	Ressource* ressource2 = gameObject->CreateComponent<Ressource>();
+	ressource2->SetRessource(ressourceGold);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -353,7 +353,7 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 
 }
 
-GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
