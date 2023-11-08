@@ -18,7 +18,6 @@ void InputGame::Update(sf::Time _delta)
 	Command* wheelScroll = this->WheelMouseInput();
 	if (wheelScroll)
 	{
-		std::cout << "wheel" << std::endl;
 		wheelScroll->Execute(_delta);
 	}
 }

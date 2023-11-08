@@ -33,6 +33,7 @@
     <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
+    <ClCompile Include="src\Components\Carre.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -66,6 +67,7 @@
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
+    <ClInclude Include="include\Components\Carre.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Components\Carre.h" />
     <ClInclude Include="include\Round\CreateRoud.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
@@ -52,6 +53,7 @@
     <ClInclude Include="include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Carre.cpp" />
     <ClCompile Include="include\Components\Entities\TowerAbstract.h" />
     <ClCompile Include="src\Round\CreateRoud.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />

@@ -2,7 +2,7 @@
 #include "WindowManager.h"
 #include "Components/Button.h"
 #include "Components/Slider.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 #include "WindowManager.h"
 
 SceneMainMenu::SceneMainMenu(sf::RenderWindow* _window) : Scene(_window) {
@@ -88,7 +88,7 @@ void SceneMainMenu::activeMenu(bool _state) {
 void SceneMainMenu::activeOption(bool _state) {
 	this->backButton->SetActive(_state);
 	this->sliderFPS->SetActive(_state);
-	this->sliderVolume->SetActive(_state);
+	//this->sliderVolume->SetActive(_state);
 }
 
 SceneMainMenu::~SceneMainMenu() {

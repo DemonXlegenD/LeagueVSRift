@@ -5,6 +5,7 @@
 #include "WindowManager.h"
 
 #include "Components/Button.h"
+#include "Components/Carre.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/Entities/Enemies/Grunt.h"
@@ -207,6 +208,21 @@ GameObject* SceneGameAbstract::CreateTurretGameObject(const std::string& name, f
 
 }
 
+GameObject* SceneGameAbstract::CreateCarreGameObject(const std::string& name, float x, float y)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(x, y));
+	gameObject->SetActive(true);
+
+	Carre* carre = gameObject->CreateComponent<Carre>();
+	carre->SetPosition(x, y);
+	carre->SetSize(100, 100);
+	carre->SetOrigin();
+	carre->SetCarre();
+
+	return gameObject;
+};
+
 GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, const sf::Texture textureBullet, float scalex, float scaley, GameObject* _player)
 {
 	GameObject* gameObject = CreateGameObject(name);
@@ -227,3 +243,4 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 	return gameObject;
 
 }
+
