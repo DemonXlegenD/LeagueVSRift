@@ -3,13 +3,13 @@
 #include "SceneManager.h"
 #include "WindowManager.h"
 
-Player::Player() : Entity(200, 30, 20.f,1.f,10.f)
+Player::Player() : Entity(200, 30, 20.f,1.f,10.f, 10.f)
 {
     directionPlayer = false;
 	direction = Direction::Right;
 }
 
-Player::Player(int _hp, int _damage, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, _speed, _attackspeed, _range)
+Player::Player(int _hp, int _damage, int _lane, float _speed, float _attackspeed, float _range) : Entity(_hp, _damage, _lane, _speed, _attackspeed, _range)
 {
     directionPlayer = false;
     direction = Direction::Right;

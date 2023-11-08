@@ -3,7 +3,8 @@
 
 class EnemyA : public EnemyAbstract {
 public:
-	EnemyA(int _lane);
+	EnemyA();
+
 private:
 	Sprite sprite;
 };
