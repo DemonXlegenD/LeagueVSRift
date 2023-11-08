@@ -3,8 +3,10 @@
 #include "WindowManager.h"
 #include "AudioManager.h"
 
+
 Entity::Entity() : healthPoint(100), maxHealthPoint(100), damage(10), speed(20.f) {}
 Entity::Entity(int _hp, int _damage, int _lane,float _speed, float _attackSpeed) : healthPoint(_hp), maxHealthPoint(_hp), damage(_damage), lane(_lane), speed(_speed), attackSpeed(_attackSpeed) {}
+
 
 void Entity::TakeDamage(int _damage) {
 	if (healthPoint > damage)
@@ -20,7 +22,7 @@ void Entity::TakeDamage(int _damage) {
 
 void Entity::Die() {
 	healthPoint = 0;
-	AudioManager::PlaySound("dead");
+	//AudioManager::PlaySound("dead");
 	SceneManager::GetActiveGameScene()->RemoveGameObject(GetOwner());
 }
 

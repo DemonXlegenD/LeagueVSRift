@@ -1,33 +1,36 @@
 #include "Commands/CommandsPlayer.h"
+#include "Components/Entities/Player.h"
+#include "Components/SpriteRenderer.h"
 
-MoveToRightCommand::MoveToRightCommand(InputPlayer* _inputPlayer) {
-	this->inputPlayer = _inputPlayer;
+MoveToRightCommand::MoveToRightCommand(GameObject* _player) : Command(_player) {
+
 }
 void MoveToRightCommand::Execute(sf::Time _delta) {
 
-	inputPlayer->MoveRight(_delta);
+	this->entity->SetPosition(this->entity->GetPosition() + Maths::Vector2f::Right + Maths::Vector2f(25, 0) * _delta.asSeconds() );
+	this->entity->GetComponent<Player>()->setDirection(Player::Direction::Right);
+	this->entity->GetComponent<Sprite>()->PlayerPlayAnimationRun();
 }
 
-JumpCommand::JumpCommand(InputPlayer* _inputPlayer) {
-	this->inputPlayer = _inputPlayer;
+JumpCommand::JumpCommand(GameObject* _player) : Command(_player) {
 }
 void JumpCommand::Execute(sf::Time _delta) {
-	inputPlayer->Jump(_delta);
+	this->entity->SetPosition(this->entity->GetPosition() + Maths::Vector2f::Down + Maths::Vector2f(0, -130) * _delta.asSeconds() );
 }
 
-MoveToLeftCommand::MoveToLeftCommand(InputPlayer* _inputPlayer) {
-	this->inputPlayer = _inputPlayer;
+MoveToLeftCommand::MoveToLeftCommand(GameObject* _player) : Command(_player) {
 }
 
 void MoveToLeftCommand::Execute(sf::Time _delta) {
-	inputPlayer->MoveLeft(_delta);
+	this->entity->SetPosition(this->entity->GetPosition() + Maths::Vector2f::Left + Maths::Vector2f(-25, 0) * _delta.asSeconds() );
+	this->entity->GetComponent<Player>()->setDirection(Player::Direction::Left);
+	this->entity->GetComponent<Sprite>()->PlayerPlayAnimationRun();
 }
 
-MoveToRightBulletCommand::MoveToRightBulletCommand(InputPlayer* _inputPlayer) {
+MoveToRightBulletCommand::MoveToRightBulletCommand(GameObject* _player) : Command(_player) {
 
-	this->inputPlayer = _inputPlayer;
 }
 
 void MoveToRightBulletCommand::Execute(sf::Time _delta) {
-	inputPlayer->MoveRightBullet();
+
 }
