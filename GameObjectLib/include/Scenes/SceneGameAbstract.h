@@ -23,6 +23,10 @@ public:
 
 	GameObject* CreateGruntGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
+	GameObject* CreateEnemyAGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateEnemyBGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateEnemyCGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+
 	GameObject* CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
 

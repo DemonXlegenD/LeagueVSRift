@@ -1,4 +1,4 @@
 #include "Components/Entities/Enemies/EnemyB.h"
-#include "Components/SpriteRenderer.h"
+#include "Components/Entities/EnemyAbstract.h"
 
-EnemyB::EnemyB(int _lane) : EnemyAbstract(50, 3, _lane, 0.5f, 0.5f) {};
+EnemyB::EnemyB(int _lane) : EnemyAbstract(50, 5, _lane, 0.5f, 0.5f) {};

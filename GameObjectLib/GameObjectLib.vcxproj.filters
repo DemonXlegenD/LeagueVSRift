@@ -31,6 +31,9 @@
     <ClCompile Include="src\WindowManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
     <ClCompile Include="include\Components\Entities\Enemies\EnnemyA.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyA.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyB.cpp" />
+    <ClCompile Include="src\Components\Entities\Enemies\EnemyC.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\SpriteRenderer.h" />
@@ -63,6 +66,9 @@
     <ClInclude Include="include\Commands\CommandsGame.h" />
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\CameraManager.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyA.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyB.h" />
+    <ClInclude Include="include\Components\Entities\Enemies\EnemyC.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
