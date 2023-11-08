@@ -8,14 +8,15 @@ class CreateTours
 {
 public:
 	CreateTours();
-	void CreateJiin(float _poisionX, float _positionY, sf::Texture);
-	void CreateLulu (float _poisionX, float _positionY, sf::Texture);
-	void CreateMalphite(float _poisionX, float _positionY, sf::Texture);
-	void CreateXinZhao(float _poisionX, float _positionY, sf::Texture);
-	void CreateBat2(float _poisionX, float _positionY, sf::Texture);
-	void CreateBat3(float _poisionX, float _positionY, sf::Texture);
+	static void CreateJin(float _poisionX, float _positionY);
+	static void CreateLulu (float _poisionX, float _positionY);
+	static void CreateMalphite(float _poisionX, float _positionY);
+	static void CreateXinZhao(float _poisionX, float _positionY);
+	static void CreateBat2(float _poisionX, float _positionY);
+	static void CreateBat3(float _poisionX, float _positionY);
 
 private:
-	std::vector<GameObject*> tower;
+	static std::vector<GameObject*> tower;
+	static sf::Texture* texture;
 };
 

@@ -6,6 +6,9 @@
 #include "SceneManager.h"
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Carre.h"
+#include "Components/Button.h"
+#include "Create/CreateTours.h"
 #include "HUDManager.h"
 
 
@@ -42,9 +45,44 @@ void SceneGameLVSR::CreateActiveSpawn()
 {
 	for (size_t i = 0; i <= towers.size(); i++)
 	{
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() && 
+			GetGameObject("Tour1")->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
 			std::cout << "c'est bon";
+			CreateTours::CreateJin(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+
+		}
+
+		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
+			GetGameObject("Tour2")->GetComponent<Button>()->IsClicked() && GetIsActive())
+		{
+			std::cout << "c'est bon";
+			CreateTours::CreateLulu(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+
+		}
+
+		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
+			GetGameObject("Tour3")->GetComponent<Button>()->IsClicked() && GetIsActive())
+		{
+			std::cout << "c'est bon";
+			CreateTours::CreateMalphite(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+
+		}
+
+		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
+			GetGameObject("Tour4")->GetComponent<Button>()->IsClicked() && GetIsActive())
+		{
+			std::cout << "c'est bon";
+			CreateTours::CreateXinZhao(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+
+		}
+
+		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
+			GetGameObject("Tour4")->GetComponent<Button>()->IsClicked() && GetIsActive())
+		{
+			std::cout << "c'est bon";
+			CreateTours::CreateBat2(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+
 		}
 	}
 }
@@ -52,8 +90,8 @@ void SceneGameLVSR::CreateActiveSpawn()
 void SceneGameLVSR::Create() 
 {
 	SceneGameAbstract::Create();
-	SceneGameLVSR::CreateSpawn();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+	SceneGameLVSR::CreateSpawn();
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
 		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
 		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
@@ -68,9 +106,11 @@ void SceneGameLVSR::Delete()
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-	EnemyA enemya;
-	enemya.Check();
+	/*EnemyA enemya;
+	enemya.Check();*/
 	SceneGameAbstract::Update(_delta);
+
+	CreateActiveSpawn();
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {

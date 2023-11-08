@@ -44,7 +44,7 @@ void SceneMainMenu::CreateSceneButtonsMenu () {
 	rankButton = CreateButtonGameObject("Rank", widthScreen / 1.2, heightScreen / 10, 25);
 	backButton = CreateButtonGameObject("Back", widthScreen / 10, heightScreen / 10, 20);
 	sliderFPS = CreateSliderGameObject("SliderFPS", widthScreen / 2, heightScreen / 2, 1200, 40, 50, 50, 20, WindowManager::GetFps(), WindowManager::GetMinFps(), WindowManager::GetMaxFps());
-	sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
+	//sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
 }
 
 void SceneMainMenu::Update(sf::Time _delta) {
@@ -75,7 +75,7 @@ void SceneMainMenu::Update(sf::Time _delta) {
 	}
 	else if (sliderVolume)
 	{
-		AudioManager::SetVolume(sliderVolume->GetComponent<Slider>()->GetDataInt());
+		//AudioManager::SetVolume(sliderVolume->GetComponent<Slider>()->GetDataInt());
 	}
 }
 
