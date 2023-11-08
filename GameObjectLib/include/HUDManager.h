@@ -9,6 +9,7 @@ public:
 	HUDManager();
 	static sf::View GetHud() { return hudView; }
 	static void AddGameObjectHud(GameObject* _gameObject) { hudGameObjects.push_back(_gameObject); }
+	static void Preload();
 	static sf::Vector2f GetSquareCenter(std::string _key) { return centerSquare.at(_key); }
 
 private:
