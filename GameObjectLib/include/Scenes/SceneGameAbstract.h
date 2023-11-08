@@ -15,6 +15,8 @@ public:
 	void CreateRessource();
 
 	void RemoveEnemy(GameObject* _enemyToRemove);
+	void RemoveTower(GameObject* _towerToRemove);
+
 
 	void ManagePause();
 	void ManageSceneGameButtonsPause(bool _states);
@@ -38,8 +40,11 @@ public:
 	void Render(sf::RenderWindow* _window) override;
 	std::vector<GameObject*> GetEnemies() { return enemies; }
 	GameObject* GetEnemie(int _index) { return enemies[_index]; }
+	std::vector<GameObject*> GetTowers() { return towers; }
+	GameObject* GetTowers(int _index) { return towers[_index]; }
 
 protected:
+	std::vector<GameObject*> towers;
 	std::vector<GameObject*> enemies;
 	GameObject* player = nullptr;
 	GameObject* jiin = nullptr;

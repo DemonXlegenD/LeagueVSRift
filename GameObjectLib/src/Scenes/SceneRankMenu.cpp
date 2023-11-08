@@ -1,5 +1,6 @@
 #include "Scenes/SceneRankMenu.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
 #include "Components/Button.h"
 #include "AssetManager.h"
 
@@ -12,11 +13,11 @@ void SceneRankMenu::Create() {
 	Scene::Create();
 	sf::Texture backgroundTexture2;
 
-	if (!backgroundTexture2.loadFromFile("../assets/Sprite/titlescreen/main_title_bg.png"))
+	if (!backgroundTexture2.loadFromFile("../assets/Sprite_LOL/background/background2_lol.png"))
 	{
 		std::cout << "pas d'image" << std::endl;
 	}
-	GameObject* background2 = CreateBackgroundGameObject("Background2", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture2);
+	GameObject* background2 = CreateBackgroundGameObject("Background2", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture2);
 	this->CreateSceneButtonsMenu();
 }
 
@@ -25,8 +26,8 @@ void SceneRankMenu::Render(sf::RenderWindow* _window) {
 }
 
 void SceneRankMenu::CreateSceneButtonsMenu() {
-	float widthScreen = SceneManager::GetWindow()->getSize().x;
-	float heightScreen = SceneManager::GetWindow()->getSize().y;
+	float widthScreen = WindowManager::GetWindow()->getSize().x;
+	float heightScreen = WindowManager::GetWindow()->getSize().y;
 	rankButton = CreateButtonGameObject("Rank", widthScreen / 2, heightScreen / 13, 50);
 	backButton = CreateButtonGameObject("Retour", widthScreen / 15, heightScreen / 13, 20);
 
@@ -48,8 +49,8 @@ void SceneRankMenu::CreateSceneButtonsMenu() {
 }
 
 void SceneRankMenu::SetOrigin() {
-	float widthScreen = SceneManager::GetWindow()->getSize().x;
-	float heightScreen = SceneManager::GetWindow()->getSize().y;
+	float widthScreen = WindowManager::GetWindow()->getSize().x;
+	float heightScreen = WindowManager::GetWindow()->getSize().y;
 
 	text.setOrigin(sf::Vector2f(widthScreen / 2, heightScreen / 2));
 }

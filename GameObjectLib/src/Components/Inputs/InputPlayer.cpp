@@ -5,83 +5,66 @@
 
 InputPlayer::InputPlayer() {
 	this->player = nullptr;
-	this->KeyD_ = new MoveToRightCommand(this);
-	this->KeyQ_ = new MoveToLeftCommand(this);
-	this->KeySpace_ = new MoveToRightBulletCommand(this);
-	this->KeyZ_ = new JumpCommand(this);
+	this->ActionKeyD_ = new MoveToRightCommand(this->GetOwner());
+	this->ActionKeyQ_ = new MoveToLeftCommand(this->GetOwner());
+	this->ActionKeySpace_ = new MoveToRightBulletCommand(this->GetOwner());
+	this->ActionKeyZ_ = new JumpCommand(this->GetOwner());
 }
 
-void InputPlayer::Update(sf::Time _delta) {
+void InputPlayer::Update(sf::Time _delta) 
+{
 	Component::Update(_delta);
 
 	Command* commandMoves = this->HandleInput();
-	if (commandMoves) {
+	if (commandMoves) 
+	{
 		commandMoves->Execute(_delta);
 	}
 	Command* commandJump = this->JumpInput();
-	if (commandJump) {
+
+	if (commandJump) 
+	{
 		commandJump->Execute(_delta);
 	}
 	Command* fireBullet = this->FireInput();
-	if (fireBullet) {
+
+	if (fireBullet) 
+	{
 		fireBullet->Execute(_delta);
 	}
 
 }
 
-Command* InputPlayer::HandleInput() {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return KeyQ_;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return KeyD_;
-
-	return nullptr;
-
-}
-
-Command* InputPlayer::JumpInput() {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) return KeyZ_;
-	return nullptr;
-}
-
-Command* InputPlayer::FireInput() {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return KeySpace_;
-	return nullptr;
-}
-
-void InputPlayer::MoveRight(sf::Time _delta)
+Command* InputPlayer::HandleInput() 
 {
-	GetOwner()->SetPosition(GetOwner()->GetPosition() + Maths::Vector2f::Right + Maths::Vector2f(25, 0) * _delta.asSeconds() * speed);
-	GetOwner()->GetComponent<Player>()->setDirection(Player::Direction::Right);
-	GetOwner()->GetComponent<Sprite>()->PlayerPlayAnimationRun();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) return ActionKeyQ_;
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) return ActionKeyD_;
+
+	return nullptr;
+
 }
 
-void InputPlayer::MoveLeft(sf::Time _delta)
+Command* InputPlayer::JumpInput() 
 {
-	GetOwner()->SetPosition(GetOwner()->GetPosition() + Maths::Vector2f::Left + Maths::Vector2f(-25, 0) * _delta.asSeconds() * speed);
-	GetOwner()->GetComponent<Player>()->setDirection(Player::Direction::Left);
-	GetOwner()->GetComponent<Sprite>()->PlayerPlayAnimationRun();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) return ActionKeyZ_;
+	return nullptr;
 }
 
-float InputPlayer::AddSpeed(float _addSpeed) {
-	speed = +_addSpeed;	
-	return speed;
+Command* InputPlayer::FireInput() 
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) return ActionKeySpace_;
+	return nullptr;
 }
+
 
 void InputPlayer::Jump(sf::Time _delta)
 {
-	GetOwner()->SetPosition(GetOwner()->GetPosition() + Maths::Vector2f::Down + Maths::Vector2f(0, -130) * _delta.asSeconds() * speed);
-}
-
-void InputPlayer::MoveRightBullet()
-{
-}
-
-void InputPlayer::GamePauseMenu()
-{
+	GetOwner()->SetPosition(GetOwner()->GetPosition() + Maths::Vector2f::Down + Maths::Vector2f(0, -130) * _delta.asSeconds());
 }
 
 InputPlayer::~InputPlayer() {
-	delete 	this->KeyD_;
-	delete 	this->KeyQ_;
-	delete 	this->KeySpace_;
-	delete 	this->KeyZ_;
+	delete 	this->ActionKeyD_;
+	delete 	this->ActionKeyQ_;
+	delete 	this->ActionKeySpace_;
+	delete 	this->ActionKeyZ_;
 }

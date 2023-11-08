@@ -1,6 +1,8 @@
 #include "Components/Slider.h"
-#include "SceneManager.h"
+#include "WindowManager.h"
 #include "AudioManager.h"
+#include "SceneManager.h"
+
 
 Slider::Slider() {
 	minData = 0.f;
@@ -84,7 +86,7 @@ float Slider::GetPercent(float _x, float _y, float width) {
 void Slider::Update(sf::Time _delta) {
 	Component::Update(_delta);
 
-	sf::Vector2i mousePos = sf::Mouse::getPosition(*SceneManager::GetWindow());
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*WindowManager::GetWindow());
 
 	if (this->isClicked(mousePos)) {
 		float cursorX = static_cast<float>(mousePos.x);

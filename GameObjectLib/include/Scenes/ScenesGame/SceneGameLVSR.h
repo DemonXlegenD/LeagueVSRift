@@ -14,4 +14,5 @@ public:
 	void Delete() override;
 	void Update(sf::Time _delta) override;
 	void Render(sf::RenderWindow* _window) override;
+	float scale;
 };

@@ -1,11 +1,11 @@
 #include "Components/Button.h"
-#include "SceneManager.h"
+#include "WindowManager.h"
 
 Button::Button() {
 	this->height = 0;
 	this->width = 0;
 	this->clicked = false;
-	this->window = SceneManager::GetWindow();
+	this->window = WindowManager::GetWindow();
 }
 
 
