@@ -3,6 +3,7 @@
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "HUDManager.h"
 
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
@@ -21,6 +22,8 @@ void SceneGameLVSR::Create()
 {
 	SceneGameAbstract::Create();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
+		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
 }
 
 void SceneGameLVSR::Delete() 

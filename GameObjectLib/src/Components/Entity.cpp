@@ -20,7 +20,7 @@ void Entity::TakeDamage(int _damage) {
 
 void Entity::Die() {
 	healthPoint = 0;
-	//AudioManager::PlaySound("dead");
+	AudioManager::PlaySound("dead");
 	SceneManager::GetActiveGameScene()->RemoveGameObject(GetOwner());
 }
 
