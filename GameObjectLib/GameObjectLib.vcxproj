@@ -63,13 +63,16 @@
     <ClInclude Include="include\Scenes\SceneRankMenu.h" />
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
-    <ClInclude Include="include\Components\Ressource.h" />
+    <ClInclude Include="include\Scenes\SceneCreditsMenu.h" />
+     <ClInclude Include="include\Components\Ressource.h" />
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="resource.h" />   
     <ClInclude Include="include\Components\Entities\TowerAbstract.h" />  
     <ClInclude Include="include\Components\Entities\Towers\Malphite.h" />
   </ItemGroup>
   <ItemGroup>
+     <ClCompile Include="src\Maths\Vector2.cpp" />
+    <ClCompile Include="src\Scenes\SceneCreditsMenu.cpp" />
     <ClCompile Include="src\Components\Carre.cpp" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Bat1.cpp" />
