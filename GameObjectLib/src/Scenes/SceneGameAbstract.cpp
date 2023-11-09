@@ -36,7 +36,6 @@ SceneGameAbstract::~SceneGameAbstract() {
 
 void SceneGameAbstract::Create() {
 	Scene::Create();
-	this->CreatePauseMenuButtons();
 
 	this->victory = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Victory"));
 	this->defeat = CreateImageGameObject("Defeat", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
@@ -56,7 +55,7 @@ void SceneGameAbstract::CreatePauseMenuButtons() {
 	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
 	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
 	//pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
-	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
+	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
 
@@ -123,14 +122,15 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 	if (isActive)
 	{
 		Scene::Update(_delta);
-
 	}
 	else
 	{
 		if (pausePlayButton->GetComponent<Button>()->IsClicked()) {
 			this->ManagePause();
+			isActive = true;
 		}
 		else if (pauseMenuPrincipalButton->GetComponent<Button>()->IsClicked()) {
+			this->ManagePause();
 			SceneManager::RunScene("SceneMainMenu");
 		}
 		//else if (pauseOptionsButton->GetComponent<Button>()->IsClicked()) {
