@@ -22,11 +22,8 @@ void SceneCreditsMenu::Create() {
 	GameObject* background2 = CreateBackgroundGameObject("Background2", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture2);
 	this->CreateSceneButtonsMenu();
 	this->LoadCreditsTexture();
-	//this->CreateCredits();
-}
-
-void SceneCreditsMenu::CreateCredits() {
-	credits = this->CreateCreditsGameObject("Credits", WindowManager::GetWindowWidth() / 1.8, WindowManager::GetWindowHeight() / 1.65, *AssetManager::GetAsset("championsJin"), 0.5f, 0.5f);
+	imagesCredits.clear();
+	texteCredits.clear();
 }
 
 void SceneCreditsMenu::Render(sf::RenderWindow* _window) {

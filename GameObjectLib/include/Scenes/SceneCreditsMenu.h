@@ -11,7 +11,6 @@ public:
 	void LoadCreditsTexture();
 
 	GameObject* CreateCreditsGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley);
-	void CreateCredits();
 
 	void AnimCredits(float _deltaSeconds, float _iteration, int _totalLoop);
 
