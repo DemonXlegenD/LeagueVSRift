@@ -9,11 +9,8 @@
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/Ressource.h"
-#include "Components/Entities/Enemies/Grunt.h"
-#include "Components/Entities/Enemies/Turret.h"
 #include "Components/FireBullet.h"
 #include "Components/HealthPointBar.h"
-#include "Components/Inputs/InputPlayer.h"
 #include "Components/Entities/Enemies/EnemyA.h"
 #include "Components/Entities/Enemies/EnemyB.h"
 #include "Components/Entities/Enemies/EnemyC.h"
@@ -33,6 +30,12 @@ SceneGameAbstract::~SceneGameAbstract() {
 void SceneGameAbstract::Create() {
 	Scene::Create();
 	this->CreatePauseMenuButtons();
+
+	this->victory = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Victory"));
+	this->defeat = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
+	this->victory->SetActive(false);
+	this->defeat->SetActive(false);
+	endTime = 5.0f;
 }
 
 void SceneGameAbstract::Delete() {
@@ -45,7 +48,7 @@ void SceneGameAbstract::Delete() {
 void SceneGameAbstract::CreatePauseMenuButtons() {
 	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
 	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
-	pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
+	//pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
 	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
@@ -94,7 +97,7 @@ void SceneGameAbstract::RemoveTower(GameObject* _towerToRemove) {
 void SceneGameAbstract::ManageSceneGameButtonsPause(bool _state) {
 	this->pauseMenuPrincipalButton->SetActive(_state);
 	this->pausePlayButton->SetActive(_state);
-	this->pauseOptionsButton->SetActive(_state);
+	//this->pauseOptionsButton->SetActive(_state);
 	this->pauseQuitButton->SetActive(_state);
 }
 
@@ -123,16 +126,30 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 		else if (pauseMenuPrincipalButton->GetComponent<Button>()->IsClicked()) {
 			SceneManager::RunScene("SceneMainMenu");
 		}
-		else if (pauseOptionsButton->GetComponent<Button>()->IsClicked()) {
-			std::cout << "Options" << std::endl;
-		}
+		//else if (pauseOptionsButton->GetComponent<Button>()->IsClicked()) {
+		//	std::cout << "Options" << std::endl;
+		//}
 		else if (pauseQuitButton->GetComponent<Button>()->IsClicked()) {
 			WindowManager::GetWindow()->close();
 		}
 	}
 }
 
-void SceneGameAbstract::CreatePlatform(sf::Texture textureplatforme) {
+void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
+{
+	float deltaSecond = _delta.asMilliseconds();
+	if (_win)
+	{
+		this->victory->SetActive(true);
+	}
+	else
+	{
+		this->defeat->SetActive(true);
+	}
+	if (endTime <= deltaSecond) {
+		SceneManager::RunScene("SceneMainMenu");
+	}
+	endTime -= deltaSecond;
 }
 
 void SceneGameAbstract::CreateBackground()
@@ -166,8 +183,6 @@ GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, fl
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
-	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
-
 	
 
 	return gameObject;
@@ -189,8 +204,6 @@ GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name,
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
 
 	/*HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
 	healthPointBar->SetHealthPoint(player->GetHealthPoint());
@@ -219,8 +232,6 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
 
 	return gameObject;
 
@@ -405,6 +416,8 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 
 }
 
+
+
 GameObject* SceneGameAbstract::CreateNexusGameObject()
 {
 	GameObject* gameObject = CreateGameObject("nexus");
@@ -428,3 +441,15 @@ GameObject* SceneGameAbstract::CreateNexusGameObject()
 }
 
 
+GameObject* SceneGameAbstract::CreateImageGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture) 
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	return gameObject;
+}
