@@ -39,6 +39,7 @@ void EnemyAbstract::setLane(int _lane) {
 
 int EnemyAbstract::getLane() {
 	return this->lane;
+}
 
 void EnemyAbstract::fichierStatsEnemey()
 {
@@ -74,9 +75,3 @@ void EnemyAbstract::fichierStatsEnemey()
 		fichierStats.close();
 	}
 }
-
-void EnemyAbstract::Attack(GameObject* tour) {
-	std::cout << "L'ennemie attaque la tour" << std::endl;
-
-}
-

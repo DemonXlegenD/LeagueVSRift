@@ -1,5 +1,6 @@
 #include "Scenes/SceneCreditsMenu.h"
 #include "SceneManager.h"
+#include "WindowManager.h"
 #include "Components/Button.h"
 #include "AssetManager.h"
 #include "Scenes/SceneMainMenu.h"
@@ -18,14 +19,14 @@ void SceneCreditsMenu::Create() {
 	{
 		std::cout << "pas d'image" << std::endl;
 	}
-	GameObject* background2 = CreateBackgroundGameObject("Background2", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture2);
+	GameObject* background2 = CreateBackgroundGameObject("Background2", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture2);
 	this->CreateSceneButtonsMenu();
 	this->LoadCreditsTexture();
 	//this->CreateCredits();
 }
 
 void SceneCreditsMenu::CreateCredits() {
-	credits = this->CreateCreditsGameObject("Credits", SceneManager::GetWindowWidth() / 1.8, SceneManager::GetWindowHeight() / 1.65, *AssetManager::GetAsset("championsJin"), 0.5f, 0.5f);
+	credits = this->CreateCreditsGameObject("Credits", WindowManager::GetWindowWidth() / 1.8, WindowManager::GetWindowHeight() / 1.65, *AssetManager::GetAsset("championsJin"), 0.5f, 0.5f);
 }
 
 void SceneCreditsMenu::Render(sf::RenderWindow* _window) {
@@ -33,16 +34,16 @@ void SceneCreditsMenu::Render(sf::RenderWindow* _window) {
 }
 
 void SceneCreditsMenu::CreateSceneButtonsMenu() {
-	float widthScreen = static_cast<float>(SceneManager::GetWindow()->getSize().x);
-	float heightScreen = static_cast<float>(SceneManager::GetWindow()->getSize().y);
+	float widthScreen = static_cast<float>(WindowManager::GetWindow()->getSize().x);
+	float heightScreen = static_cast<float>(WindowManager::GetWindow()->getSize().y);
 	creditsButton = CreateButtonGameObject("Crédits", widthScreen / 2, heightScreen / 13, 50);
 	backButton = CreateButtonGameObject("Retour", widthScreen / 15, heightScreen / 13, 20);
 }
 
 void SceneCreditsMenu::LoadCreditsTexture()
 {
-	float widthScreen = static_cast<float>(SceneManager::GetWindow()->getSize().x);
-	float heightScreen = static_cast<float>(SceneManager::GetWindow()->getSize().y);
+	float widthScreen = static_cast<float>(WindowManager::GetWindow()->getSize().x);
+	float heightScreen = static_cast<float>(WindowManager::GetWindow()->getSize().y);
 
 	for (size_t i = 0; i < 6; i++)
 	{
@@ -52,15 +53,15 @@ void SceneCreditsMenu::LoadCreditsTexture()
 }
 
 void SceneCreditsMenu::SetOrigin() {
-	float widthScreen = SceneManager::GetWindow()->getSize().x;
-	float heightScreen = SceneManager::GetWindow()->getSize().y;
+	float widthScreen = WindowManager::GetWindow()->getSize().x;
+	float heightScreen = WindowManager::GetWindow()->getSize().y;
 
 	text.setOrigin(sf::Vector2f(widthScreen / 2, heightScreen / 2));
 }
 
 void SceneCreditsMenu::AnimCredits(float _deltaSeconds, float _iteration, int _totalLoop)
 {	
-	float widthScreen = static_cast<float>(SceneManager::GetWindow()->getSize().x);
+	float widthScreen = static_cast<float>(WindowManager::GetWindow()->getSize().x);
 
 	startPosFrancoisX = imagesCredits[0]->GetPosition().x;
 	startPosFrancoisY = imagesCredits[0]->GetPosition().y;

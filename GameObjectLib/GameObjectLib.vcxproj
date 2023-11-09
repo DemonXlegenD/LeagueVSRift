@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Components\Entities\TowerAbstract.h" />
     <ClInclude Include="include\Components\Entities\Towers\Bat1.h" />
     <ClInclude Include="include\Components\Entities\Towers\Bat2.h" />
     <ClInclude Include="include\Components\Entities\Towers\Lulu.h" />
@@ -64,24 +63,20 @@
     <ClInclude Include="include\Scenes\ScenesGame\SceneGameLVSR.h" />
     <ClInclude Include="include\Components\Inputs\InputGame.h" />
     <ClInclude Include="include\Scenes\SceneCreditsMenu.h" />
-     <ClInclude Include="include\Components\Ressource.h" />
+    <ClInclude Include="include\Components\Ressource.h" />
     <ClInclude Include="include\WindowManager.h" />
-    <ClInclude Include="resource.h" />   
-    <ClInclude Include="include\Components\Entities\TowerAbstract.h" />  
+    <ClInclude Include="include\Components\Entities\TowerAbstract.h" />
     <ClInclude Include="include\Components\Entities\Towers\Malphite.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
-     <ClCompile Include="src\Maths\Vector2.cpp" />
-    <ClCompile Include="src\Scenes\SceneCreditsMenu.cpp" />
-    <ClCompile Include="src\Components\Carre.cpp" />
-    <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Bat1.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Bat2.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Lulu.cpp" />
-    <ClCompile Include="src\Components\Entities\Towers\Malphite.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Varus.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Nexus.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\XinZhao.cpp" />
+    <ClCompile Include="src\Components\Carre.cpp" />
     <ClCompile Include="src\Create\CreateTours.cpp" />
     <ClCompile Include="src\HUDManager.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
@@ -114,12 +109,15 @@
     <ClCompile Include="src\Components\Entities\Enemies\Turret.cpp" />
     <ClCompile Include="src\Components\Slider.cpp" />
     <ClCompile Include="src\Scenes\SceneGameAbstract.cpp" />
-    <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Scenes\SceneSuccessMenu.cpp" />
     <ClCompile Include="src\Scenes\SceneRankMenu.cpp" />
+    <ClCompile Include="src\Scenes\ScenesGame\SceneGameLVSR.cpp" />
     <ClCompile Include="src\Components\Inputs\InputGame.cpp" />
+    <ClCompile Include="src\Scenes\SceneCreditsMenu.cpp" />
     <ClCompile Include="src\Components\Ressource.cpp" />
     <ClCompile Include="src\WindowManager.cpp" />
+    <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
+    <ClCompile Include="src\Components\Entities\Towers\Malphite.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />

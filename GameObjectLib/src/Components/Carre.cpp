@@ -1,10 +1,6 @@
 #include "Components/Carre.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
-<<<<<<< HEAD
-=======
-
->>>>>>> 86572d78956692a3f2338d29d4c691935d9fa973
 
 Carre::Carre() {
 	this->clicked = false;

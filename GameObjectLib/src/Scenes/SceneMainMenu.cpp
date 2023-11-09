@@ -45,7 +45,6 @@ void SceneMainMenu::CreateSceneButtonsMenu () {
 	rankButton = CreateButtonGameObject("Rank", widthScreen / 1.3, heightScreen / 10, 25);
 	creditsButton = CreateButtonGameObject("Cr�dits", widthScreen / 1.1, heightScreen / 10, 25);
 	backButton = CreateButtonGameObject("Back", widthScreen / 10, heightScreen / 10, 20);
-	sliderFPS = CreateSliderGameObject("SliderFPS", widthScreen / 2, heightScreen / 2, 1200, 40, 50, 50, 20, SceneManager::GetFps(), SceneManager::GetMinFps(), SceneManager::GetMaxFps());
 	sliderFPS = CreateSliderGameObject("SliderFPS", widthScreen / 2, heightScreen / 2, 1200, 40, 50, 50, 20, WindowManager::GetFps(), WindowManager::GetMinFps(), WindowManager::GetMaxFps());
 	//sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
 }
@@ -94,7 +93,7 @@ void SceneMainMenu::activeMenu(bool _state) {
 void SceneMainMenu::activeOption(bool _state) {
 	this->backButton->SetActive(_state);
 	this->sliderFPS->SetActive(_state);
-	this->sliderVolume->SetActive(_state);
+	//this->sliderVolume->SetActive(_state);
 }
 
 SceneMainMenu::~SceneMainMenu() {

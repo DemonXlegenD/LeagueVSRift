@@ -24,7 +24,6 @@ public:
     void Die() override;
 
     void Attack(GameObject* _nexus);
-
     void setLane(int _lane);
     int getLane();
     int lane;
@@ -32,6 +31,6 @@ public:
     void fichierStatsEnemey();
 	std::vector<EnemyStats> listStatsEnemy = {};
 
-    void Attack(GameObject* tour);
+    
 
 };
