@@ -1,27 +1,22 @@
 #include "Round/CreateRound.h"
 #include "SceneManager.h"
+#include "AssetManager.h"
+#include "AudioManager.h"
 
 CreateRound::CreateRound()
 {
-	CreateRound1();
-	CreateRound2();
-	CreateRound3();
-	CreateRound4();
+	count = 0;
 };
+
 void CreateRound::CreateRound1()
 {
-	sf::Texture testSbireTexture;
+	AudioManager::Play("round_start");
 
-	if (!testSbireTexture.loadFromFile("../assets/Sprite_LOL/Sbires/minion_melee.png"))
-	{
-		std::cout << "pas d'image" << std::endl;
-	}
+	GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("Jin", 1411, 150, 0.1, 0.1, 0, *AssetManager::GetAsset("minionMelee"));
 
-	SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("Jin", 1411, 150, 0.1, 0.1, 0, testSbireTexture);
+	GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("Jin", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("minionSiege"));
 
-	SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("Jin", 1411, 150, 0.1, 0.1, 1, testSbireTexture);
-
-	SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("Jin", 1411, 150, 0.1, 0.1, 2, testSbireTexture);
+	GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("Jin", 1411, 150, 0.1, 0.1, 2, *AssetManager::GetAsset("minionMage"));
 };
 void CreateRound::CreateRound2()
 {

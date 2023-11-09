@@ -12,6 +12,7 @@ public:
 
 	void CreateSpawn();
 	void CreateActiveSpawn();
+	void TakeNexusDamage(int damage);
 	void Create() override;
 	void Delete() override;
 	void Update(sf::Time _delta) override;
