@@ -15,6 +15,9 @@ public:
 	void ChoiceTower();
 	void ChoiceSpawn();
 
+	bool CanPlaceTower(std::string towerName);
+	void CreateTower(std::string towerName, float _positionX, float _positionY);
+
 	void CreateActiveSpawn();
 	void TakeNexusDamage(int damage);
 

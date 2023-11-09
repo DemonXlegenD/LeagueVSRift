@@ -10,7 +10,7 @@
 #include "Components/Entities/Enemies/EnemyA.h"
 #include "Components/Carre.h"
 #include "Components/Button.h"
-#include "Create/CreateTours.h"
+#include "Components/Ressource.h"
 #include "HUDManager.h"
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window) {
@@ -59,15 +59,32 @@ void SceneGameLVSR::ChoiceSpawn()
 {
 	for (size_t i = 0; i < spawns.size(); i++)
 	{
-		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive() && spawns[i]->GetActive())
 		{
-			std::cout << index;
-			CreateTours::CreateTower(index, spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			spawns[i]->SetActive(false);
+			CreateTower(gameTowers[index]->GetName(), spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
 			isChoice = true;
 		}
 	}
 }
 
+bool SceneGameLVSR::CanPlaceTower(std::string name) {
+	if (GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() &&
+		GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
+	{
+		return true;
+	}
+	return false;
+}
+
+void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _positionY)
+{
+	if (CanPlaceTower(towerName))
+	{
+		float scale = GetGameObject(towerName)->GetComponent<Sprite>()->GetSize().x > 200 ? 0.2f : 0.5f;
+		CreateBatimentGameObject(towerName, _positionX, _positionY, *AssetManager::GetAsset(towerName), scale, scale, 400.f, 30.f);
+	}
+}
 
 void SceneGameLVSR::Create() 
 {

@@ -59,18 +59,15 @@ void SceneGameAbstract::CreatePlayer() {
 
 void SceneGameAbstract::CreateTower()
 {
-
-	varus = this->CreateBatimantGameObject("Varus", 0.f, 0.f, *AssetManager::GetAsset("Varus"), 2.5f, 2.5f, 300.f, 30.f);
-	varus->SetActive(false);
-	lulu = this->CreateBatimantGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 2.5f, 2.5f,300.f, 30.f);
-	lulu->SetActive(false);
-	malphite = this->CreateBatimantGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f,300.f, 30.f);
-	malphite->SetActive(false);
-	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f,300.f, 30.f);
-	xinZhao->SetActive(false);
-	//bat2 = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
-	//bat3 = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
-
+	gameTowers.push_back(CreateBatimentGameObject("Varus", 0.f, 0.f, *AssetManager::GetAsset("Varus"), 0.5f, 0.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 0.5f, 0.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Bat1", 0.f, 0.f, *AssetManager::GetAsset("Bat1"), 2.5f, 2.5f,300.f, 0.f));
+	gameTowers.push_back(CreateBatimentGameObject("Bat2", 0.f, 0.f, *AssetManager::GetAsset("Bat2"), 2.5f, 2.5f,300.f, 5.f));
+	for (int i = 0; i < gameTowers.size(); i++) {
+		gameTowers[i]->SetActive(false);
+	}
 };
 
 void SceneGameAbstract::CreateRessource()
@@ -175,7 +172,7 @@ GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, fl
 
 	return gameObject;
 }
-GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
+GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));

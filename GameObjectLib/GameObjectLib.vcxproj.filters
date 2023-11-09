@@ -8,7 +8,6 @@
     <ClCompile Include="src\Components\Entities\Towers\Nexus.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\XinZhao.cpp" />
     <ClCompile Include="src\Components\Carre.cpp" />
-    <ClCompile Include="src\Create\CreateTours.cpp" />
     <ClCompile Include="src\HUDManager.cpp" />
     <ClCompile Include="src\EventManager.cpp" />
     <ClCompile Include="src\CameraManager.cpp" />
@@ -59,10 +58,8 @@
     <ClInclude Include="include\Components\Entities\Towers\Nexus.h" />
     <ClInclude Include="include\Components\Entities\Towers\XinZhao.h" />
     <ClInclude Include="include\Components\Carre.h" />
-    <ClInclude Include="include\Create\CreateTours.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\EventManager.h" />
-    <ClInclude Include="include\Round\CreateRoud.h" />
     <ClInclude Include="include\CameraManager.h" />
     <ClInclude Include="include\Commands\CommandsGame.h" />
     <ClInclude Include="include\Components\Entities\Enemies\EnemyA.h" />
