@@ -1,6 +1,7 @@
 #include "Scenes/ScenesGame/SceneGameLVSR.h"
 #include "SceneManager.h"
 #include "AssetManager.h"
+#include "AudioManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
 #include "Round/CreateRound.h"
@@ -55,19 +56,24 @@ void SceneGameLVSR::Create()
 	SceneGameAbstract::Create();
 	SceneGameLVSR::CreateSpawn();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
-	GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f,*AssetManager::GetAsset("EnemyA"));
+	//GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f, 1, *AssetManager::GetAsset("EnemyA"));
 	GameObject* nexus = CreateNexusGameObject();
 
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
 }
 
 void SceneGameLVSR::Delete() 
 {
 	SceneGameAbstract::Delete();
+}
+
+void SceneGameLVSR::TakeNexusDamage(int damage) {
+	nexus->GetComponent<Entity>()->SetHealthPoint(nexus->GetComponent<Entity>()->GetHealthPoint() - damage);
+	AudioManager::Play("nexus_under_attack");
 }
 
 void SceneGameLVSR::Update(sf::Time _delta) 
@@ -83,8 +89,9 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		GameObject* enemy = enemies[i];
 		Entity* enemyComponent = enemy->GetComponent<Entity>();
 		Maths::Vector2i goal;
+		bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
 
-		if (enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size()) {
+		if (isGoalNexus) {
 			goal = Maths::Vector2i(480, 840);
 		}
 		else {
@@ -95,7 +102,14 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		enemyComponent->MoveToPoint(goal, enemyComponent->GetSpeed() / 10);
 
 		if (distance < 10) {
-			enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
+			if (isGoalNexus) {
+				TakeNexusDamage(enemyComponent->GetHealthPoint());
+				std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
+				enemyComponent->Die();
+			}
+			else {
+				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
+			}
 		}
 	}
 	SceneGameAbstract::Update(_delta);
