@@ -1,12 +1,14 @@
 #include "Game/GameState.h"
 #include "SceneManager.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "HUDManager.h"
 #include "EventManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
+#include "SceneCreditsMenu.h"
 #include "SceneRankMenu.h"
 #include "SceneGameLVSR.h"
 
@@ -20,7 +22,7 @@ GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 
 
 void GameState::Preload() {
-	
+	HUDManager::Preload();
 	this->PreloadScenes();
 	this->PreloadAudio();
 	this->PreloadAssets();
@@ -35,12 +37,51 @@ void GameState::PreloadScenes() {
 	SceneManager::AddScene("SceneMainMenu", new SceneMainMenu(this->window));
 	SceneManager::AddScene("SceneSuccessMenu", new SceneSuccessMenu(this->window));
 	SceneManager::AddScene("SceneRankMenu", new SceneRankMenu(this->window));
+	SceneManager::AddScene("SceneCreditsMenu", new SceneCreditsMenu(this->window));
 	SceneManager::AddScene("SceneGameLVSR", new SceneGameLVSR(this->window));
 }
 
 void GameState::PreloadAssets() {
+	//Map
 	AssetManager::AddAsset("mapLol", "../assets/Sprite_LOL/Map/map.jpg");
+	//BackGrund
+	AssetManager::AddAsset("backgroundMenu", "../assets/Sprite_LOL/Background/background_lol.png");
+	AssetManager::AddAsset("backgroundOtherMenu", "../assets/Sprite_LOL/Background/background2_lol.png");
+	//Boss
+	AssetManager::AddAsset("bossErald", "../assets/Sprite_LOL/Boss/erald.png");
+	AssetManager::AddAsset("bossVeigar", "../assets/Sprite_LOL/Boss/veigar.png");
+	//Champions
+	AssetManager::AddAsset("championsJin", "../assets/Sprite_LOL/Champions/jin.png");
+	AssetManager::AddAsset("championsLulu", "../assets/Sprite_LOL/Champions/lulu.png");
+	AssetManager::AddAsset("championsMalphite", "../assets/Sprite_LOL/Champions/malphite.png");
+	AssetManager::AddAsset("championsXinZhao", "../assets/Sprite_LOL/Champions/xinZhao.png");
+	//Minions
+	AssetManager::AddAsset("minionMage", "../assets/Sprite_LOL/Minions/minion_mage.png");
+	AssetManager::AddAsset("minionMelee", "../assets/Sprite_LOL/Minions/minion_melee.png");
+	AssetManager::AddAsset("minionSiege", "../assets/Sprite_LOL/Minions/minion_siege.png");
+	//Batiments
+	for (size_t i = 0; i < 3; i++)
+	{
+		AssetManager::AddAsset("batiments" + std::to_string(i), "../assets/Sprite_LOL/Batiments/batiments_" + std::to_string(i) + ".png");
+	}
+	//Bullet
+	for (size_t i = 0; i < 6; i++)
+	{
+		AssetManager::AddAsset("bullet" + std::to_string(i), "../assets/Sprite_LOL/Bullet/bullet_" + std::to_string(i) + ".png");
+	}
+	//Credits
+	for (size_t i = 0; i < 6; i++)
+	{
+		AssetManager::AddAsset("credits" + std::to_string(i), "../assets/Sprite_LOL/Credits/credits_" + std::to_string(i) + ".png");
+	}
 	AssetManager::AddAsset("EnemyA", "../assets/Sprite_LOL/Sbires/minion_melee.png");
+	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus_lvl_1.png");
+	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/tour_lvl_1.png");
+	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/tour_lvl_2.png");
+	AssetManager::AddAsset("Varus", "../assets/Sprite_LOL/Champions/varus.png");
+	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Batiments/lulu.png");
+	AssetManager::AddAsset("Malphinte", "../assets/Sprite_LOL/Batiments/malphite.png");
+	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Batiments/Xin_Zhao.png");
 }
 
 void GameState::PreloadAudio() {
@@ -52,7 +93,7 @@ void GameState::Update() {
 	
 	sf::Time delta = this->clock.restart();
 
-	// limiter à un nombre fixe de FPS
+	// limiter Ã  un nombre fixe de FPS
 	sf::Time frameTime = sf::seconds(1.0f / FPS);
 	//Delta time for the update
 	if (delta < frameTime)

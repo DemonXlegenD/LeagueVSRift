@@ -315,6 +315,9 @@ namespace Maths
 	template<typename T>
 	const Vector2<T> Vector2<T>::Right(1, 0);
 
+	template<typename T>
+	const Vector2<T> Vector2<T>::DiagonaleLeft(-1, 1);
+
 
 }
 

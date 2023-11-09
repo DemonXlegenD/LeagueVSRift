@@ -1,5 +1,7 @@
 #include "Components/Button.h"
 #include "WindowManager.h"
+#include "HUDManager.h"
+#include "CameraManager.h"
 
 Button::Button() {
 	this->height = 0;
@@ -58,9 +60,10 @@ void Button::Render(sf::RenderWindow* _window) {
 
 	const auto position = GetOwner()->GetPosition();
 	SetPosition(position.x, position.y);
-
+	WindowManager::GetWindow()->setView(HUDManager::GetHud());
 	_window->draw(rectangle);
 	_window->draw(text);
+	WindowManager::GetWindow()->setView(CameraManager::GetView());
 }
 
 void Button::Update(sf::Time _delta) {

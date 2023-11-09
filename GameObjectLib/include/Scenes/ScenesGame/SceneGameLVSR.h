@@ -10,6 +10,8 @@ public:
 
 	void Awake() override;
 
+	void CreateSpawn();
+	void CreateActiveSpawn();
 	void Create() override;
 	void Delete() override;
 	void Update(sf::Time _delta) override;
@@ -22,4 +24,5 @@ private:
 	std::vector<Maths::Vector2i> lane2 = { Maths::Vector2i(1373, 203), Maths::Vector2i(1092, 418) , Maths::Vector2i(931, 524), Maths::Vector2i(720, 686) };
 	std::vector<Maths::Vector2i> lane3 = { Maths::Vector2i(1474, 195), Maths::Vector2i(1534, 741) , Maths::Vector2i(1400, 890), Maths::Vector2i(750, 900) };
 	std::vector<std::vector<Maths::Vector2i>> lanes = { lane1, lane2, lane3 };
+	std::vector<GameObject*> spawns;
 };

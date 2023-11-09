@@ -12,6 +12,9 @@ GameConfig::GameConfig() {
 	AudioManager::AddMusic(std::string("valkyrieApocalypse"), std::string("../Sounds/valkyrie.mp3"));
 	AudioManager::AddSound(std::string("dead"), std::string("../Sounds/pas_ma_guerre.mp3"));
 	AudioManager::Play(std::string("valkyrieApocalypse"));
+	/*AudioManager::AddMusic(std::string("valkyrieApocalypse"), std::string("../Sounds/valkyrie.mp3"));
+	AudioManager::AddSound(std::string("dead"), std::string("../Sounds/pas_ma_guerre.mp3"));
+	AudioManager::Play(std::string("valkyrieApocalypse"));*/
 }
 
 GameConfig::~GameConfig() {

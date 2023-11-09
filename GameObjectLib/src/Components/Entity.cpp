@@ -1,7 +1,8 @@
 #include "Components/Entity.h"
 #include "SceneManager.h"
-#include "WindowManager.h"
 #include "AudioManager.h"
+#include "WindowManager.h"
+//#include "AudioManager.h"
 
 
 Entity::Entity() : healthPoint(100), maxHealthPoint(100), damage(10), lane(0), attackSpeed(1.0f), range(1), speed(20.f) {}
@@ -21,7 +22,7 @@ void Entity::TakeDamage(int _damage) {
 
 void Entity::Die() {
 	healthPoint = 0;
-	AudioManager::PlaySound("dead");
+	//AudioManager::PlaySound("dead");
 	SceneManager::GetActiveGameScene()->RemoveGameObject(GetOwner());
 }
 
