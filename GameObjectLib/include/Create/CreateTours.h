@@ -7,8 +7,9 @@
 class CreateTours
 {
 public:
+	static bool CanPlaceTower(std::string name);
 	static void CreateTower(int _index, float _poisionX, float _positionY);
-	static void CreateJin(float _poisionX, float _positionY);
+	static void CreateVarus(float _poisionX, float _positionY);
 	static void CreateLulu (float _poisionX, float _positionY);
 	static void CreateMalphite(float _poisionX, float _positionY);
 	static void CreateXinZhao(float _poisionX, float _positionY);

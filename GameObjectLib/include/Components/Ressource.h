@@ -4,10 +4,14 @@ class Ressource: public Component
 {
 public:
 
-	void SetRessource(float _ressource){ ressource = _ressource; }
-	float GetRessource() { return ressource; }
+	void SetGold(float _value){ gold = _value; }
+	float GetGold() { return gold; }
+	
+	void SetMana(float _value) { mana = _value; }
+	float GetMana() { return mana; }
 
 private: 
-	float ressource; 
+	float gold;
+	float mana;
 };
 

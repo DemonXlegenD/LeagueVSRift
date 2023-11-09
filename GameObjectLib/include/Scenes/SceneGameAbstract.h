@@ -52,7 +52,7 @@ protected:
 	std::vector<GameObject*> towers;
 	std::vector<GameObject*> enemies;
 	GameObject* player = nullptr;
-	GameObject* jiin = nullptr;
+	GameObject* varus = nullptr;
 	GameObject* lulu = nullptr;
 	GameObject* malphite = nullptr;
 	GameObject* xinZhao = nullptr;

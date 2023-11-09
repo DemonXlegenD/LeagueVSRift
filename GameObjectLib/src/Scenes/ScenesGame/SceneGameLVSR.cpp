@@ -46,12 +46,9 @@ void SceneGameLVSR::ChoiceTower()
 	{
 		if (HUDManager::GetHudGameObject(i)->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
-			std::cout << "c'est bon";
 			isChoice = false;
 			index = i;
 			break;
-
-
 		}
 	}
 }
@@ -62,8 +59,9 @@ void SceneGameLVSR::ChoiceSpawn()
 	{
 		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive())
 		{
-			std::cout << "carre";
+			std::cout << index;
 			CreateTours::CreateTower(index, spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			isChoice = true;
 		}
 	}
 }
@@ -74,11 +72,13 @@ void SceneGameLVSR::Create()
 	SceneGameAbstract::Create();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
 	SceneGameLVSR::CreateSpawn();
+	SceneGameAbstract::CreateTower();
+	SceneGameAbstract::CreateRessource();
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
 }
 
 void SceneGameLVSR::Delete() 
