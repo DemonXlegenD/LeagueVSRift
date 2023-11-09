@@ -43,7 +43,7 @@ void SceneMainMenu::CreateSceneButtonsMenu () {
 	quitButton = CreateButtonGameObject("Quit", widthScreen / 2, heightScreen / 1.5, 50);
 	successButton = CreateButtonGameObject("Success", widthScreen / 1.2, heightScreen / 10, 25);
 	rankButton = CreateButtonGameObject("Rank", widthScreen / 1.3, heightScreen / 10, 25);
-	creditsButton = CreateButtonGameObject("Cr�dits", widthScreen / 1.1, heightScreen / 10, 25);
+	creditsButton = CreateButtonGameObject("Credits", widthScreen / 1.1, heightScreen / 10, 25);
 	backButton = CreateButtonGameObject("Back", widthScreen / 10, heightScreen / 10, 20);
 	sliderFPS = CreateSliderGameObject("SliderFPS", widthScreen / 2, heightScreen / 2, 1200, 40, 50, 50, 20, WindowManager::GetFps(), WindowManager::GetMinFps(), WindowManager::GetMaxFps());
 	//sliderVolume = CreateSliderGameObject("SliderVolume", widthScreen / 2, heightScreen / 1.5, 1200, 40, 50, 50, 20, AudioManager::GetVolume(), AudioManager::GetMaxVolume());
