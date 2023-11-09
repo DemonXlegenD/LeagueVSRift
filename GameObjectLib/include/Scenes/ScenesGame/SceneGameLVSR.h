@@ -11,8 +11,13 @@ public:
 	void Awake() override;
 
 	void CreateSpawn();
+
+	void ChoiceTower();
+	void ChoiceSpawn();
+
 	void CreateActiveSpawn();
 	void TakeNexusDamage(int damage);
+
 	void Create() override;
 	void Delete() override;
 	void Update(sf::Time _delta) override;
@@ -26,4 +31,6 @@ private:
 	std::vector<Maths::Vector2i> lane3 = { Maths::Vector2i(1474, 195), Maths::Vector2i(1534, 741) , Maths::Vector2i(1400, 890), Maths::Vector2i(750, 900) };
 	std::vector<std::vector<Maths::Vector2i>> lanes = { lane1, lane2, lane3 };
 	std::vector<GameObject*> spawns;
+	bool isChoice = true;
+	int index = 0;
 };

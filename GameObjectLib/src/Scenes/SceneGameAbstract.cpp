@@ -59,18 +59,23 @@ void SceneGameAbstract::CreatePlayer() {
 
 void SceneGameAbstract::CreateTower()
 {
-	varus = this->CreateBatimantGameObject("varus", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	lulu = this->CreateBatimantGameObject("lulu", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	malphite = this->CreateBatimantGameObject("malphite", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	xinZhao = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
-	xinZhao = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
+
+	varus = this->CreateBatimantGameObject("Varus", 0.f, 0.f, *AssetManager::GetAsset("Varus"), 2.5f, 2.5f, 300.f, 30.f);
+	varus->SetActive(false);
+	lulu = this->CreateBatimantGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 2.5f, 2.5f,300.f, 30.f);
+	lulu->SetActive(false);
+	malphite = this->CreateBatimantGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f,300.f, 30.f);
+	malphite->SetActive(false);
+	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f,300.f, 30.f);
+	xinZhao->SetActive(false);
+	//bat2 = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
+	//bat3 = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
+
 };
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreatePlayerRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
-	ressource = this->CreatePlayerRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Ressources", 0.f, 0.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 300.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -175,10 +180,9 @@ GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name,
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	Ressource* gold = gameObject->CreateComponent<Ressource>();
-	gold->SetRessource(prixGold);
-	Ressource* mana = gameObject->CreateComponent<Ressource>();
-	mana->SetRessource(prixGold);
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetGold(prixGold);
+	ressource->SetMana(prixMana);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -206,10 +210,9 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	Ressource* ressource1 = gameObject->CreateComponent<Ressource>();
-	ressource1->SetRessource(ressourceGold);
-	Ressource* ressource2 = gameObject->CreateComponent<Ressource>();
-	ressource2->SetRessource(ressourceGold);
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetGold(ressourceGold);
+	ressource->SetMana(ressourceMana);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -221,7 +224,6 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	squareCollider->SetScale(scalex, scaley);
 
 	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
-
 
 	return gameObject;
 

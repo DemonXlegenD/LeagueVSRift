@@ -8,6 +8,9 @@
 #include "SceneManager.h"
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Carre.h"
+#include "Components/Button.h"
+#include "Create/CreateTours.h"
 #include "HUDManager.h"
 
 SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window) {
@@ -39,25 +42,45 @@ void SceneGameLVSR::CreateSpawn() {
 	spawns.push_back(CreateCarreGameObject("Spawn13", WindowManager::GetWindowWidth() / 1.45, WindowManager::GetWindowHeight() / 1.33));
 }
 
-
-void SceneGameLVSR::CreateActiveSpawn()
+void SceneGameLVSR::ChoiceTower()
 {
-	for (size_t i = 0; i <= towers.size(); i++)
+	for (size_t i = 0; i < HUDManager::GetHudGameObjects().size(); i++)
 	{
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		if (HUDManager::GetHudGameObject(i)->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
-			std::cout << "c'est bon";
+			isChoice = false;
+			index = i;
+			break;
 		}
 	}
 }
 
+void SceneGameLVSR::ChoiceSpawn()
+{
+	for (size_t i = 0; i < spawns.size(); i++)
+	{
+		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		{
+			std::cout << index;
+			CreateTours::CreateTower(index, spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			isChoice = true;
+		}
+	}
+}
+
+
 void SceneGameLVSR::Create() 
 {
 	SceneGameAbstract::Create();
-	SceneGameLVSR::CreateSpawn();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
+
+	SceneGameLVSR::CreateSpawn();
+	SceneGameAbstract::CreateTower();
+	SceneGameAbstract::CreateRessource();
+
 	//GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f, 1, *AssetManager::GetAsset("EnemyA"));
 	GameObject* nexus = CreateNexusGameObject();
+
 
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
@@ -78,6 +101,7 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
+
 	if (round == 0) {
 		round++;
 		CreateRound round1;
@@ -113,6 +137,14 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		}
 	}
 	SceneGameAbstract::Update(_delta);
+	if(isChoice)
+	{
+		ChoiceTower();
+	}
+	else
+	{
+		ChoiceSpawn();
+	}
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {
