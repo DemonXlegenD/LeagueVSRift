@@ -66,6 +66,8 @@ void GameState::PreloadAssets() {
 	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus.png");
 	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/batiment_1.png");
 	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/batiment_2.png");
+	AssetManager::AddAsset("Victory", "../assets/Sprite_LOL/VictoryDefeat/Victory.png");
+	AssetManager::AddAsset("Defeat", "../assets/Sprite_LOL/VictoryDefeat/Victory.png");
 	//Bullet
 	for (size_t i = 0; i < 6; i++)
 	{

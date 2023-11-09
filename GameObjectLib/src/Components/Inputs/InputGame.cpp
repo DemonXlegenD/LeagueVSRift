@@ -6,7 +6,11 @@
 InputGame::InputGame() 
 {
 	sf::Vector2i lastMousePosition = sf::Mouse::getPosition();
-	this->KeyEscape_ = new PauseCommand();
+	this->ActionKeyEscape_ = new PauseCommand();
+	this->ActionArrowRight_ = new RightCommand();
+	this->ActionArrowLeft_ = new LeftCommand();
+	this->ActionArrowUp_ = new UpCommand();
+	this->ActionArrowDown_ = new DownCommand();
 }
 void InputGame::Update(sf::Time _delta)
 {
@@ -16,11 +20,15 @@ void InputGame::Update(sf::Time _delta)
 	{
 		pauseInput->Execute(_delta);
 	} 
-
-	Command* wheelScroll = this->WheelMouseInput();
-	if (wheelScroll)
+	Command* horizontalInput = this->ArrowHorizontalInput();
+	if (horizontalInput)
 	{
-		wheelScroll->Execute(_delta);
+		horizontalInput->Execute(_delta);
+	}
+	Command* verticalInput = this->ArrowVerticalInput();
+	if (verticalInput)
+	{
+		verticalInput->Execute(_delta);
 	}
 }
 
@@ -28,7 +36,7 @@ Command* InputGame::PauseInput()
 {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) && !isKeyEscapeAlreadyPressed) {
 		isKeyEscapeAlreadyPressed = true;
-		return KeyEscape_;
+		return ActionKeyEscape_;
 	}
 	if (!sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
 		isKeyEscapeAlreadyPressed = false;
@@ -37,30 +45,30 @@ Command* InputGame::PauseInput()
 
 }
 
-Command* InputGame::WheelMouseInput()
+
+Command* InputGame::ArrowHorizontalInput()
 {
-	sf::Event event = EventManager::GetEvent();
-
-	while (WindowManager::GetWindow()->pollEvent(event)) {
-
-		// Gérer les événements de la molette de la souris
-		/*if (event.type == sf::Event::MouseWheelScrolled) {
-			std::cout << "BIM BAM BOUM";
-			if (event.mouseWheelScroll.delta > 0) {
-				WheelMouseScroll_ = new DezoomCommand();
-				return WheelMouseScroll_;
-			}
-			else if (event.mouseWheelScroll.delta < 0) {
-				WheelMouseScroll_ = new ZoomCommand();
-				return WheelMouseScroll_;
-			}
-		}*/
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+		return ActionArrowRight_;
 	}
-
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+		return ActionArrowLeft_;
+	}
 	return nullptr;
 
 }
 
 
+Command* InputGame::ArrowVerticalInput()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+		return ActionArrowUp_;
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+		return ActionArrowDown_;
+	}
+	return nullptr;
+
+}
 
 

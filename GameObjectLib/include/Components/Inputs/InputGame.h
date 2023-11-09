@@ -10,13 +10,16 @@ public:
 	InputGame();
 	void Update(sf::Time _delta) override;
 	Command* PauseInput();
-	Command* WheelMouseInput();
+	Command* ArrowHorizontalInput();
+	Command* ArrowVerticalInput();
 
 private:
-	Command* KeyEscape_;
+	Command* ActionKeyEscape_;
 	bool isKeyEscapeAlreadyPressed = true;
-
-	Command* WheelMouseScroll_;
+	Command* ActionArrowRight_;
+	Command* ActionArrowLeft_;
+	Command* ActionArrowUp_;
+	Command* ActionArrowDown_;
 	sf::Vector2i lastMousePosition;
 };
 
