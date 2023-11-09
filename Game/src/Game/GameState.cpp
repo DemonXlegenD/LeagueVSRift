@@ -1,7 +1,11 @@
 #include "Game/GameState.h"
 #include "SceneManager.h"
-#include "AudioManager.h"
+//#include "AudioManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
+#include "CameraManager.h"
+#include "HUDManager.h"
+#include "EventManager.h"
 #include "SceneMainMenu.h"
 #include "SceneSuccessMenu.h"
 #include "SceneCreditsMenu.h"
@@ -11,12 +15,14 @@
 GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 	this->window = _window;
 	this->FPS = _FPS;
-	SceneManager::SetFps(this->FPS);
+	WindowManager::SetFps(this->FPS);
+	CameraManager::SetWindow(this->window);
+	EventManager::SetEvent(this->event);
 }
 
 
 void GameState::Preload() {
-	
+	HUDManager::Preload();
 	this->PreloadScenes();
 	this->PreloadAudio();
 	this->PreloadAssets();
@@ -68,6 +74,14 @@ void GameState::PreloadAssets() {
 	{
 		AssetManager::AddAsset("credits" + std::to_string(i), "../assets/Sprite_LOL/Credits/credits_" + std::to_string(i) + ".png");
 	}
+	AssetManager::AddAsset("EnemyA", "../assets/Sprite_LOL/Sbires/minion_melee.png");
+	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus_lvl_1.png");
+	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/tour_lvl_1.png");
+	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/tour_lvl_2.png");
+	AssetManager::AddAsset("Varus", "../assets/Sprite_LOL/Champions/varus.png");
+	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Batiments/lulu.png");
+	AssetManager::AddAsset("Malphinte", "../assets/Sprite_LOL/Batiments/malphite.png");
+	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Batiments/Xin_Zhao.png");
 }
 
 void GameState::PreloadAudio() {
@@ -76,18 +90,10 @@ void GameState::PreloadAudio() {
 
 
 void GameState::Update() {
-	while (window->pollEvent(event))
-	{
-		if (event.type == sf::Event::Closed) window->close();
-		if (event.type == sf::Event::KeyPressed)
-		{
-			if (event.key.code == sf::Keyboard::LAlt) if (event.key.code == sf::Keyboard::F4) window->close();
-		}
-	}
-	// Mesurer le temps écoulé depuis le dernier frame
+	
 	sf::Time delta = this->clock.restart();
 
-	// limiter à un nombre fixe de FPS
+	// limiter Ã  un nombre fixe de FPS
 	sf::Time frameTime = sf::seconds(1.0f / FPS);
 	//Delta time for the update
 	if (delta < frameTime)
@@ -96,6 +102,7 @@ void GameState::Update() {
 		delta = frameTime;
 	}
 
+	EventManager::Update(delta);
 	SceneManager::GetActiveScene()->Update(delta);
 
 	this->window->clear(sf::Color::Black);

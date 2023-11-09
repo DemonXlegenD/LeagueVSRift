@@ -2,15 +2,23 @@
 
 #include "SceneManager.h"
 #include "AssetManager.h"
+#include "WindowManager.h"
 
 #include "Components/Button.h"
+#include "Components/Carre.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
+#include "Components/Ressource.h"
 #include "Components/Entities/Enemies/Grunt.h"
 #include "Components/Entities/Enemies/Turret.h"
 #include "Components/FireBullet.h"
 #include "Components/HealthPointBar.h"
 #include "Components/Inputs/InputPlayer.h"
+#include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Entities/Enemies/EnemyB.h"
+#include "Components/Entities/Enemies/EnemyC.h"
+#include "Components/Entities/Towers/Nexus.h"
+
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
 	this->Awake();
@@ -35,10 +43,10 @@ void SceneGameAbstract::Delete() {
 
 
 void SceneGameAbstract::CreatePauseMenuButtons() {
-	pausePlayButton = CreateButtonGameObject("Continue", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 4.0, 50);
-	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2.5, 50);
-	pauseOptionsButton = CreateButtonGameObject("Options", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 1.8, 50);
-	pauseQuitButton = CreateButtonGameObject("Quit", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 1.4, 50);
+	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
+	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
+	pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
+	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
 
@@ -47,9 +55,23 @@ void SceneGameAbstract::Awake() {
 }
 
 void SceneGameAbstract::CreatePlayer() {
-	player = this->CreateCharacterGameObject("Player", SceneManager::GetWindowWidth() / 2, 50.f, *AssetManager::GetAsset("Player0"), 2.5f, 2.5f);
 }
 
+void SceneGameAbstract::CreateTower()
+{
+	varus = this->CreateBatimantGameObject("varus", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	lulu = this->CreateBatimantGameObject("lulu", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	malphite = this->CreateBatimantGameObject("malphite", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	xinZhao = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
+	xinZhao = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
+};
+
+void SceneGameAbstract::CreateRessource()
+{
+	ressource = this->CreatePlayerRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
+};
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 	enemies.erase(std::remove_if(enemies.begin(), enemies.end(),
@@ -57,6 +79,14 @@ void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
 			return obj == _enemyToRemove;
 		}), enemies.end());
 }
+
+void SceneGameAbstract::RemoveTower(GameObject* _towerToRemove) {
+	towers.erase(std::remove_if(towers.begin(), towers.end(),
+		[_towerToRemove](GameObject* obj) {
+			return obj == _towerToRemove;
+		}), enemies.end());
+}
+
 
 
 void SceneGameAbstract::ManageSceneGameButtonsPause(bool _state) {
@@ -95,7 +125,7 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 			std::cout << "Options" << std::endl;
 		}
 		else if (pauseQuitButton->GetComponent<Button>()->IsClicked()) {
-			SceneManager::GetWindow()->close();
+			WindowManager::GetWindow()->close();
 		}
 	}
 }
@@ -111,7 +141,7 @@ void SceneGameAbstract::CreateBackground()
 	{
 		std::cout << "pas d'image" << std::endl;
 	}
-	GameObject* background1 = CreateBackgroundGameObject("Background1", SceneManager::GetWindowWidth() / 2, SceneManager::GetWindowHeight() / 2, backgroundTexture1);
+	GameObject* background1 = CreateBackgroundGameObject("Background1", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, backgroundTexture1);
 };
 
 void SceneGameAbstract::Render(sf::RenderWindow* _window) {
@@ -119,13 +149,11 @@ void SceneGameAbstract::Render(sf::RenderWindow* _window) {
 }
 
 
-GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley)
+GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley)
 {
 	GameObject* gameObject = CreateGameObject(name);
-	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
 
-
-	Player* player = gameObject->CreateComponent<Player>();
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -138,17 +166,66 @@ GameObject* SceneGameAbstract::CreateCharacterGameObject(const std::string& name
 
 	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
 
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	
+
+	return gameObject;
+}
+GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	Ressource* gold = gameObject->CreateComponent<Ressource>();
+	gold->SetRessource(prixGold);
+	Ressource* mana = gameObject->CreateComponent<Ressource>();
+	mana->SetRessource(prixGold);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
+
+	/*HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
 	healthPointBar->SetHealthPoint(player->GetHealthPoint());
 	healthPointBar->SetMaxHealthPoint(player->GetMaxHealthPoint());
 	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
 	healthPointBar->SetSize(sprite->GetBounds().x, 5);
 	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
+	healthPointBar->SetHealthPointBar();*/
 
 	return gameObject;
 }
+GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
+	Ressource* ressource1 = gameObject->CreateComponent<Ressource>();
+	ressource1->SetRessource(ressourceGold);
+	Ressource* ressource2 = gameObject->CreateComponent<Ressource>();
+	ressource2->SetRessource(ressourceGold);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	InputPlayer* inputPlayer = gameObject->CreateComponent<InputPlayer>();
+
+
+	return gameObject;
+
+}
 //ENEMY
 GameObject* SceneGameAbstract::CreateGruntGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
 {
@@ -198,6 +275,21 @@ GameObject* SceneGameAbstract::CreateTurretGameObject(const std::string& name, f
 
 }
 
+GameObject* SceneGameAbstract::CreateCarreGameObject(const std::string& name, float x, float y)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(x, y));
+	gameObject->SetActive(true);
+
+	Carre* carre = gameObject->CreateComponent<Carre>();
+	carre->SetPosition(x, y);
+	carre->SetSize(100, 100);
+	carre->SetOrigin();
+	carre->SetCarre();
+
+	return gameObject;
+};
+
 GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, const sf::Texture textureBullet, float scalex, float scaley, GameObject* _player)
 {
 	GameObject* gameObject = CreateGameObject(name);
@@ -218,3 +310,121 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 	return gameObject;
 
 }
+
+GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyA* enemy = gameObject->CreateComponent<EnemyA>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
+	enemies.push_back(gameObject);
+
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
+	enemies.push_back(gameObject);
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyC* enemy = gameObject->CreateComponent<EnemyC>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
+
+	enemies.push_back(gameObject);
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateNexusGameObject()
+{
+	GameObject* gameObject = CreateGameObject("nexus");
+	gameObject->SetPosition(Maths::Vector2f(482.f, 838.f));
+
+	Nexus* nexus = gameObject->CreateComponent<Nexus>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(*AssetManager::GetAsset("Nexus"));
+	sprite->SetScale(1.f, 1.f);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(1.f, 1.f);
+
+	this->nexus = gameObject;
+
+	return gameObject;
+
+}
+
+

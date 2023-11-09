@@ -1,4 +1,4 @@
-ENH: Création d'un Scene Game 
+ENH: Affichage du HUD
 
-- Création d'un Scene Game 
+- Affichage du HUD
 
