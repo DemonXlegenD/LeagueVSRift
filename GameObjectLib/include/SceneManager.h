@@ -27,6 +27,7 @@ public:
 	//Get the current scene
 	static Scene* GetActiveScene() { return activeScene; }
 	static SceneGameAbstract* GetActiveGameScene() { return static_cast<SceneGameAbstract*>(activeScene); }
+	static Scene* GetSceneByKey(std::string _key) { return scenes.at(_key); }
 
 	~SceneManager();
 
