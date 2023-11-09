@@ -311,12 +311,13 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 
 }
 
-GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyA* enemy = gameObject->CreateComponent<EnemyA>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
@@ -338,17 +339,16 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 
 	enemies.push_back(gameObject);
 
-
 	return gameObject;
-
 }
 
-GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
@@ -374,12 +374,13 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 
 }
 
-GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyC* enemy = gameObject->CreateComponent<EnemyC>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
