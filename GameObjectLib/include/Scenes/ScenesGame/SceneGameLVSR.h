@@ -11,7 +11,8 @@ public:
 	void Awake() override;
 
 	void CreateSpawn();
-	void CreateActiveSpawn();
+	void ChoiceTower();
+	void ChoiceSpawn();
 	void Create() override;
 	void Delete() override;
 	void Update(sf::Time _delta) override;
@@ -19,4 +20,6 @@ public:
 	float scale;
 private:
 	std::vector<GameObject*> spawns;
+	bool isChoice = true;
+	int index = 0;
 };

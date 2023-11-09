@@ -40,52 +40,34 @@ void SceneGameLVSR::CreateSpawn() {
 	spawns.push_back(CreateCarreGameObject("Spawn13", WindowManager::GetWindowWidth() / 1.45, WindowManager::GetWindowHeight() / 1.33));
 }
 
-
-void SceneGameLVSR::CreateActiveSpawn()
+void SceneGameLVSR::ChoiceTower()
 {
-	for (size_t i = 0; i <= towers.size(); i++)
+	for (size_t i = 0; i < HUDManager::GetHudGameObjects().size(); i++)
 	{
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() && 
-			GetGameObject("Tour1")->GetComponent<Button>()->IsClicked() && GetIsActive())
+		if (HUDManager::GetHudGameObject(i)->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
 			std::cout << "c'est bon";
-			CreateTours::CreateJin(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
+			isChoice = false;
+			index = i;
+			break;
 
-		}
-
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
-			GetGameObject("Tour2")->GetComponent<Button>()->IsClicked() && GetIsActive())
-		{
-			std::cout << "c'est bon";
-			CreateTours::CreateLulu(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
-
-		}
-
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
-			GetGameObject("Tour3")->GetComponent<Button>()->IsClicked() && GetIsActive())
-		{
-			std::cout << "c'est bon";
-			CreateTours::CreateMalphite(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
-
-		}
-
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
-			GetGameObject("Tour4")->GetComponent<Button>()->IsClicked() && GetIsActive())
-		{
-			std::cout << "c'est bon";
-			CreateTours::CreateXinZhao(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
-
-		}
-
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive() &&
-			GetGameObject("Tour4")->GetComponent<Button>()->IsClicked() && GetIsActive())
-		{
-			std::cout << "c'est bon";
-			CreateTours::CreateBat2(GetGameObject("Spawn" + std::to_string(i))->GetPosition().x, GetGameObject("Spawn" + std::to_string(i))->GetPosition().y);
 
 		}
 	}
 }
+
+void SceneGameLVSR::ChoiceSpawn()
+{
+	for (size_t i = 0; i < spawns.size(); i++)
+	{
+		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		{
+			std::cout << "carre";
+			CreateTours::CreateTower(index, spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+		}
+	}
+}
+
 
 void SceneGameLVSR::Create() 
 {
@@ -109,8 +91,14 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	/*EnemyA enemya;
 	enemya.Check();*/
 	SceneGameAbstract::Update(_delta);
-
-	CreateActiveSpawn();
+	if(isChoice)
+	{
+		ChoiceTower();
+	}
+	else
+	{
+		ChoiceSpawn();
+	}
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {

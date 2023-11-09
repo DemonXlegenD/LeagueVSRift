@@ -1,5 +1,33 @@
 #include "Create/CreateTours.h"
 
+std::vector<GameObject*> CreateTours::tower;
+sf::Texture* CreateTours::texture;
+
+void CreateTours::CreateTower(int _index, float _poisitionX, float _positionY)
+{
+	switch (_index) {
+	case 0:
+		CreateJin(_poisitionX, _positionY);
+		break;
+	case 1:
+		CreateLulu(_poisitionX, _positionY);
+		break;
+	case 2:
+		CreateMalphite(_poisitionX, _positionY);
+		break;
+	case 3:
+		CreateXinZhao(_poisitionX, _positionY);
+		break;
+	case 4:
+		CreateBat2(_poisitionX, _positionY);
+		break;
+	case 5:
+		CreateBat3(_poisitionX, _positionY);
+		break;
+	default:
+		break;
+	}
+}
 
 void CreateTours::CreateJin(float _poisitionX, float _positionY) 
 {
@@ -53,7 +81,7 @@ void CreateTours::CreateXinZhao(float _poisitionX, float _positionY)
 void CreateTours::CreateBat2(float _poisitionX, float _positionY)
 {
 	texture = new sf::Texture();
-	if (!texture->loadFromFile("../assets/Sprite_LOL/Batiments/tour_lvl_1")) {
+	if (!texture->loadFromFile("../assets/Sprite_LOL/Batiments/tour_lvl_1.png")) {
 		std::cout << "pas d'image" << std::endl;
 	}
 	if (SceneManager::GetActiveGameScene()->GetGameObject("Bat2")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Gold")->GetComponent<Ressource>()->GetRessource() &&
@@ -66,7 +94,7 @@ void CreateTours::CreateBat2(float _poisitionX, float _positionY)
 void CreateTours::CreateBat3(float _poisitionX, float _positionY)
 {
 	texture = new sf::Texture();
-	if (!texture->loadFromFile("../assets/Sprite_LOL/Batiments/tour_lvl_2")) {
+	if (!texture->loadFromFile("../assets/Sprite_LOL/Batiments/tour_lvl_2.png")) {
 		std::cout << "pas d'image" << std::endl;
 	}
 	if (SceneManager::GetActiveGameScene()->GetGameObject("Bat3")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Gold")->GetComponent<Ressource>()->GetRessource() &&
