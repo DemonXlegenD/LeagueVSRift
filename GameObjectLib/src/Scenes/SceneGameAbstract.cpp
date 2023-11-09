@@ -17,6 +17,8 @@
 #include "Components/Entities/Enemies/EnemyA.h"
 #include "Components/Entities/Enemies/EnemyB.h"
 #include "Components/Entities/Enemies/EnemyC.h"
+#include "Components/Entities/Towers/Nexus.h"
+
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
 	this->Awake();
@@ -57,7 +59,7 @@ void SceneGameAbstract::CreatePlayer() {
 
 void SceneGameAbstract::CreateTower()
 {
-	jiin = this->CreateBatimantGameObject("Jin", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
+	varus = this->CreateBatimantGameObject("varus", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
 	lulu = this->CreateBatimantGameObject("lulu", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
 	malphite = this->CreateBatimantGameObject("malphite", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
 	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
@@ -334,6 +336,8 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	healthPointBar->SetScale(scalex, scaley);
 	healthPointBar->SetHealthPointBar();
 
+	enemies.push_back(gameObject);
+
 
 	return gameObject;
 
@@ -364,6 +368,7 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	healthPointBar->SetScale(scalex, scaley);
 	healthPointBar->SetHealthPointBar();
 
+	enemies.push_back(gameObject);
 
 	return gameObject;
 
@@ -394,7 +399,32 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	healthPointBar->SetScale(scalex, scaley);
 	healthPointBar->SetHealthPointBar();
 
+	enemies.push_back(gameObject);
 
 	return gameObject;
 
 }
+
+GameObject* SceneGameAbstract::CreateNexusGameObject()
+{
+	GameObject* gameObject = CreateGameObject("nexus");
+	gameObject->SetPosition(Maths::Vector2f(482.f, 838.f));
+
+	Nexus* nexus = gameObject->CreateComponent<Nexus>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(*AssetManager::GetAsset("Nexus"));
+	sprite->SetScale(1.f, 1.f);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(1.f, 1.f);
+
+	this->nexus = gameObject;
+
+	return gameObject;
+
+}
+
+
