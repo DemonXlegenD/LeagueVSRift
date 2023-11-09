@@ -82,6 +82,9 @@ void GameState::PreloadAssets() {
 	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Batiments/lulu.png");
 	AssetManager::AddAsset("Malphinte", "../assets/Sprite_LOL/Batiments/malphite.png");
 	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Batiments/Xin_Zhao.png");
+	AssetManager::AddAsset("Defeat", "../assets/Sprite_LOL/VictoryDefeat/Defeat.png");
+	AssetManager::AddAsset("Victory", "../assets/Sprite_LOL/VictoryDefeat/Victory.png");
+
 }
 
 void GameState::PreloadAudio() {

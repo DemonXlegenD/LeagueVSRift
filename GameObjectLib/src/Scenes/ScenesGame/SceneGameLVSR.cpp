@@ -6,6 +6,7 @@
 #include "SceneManager.h"
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Entities/Towers/Nexus.h"
 #include "HUDManager.h"
 
 
@@ -69,13 +70,19 @@ void SceneGameLVSR::Delete()
 	SceneGameAbstract::Delete();
 }
 
+
+
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
 	EnemyA enemya;
 	enemya.Check();
 	SceneGameAbstract::Update(_delta);
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+		GameEnd(false, _delta);
+	}
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {
 	SceneGameAbstract::Render(_window);
 }
+

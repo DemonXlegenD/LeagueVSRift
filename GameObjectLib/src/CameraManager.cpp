@@ -1,5 +1,6 @@
 #include "CameraManager.h"
 #include <iostream>
+
 sf::RenderWindow* CameraManager::window;
 sf::View CameraManager::view;
 sf::Vector2i CameraManager::lastMousePos;
@@ -109,7 +110,32 @@ void CameraManager::Update(sf::Time _delta) {
 }
 
 void CameraManager::Move(float offsetX, float offsetY) {
-	CameraManager::view.move(offsetX, offsetY);
+	// Déplacez temporairement la vue pour calculer la nouvelle position
+	sf::View tempView = CameraManager::GetView();
+	// Récupérez les dimensions de la fenêtre
+	sf::Vector2u windowSize = CameraManager::window->getSize();
+	tempView.move(offsetX, offsetY);
+	// Vérifiez les limites pour empêcher la sortie de l'écran
+	if (view.getCenter().x - view.getSize().x / 2 < 0.0f)
+	{
+		tempView.setCenter(tempView.getSize().x / 2.0f, tempView.getCenter().y);
+	}
+	if (view.getCenter().y - view.getSize().y / 2 < 0.f)
+	{
+		tempView.setCenter(tempView.getCenter().x, tempView.getSize().y / 2.0f);
+	}
+	if (view.getCenter().x + view.getSize().x / 2 > windowSize.x)
+	{
+		tempView.setCenter(windowSize.x - tempView.getSize().x / 2.0f, tempView.getCenter().y);
+	}
+	if (view.getCenter().y + view.getSize().y / 2 > windowSize.y)
+	{
+		tempView.setCenter(tempView.getCenter().x, windowSize.y - tempView.getSize().y / 2.0f);
+	}
+
+	// Appliquez la vue temporaire à la caméra
+	CameraManager::view = tempView;
+	window->setView(CameraManager::GetView());
 }
 
 void CameraManager::SetCenter(float x, float y) {
@@ -135,8 +161,6 @@ void CameraManager::SetZoom(float _zoom) {
 	{
 		CameraManager::zoom *= _zoom;
 	}
-	std::cout << "X : " << CameraManager::view.getSize().x << std::endl;
-	std::cout << "Y : " << CameraManager::view.getSize().y << std::endl;
 	CameraManager::Zoom(CameraManager::zoom);
 
 }
