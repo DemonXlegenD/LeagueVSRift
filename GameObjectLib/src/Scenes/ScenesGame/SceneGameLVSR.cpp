@@ -1,19 +1,24 @@
 #include "Scenes/ScenesGame/SceneGameLVSR.h"
 #include "SceneManager.h"
 #include "AssetManager.h"
+#include "AudioManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
+#include "Round/CreateRound.h"
 #include "SceneManager.h"
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
 #include "Components/Entities/Towers/Nexus.h"
+#include "Components/Carre.h"
+#include "Components/Button.h"
+#include "Components/Ressource.h"
 #include "HUDManager.h"
 
-
-SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window){
-	scale = 1.f;
-	CameraManager::SetCenter(WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight()/2);
+SceneGameLVSR::SceneGameLVSR(sf::RenderWindow* _window) : SceneGameAbstract(_window) {
+	scale = 1.0f;
+	CameraManager::SetCenter(WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2);
 }
+
 SceneGameLVSR::~SceneGameLVSR(){}
 
 void SceneGameLVSR::Awake() 
@@ -38,31 +43,68 @@ void SceneGameLVSR::CreateSpawn() {
 	spawns.push_back(CreateCarreGameObject("Spawn13", WindowManager::GetWindowWidth() / 1.45, WindowManager::GetWindowHeight() / 1.33));
 }
 
-
-void SceneGameLVSR::CreateActiveSpawn()
+void SceneGameLVSR::ChoiceTower()
 {
-	for (size_t i = 0; i <= towers.size(); i++)
+	for (size_t i = 0; i < HUDManager::GetHudGameObjects().size(); i++)
 	{
-		if (GetGameObject("Spawn" + std::to_string(i))->GetComponent<Carre>()->IsClicked() && GetIsActive())
+		if (HUDManager::GetHudGameObject(i)->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
-			std::cout << "c'est bon";
+			isChoice = false;
+			index = i;
+			break;
 		}
+	}
+}
+
+void SceneGameLVSR::ChoiceSpawn()
+{
+	for (size_t i = 0; i < spawns.size(); i++)
+	{
+		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive() && spawns[i]->GetActive())
+		{
+			spawns[i]->SetActive(false);
+			CreateTower(gameTowers[index]->GetName(), spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			isChoice = true;
+		}
+	}
+}
+
+bool SceneGameLVSR::CanPlaceTower(std::string name) {
+	if (GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() &&
+		GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
+	{
+		return true;
+	}
+	return false;
+}
+
+void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _positionY)
+{
+	if (CanPlaceTower(towerName))
+	{
+		float scale = GetGameObject(towerName)->GetComponent<Sprite>()->GetSize().x > 200 ? 0.2f : 0.5f;
+		CreateBatimentGameObject(towerName, _positionX, _positionY, *AssetManager::GetAsset(towerName), scale, scale, 400.f, 30.f);
 	}
 }
 
 void SceneGameLVSR::Create() 
 {
 	SceneGameAbstract::Create();
-	SceneGameLVSR::CreateSpawn();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
-	GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f,*AssetManager::GetAsset("EnemyA"));
+
+	SceneGameLVSR::CreateSpawn();
+	SceneGameAbstract::CreateTower();
+	SceneGameAbstract::CreateRessource();
+
+	//GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f, 1, *AssetManager::GetAsset("EnemyA"));
 	GameObject* nexus = CreateNexusGameObject();
 
+
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
-		HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
 }
 
 void SceneGameLVSR::Delete() 
@@ -71,14 +113,58 @@ void SceneGameLVSR::Delete()
 }
 
 
+void SceneGameLVSR::TakeNexusDamage(int damage) {
+	nexus->GetComponent<Entity>()->SetHealthPoint(nexus->GetComponent<Entity>()->GetHealthPoint() - damage);
+	AudioManager::Play("nexus_under_attack");
+}
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-	EnemyA enemya;
-	enemya.Check();
+
+	if (round == 0) {
+		round++;
+		CreateRound round1;
+		round1.CreateRound1();
+		std::cout << "round started";
+	}
+
+	for (int i = 0; i < enemies.size(); i++) {
+		GameObject* enemy = enemies[i];
+		Entity* enemyComponent = enemy->GetComponent<Entity>();
+		Maths::Vector2i goal;
+		bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
+
+		if (isGoalNexus) {
+			goal = Maths::Vector2i(480, 840);
+		}
+		else {
+			goal = lanes[enemyComponent->GetLane()][enemyComponent->GetCurrPathPoint()];
+		}
+
+		float distance = (enemy->GetPosition() - Maths::Vector2f(goal.x, goal.y)).Magnitude();
+		enemyComponent->MoveToPoint(goal, enemyComponent->GetSpeed() / 10);
+
+		if (distance < 10) {
+			if (isGoalNexus) {
+				TakeNexusDamage(enemyComponent->GetHealthPoint());
+				std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
+				enemyComponent->Die();
+			}
+			else {
+				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
+			}
+		}
+	}
 	SceneGameAbstract::Update(_delta);
 	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
 		GameEnd(false, _delta);
+	if(isChoice)
+	{
+		ChoiceTower();
+	}
+	else
+	{
+		ChoiceSpawn();
 	}
 }
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 

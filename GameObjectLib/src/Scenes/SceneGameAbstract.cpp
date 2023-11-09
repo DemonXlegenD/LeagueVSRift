@@ -62,18 +62,20 @@ void SceneGameAbstract::CreatePlayer() {
 
 void SceneGameAbstract::CreateTower()
 {
-	varus = this->CreateBatimantGameObject("varus", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	lulu = this->CreateBatimantGameObject("lulu", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	malphite = this->CreateBatimantGameObject("malphite", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	xinZhao = this->CreateBatimantGameObject("XinZhao", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 30.f);
-	xinZhao = this->CreateBatimantGameObject("Bat2", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 0.f);
-	xinZhao = this->CreateBatimantGameObject("Bat3", 0.f, 0.f, *texture, 2.5f, 2.5f,300.f, 5.f);
+	gameTowers.push_back(CreateBatimentGameObject("Varus", 0.f, 0.f, *AssetManager::GetAsset("Varus"), 0.5f, 0.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 0.5f, 0.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f, 300.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Bat1", 0.f, 0.f, *AssetManager::GetAsset("Bat1"), 2.5f, 2.5f,300.f, 0.f));
+	gameTowers.push_back(CreateBatimentGameObject("Bat2", 0.f, 0.f, *AssetManager::GetAsset("Bat2"), 2.5f, 2.5f,300.f, 5.f));
+	for (int i = 0; i < gameTowers.size(); i++) {
+		gameTowers[i]->SetActive(false);
+	}
 };
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreatePlayerRessourceGameObject("Gold", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
-	ressource = this->CreatePlayerRessourceGameObject("Mana", 0.f, 0.f, *texture, 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Ressources", 0.f, 0.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 300.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -185,15 +187,14 @@ GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, fl
 
 	return gameObject;
 }
-GameObject* SceneGameAbstract::CreateBatimantGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
+GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float prixGold, float prixMana)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	Ressource* gold = gameObject->CreateComponent<Ressource>();
-	gold->SetRessource(prixGold);
-	Ressource* mana = gameObject->CreateComponent<Ressource>();
-	mana->SetRessource(prixGold);
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetGold(prixGold);
+	ressource->SetMana(prixMana);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -219,10 +220,9 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	Ressource* ressource1 = gameObject->CreateComponent<Ressource>();
-	ressource1->SetRessource(ressourceGold);
-	Ressource* ressource2 = gameObject->CreateComponent<Ressource>();
-	ressource2->SetRessource(ressourceGold);
+	Ressource* ressource = gameObject->CreateComponent<Ressource>();
+	ressource->SetGold(ressourceGold);
+	ressource->SetMana(ressourceMana);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -232,6 +232,35 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
+
+	return gameObject;
+
+}
+//ENEMY
+GameObject* SceneGameAbstract::CreateGruntGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	Grunt* enemy = gameObject->CreateComponent<Grunt>();
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetPosition(_x, _y);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(scalex, scaley);
+	healthPointBar->SetHealthPointBar();
 
 
 	return gameObject;
@@ -292,12 +321,13 @@ GameObject* SceneGameAbstract::CreateBulletGameObject(const std::string& name, c
 
 }
 
-GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyA* enemy = gameObject->CreateComponent<EnemyA>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
@@ -319,17 +349,16 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 
 	enemies.push_back(gameObject);
 
-
 	return gameObject;
-
 }
 
-GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
@@ -355,12 +384,13 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 
 }
 
-GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
+GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
 	EnemyC* enemy = gameObject->CreateComponent<EnemyC>();
+	enemy->SetLane(lane);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);

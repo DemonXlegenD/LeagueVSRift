@@ -11,6 +11,8 @@ public:
 	static void AddGameObjectHud(GameObject* _gameObject) { hudGameObjects.push_back(_gameObject); }
 	static void Preload();
 	static sf::Vector2f GetSquareCenter(std::string _key) { return centerSquare.at(_key); }
+	static GameObject* GetHudGameObject(int _index) { return hudGameObjects[_index]; }
+	static std::vector<GameObject* > GetHudGameObjects() { return hudGameObjects; }
 
 private:
 	static sf::View hudView;

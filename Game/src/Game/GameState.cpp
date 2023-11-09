@@ -44,6 +44,9 @@ void GameState::PreloadScenes() {
 void GameState::PreloadAssets() {
 	//Map
 	AssetManager::AddAsset("mapLol", "../assets/Sprite_LOL/Map/map.jpg");
+
+	AssetManager::AddAsset("Gold", "../assets/Sprite_LOL/Ressources/gold.png");
+
 	//BackGrund
 	AssetManager::AddAsset("backgroundMenu", "../assets/Sprite_LOL/Background/background_lol.png");
 	AssetManager::AddAsset("backgroundOtherMenu", "../assets/Sprite_LOL/Background/background2_lol.png");
@@ -51,19 +54,18 @@ void GameState::PreloadAssets() {
 	AssetManager::AddAsset("bossErald", "../assets/Sprite_LOL/Boss/erald.png");
 	AssetManager::AddAsset("bossVeigar", "../assets/Sprite_LOL/Boss/veigar.png");
 	//Champions
-	AssetManager::AddAsset("championsJin", "../assets/Sprite_LOL/Champions/jin.png");
-	AssetManager::AddAsset("championsLulu", "../assets/Sprite_LOL/Champions/lulu.png");
-	AssetManager::AddAsset("championsMalphite", "../assets/Sprite_LOL/Champions/malphite.png");
-	AssetManager::AddAsset("championsXinZhao", "../assets/Sprite_LOL/Champions/xinZhao.png");
+	AssetManager::AddAsset("Varus", "../assets/Sprite_LOL/Champions/varus.png");
+	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Champions/lulu.png");
+	AssetManager::AddAsset("Malphite", "../assets/Sprite_LOL/Champions/malphite.png");
+	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Champions/xinZhao.png");
 	//Minions
 	AssetManager::AddAsset("minionMage", "../assets/Sprite_LOL/Minions/minion_mage.png");
 	AssetManager::AddAsset("minionMelee", "../assets/Sprite_LOL/Minions/minion_melee.png");
 	AssetManager::AddAsset("minionSiege", "../assets/Sprite_LOL/Minions/minion_siege.png");
 	//Batiments
-	for (size_t i = 0; i < 3; i++)
-	{
-		AssetManager::AddAsset("batiments" + std::to_string(i), "../assets/Sprite_LOL/Batiments/batiments_" + std::to_string(i) + ".png");
-	}
+	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus.png");
+	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/batiment_1.png");
+	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/batiment_2.png");
 	//Bullet
 	for (size_t i = 0; i < 6; i++)
 	{
@@ -74,17 +76,6 @@ void GameState::PreloadAssets() {
 	{
 		AssetManager::AddAsset("credits" + std::to_string(i), "../assets/Sprite_LOL/Credits/credits_" + std::to_string(i) + ".png");
 	}
-	AssetManager::AddAsset("EnemyA", "../assets/Sprite_LOL/Sbires/minion_melee.png");
-	AssetManager::AddAsset("Nexus", "../assets/Sprite_LOL/Batiments/nexus_lvl_1.png");
-	AssetManager::AddAsset("Bat1", "../assets/Sprite_LOL/Batiments/tour_lvl_1.png");
-	AssetManager::AddAsset("Bat2", "../assets/Sprite_LOL/Batiments/tour_lvl_2.png");
-	AssetManager::AddAsset("Varus", "../assets/Sprite_LOL/Champions/varus.png");
-	AssetManager::AddAsset("Lulu", "../assets/Sprite_LOL/Batiments/lulu.png");
-	AssetManager::AddAsset("Malphinte", "../assets/Sprite_LOL/Batiments/malphite.png");
-	AssetManager::AddAsset("XinZhao", "../assets/Sprite_LOL/Batiments/Xin_Zhao.png");
-	AssetManager::AddAsset("Defeat", "../assets/Sprite_LOL/VictoryDefeat/Defeat.png");
-	AssetManager::AddAsset("Victory", "../assets/Sprite_LOL/VictoryDefeat/Victory.png");
-
 }
 
 void GameState::PreloadAudio() {
