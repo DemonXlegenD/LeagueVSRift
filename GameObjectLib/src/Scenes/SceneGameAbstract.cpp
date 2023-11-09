@@ -247,6 +247,7 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	sprite->SetTexture(texture);
 	sprite->SetScale(scalex, scaley);
 	sprite->SetSprite();
+	sprite->SetHud(true);
 
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);

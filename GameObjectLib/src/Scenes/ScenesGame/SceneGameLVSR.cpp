@@ -158,18 +158,6 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	if (enemies.size() == 0 && round < 20) {
 		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
 	}
-	
-	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
-		GameEnd(false, _delta);
-		if (isChoice)
-		{
-			ChoiceTower();
-		}
-		else
-		{
-			ChoiceSpawn();
-		}
-	}
 	if (round == 0) {
 		round++;
 		AudioManager::Play("round_start");
@@ -228,6 +216,17 @@ void SceneGameLVSR::Update(sf::Time _delta)
 				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
 			}
 		}
+	}
+	if (isChoice)
+	{
+		ChoiceTower();
+	}
+	else
+	{
+		ChoiceSpawn();
+	}
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+		GameEnd(false, _delta);
 	}
 }
 

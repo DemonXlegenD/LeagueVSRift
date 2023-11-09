@@ -1,4 +1,6 @@
 #include "Components/Ressource.h"
+#include "HUDManager.h"
+#include "CameraManager.h"
 #include <iostream>
 
 void Ressource::Update(sf::Time _delta)
@@ -33,7 +35,10 @@ void Ressource::Render(sf::RenderWindow* _window)
 	manaText.setString(std::to_string(GetMana()));
 	goldText.setPosition(150.0f, 50.0f);
 	manaText.setPosition(300.0f, 50.0f);
+
+	_window->setView(HUDManager::GetHud());
 	_window->draw(goldText);
 	_window->draw(manaText);
+	_window->setView(CameraManager::GetView());
 }
 

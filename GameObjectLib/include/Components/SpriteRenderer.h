@@ -23,6 +23,7 @@ public:
 	void GruntPlayAnimation();
 	void GruntPlayAnimationRun();
 	
+	void SetHud(bool _state) { inHud = _state; }
 	float GetTop() { return sprite.getLocalBounds().top * scaley; }
 	float GetBottom() { return (sprite.getLocalBounds().top + sprite.getLocalBounds().height) * scaley; }
 	float GetLeft() { return sprite.getLocalBounds().left * scalex; }
@@ -44,5 +45,5 @@ private:
 	int currentFrame;
 	float frameDuration;
 	sf::Clock animationClock;
-
+	bool inHud = false;
 };

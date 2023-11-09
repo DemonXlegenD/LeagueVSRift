@@ -2,6 +2,8 @@
 #include "SFML/Graphics/Texture.hpp"
 #include "SFML/Graphics/Sprite.hpp"
 #include "AssetManager.h"
+#include "HUDManager.h"
+#include "CameraManager.h"
 
 Sprite::Sprite()
 {
@@ -15,7 +17,7 @@ Sprite::Sprite()
 	frameDuration = 0.2f;
 	animationClock.restart();
 	LoadPlayAnimation();
-	LoadPlayAnimationGrunt();                                        
+	LoadPlayAnimationGrunt();
 
 }
 sf::Vector2f Sprite::GetBounds()
@@ -94,5 +96,14 @@ void Sprite::Render(sf::RenderWindow* _window)
 {
 	Component::Render(_window);
 	this->SetSprite();
-	_window->draw(sprite);
+
+	if (inHud) {
+		_window->setView(HUDManager::GetHud());
+		_window->draw(sprite);
+		_window->setView(CameraManager::GetView());
+	}
+	else {
+		_window->draw(sprite);
+	}
+
 }
