@@ -2,6 +2,7 @@
 #include "WindowManager.h"
 #include "CameraManager.h"
 
+
 Carre::Carre() {
 	this->clicked = false;
 	this->height = 0;

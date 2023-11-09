@@ -4,13 +4,13 @@ class Entity : public Component
 {
 public:
     Entity();
-    Entity(int _hp, int _damage, float _speed,float _attackspeed, float _range);
+    Entity(int _hp, int _damage, int _lane, float _speed , float _attackSpeed, float _range);
 
     int GetHealthPoint() const { return healthPoint; }
     int GetMaxHealthPoint() const { return maxHealthPoint; }
     int GetDamage() const { return damage; }
     float GetSpeed() const { return speed; }
-    float GetAttackSpeed() const { return attackspeed; }
+    float GetAttackSpeed() const { return attackSpeed; }
     float GetRange() const { return range; }
 
     void SetHealthPoint(const int _hp)  { healthPoint = _hp;}
@@ -29,8 +29,9 @@ protected:
     int healthPoint;
     int maxHealthPoint;
     int damage;
+    int lane;
     float speed;
-    float attackspeed;
+    float attackSpeed;
     float range;
 
 
