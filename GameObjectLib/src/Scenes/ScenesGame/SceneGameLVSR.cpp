@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
+#include "Components/Entities/Towers/Nexus.h"
 #include "Components/Carre.h"
 #include "Components/Spawn.h"
 #include "Components/Button.h"
@@ -120,7 +121,6 @@ void SceneGameLVSR::Create()
 	//GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f, 1, *AssetManager::GetAsset("EnemyA"));
 	GameObject* nexus = CreateNexusGameObject();
 
-
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
@@ -132,6 +132,7 @@ void SceneGameLVSR::Delete()
 {
 	SceneGameAbstract::Delete();
 }
+
 
 void SceneGameLVSR::TakeNexusDamage(int damage) {
 	nexus->GetComponent<Entity>()->SetHealthPoint(nexus->GetComponent<Entity>()->GetHealthPoint() - damage);
@@ -152,8 +153,23 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		std::cout << "Mana: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() << std::endl;
 	}
 
+
 	if (enemies.size() == 0 && round < 20) {
 		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
+
+	SceneGameAbstract::Update(_delta);
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+		GameEnd(false, _delta);
+		if (isChoice)
+		{
+			ChoiceTower();
+		}
+		else
+		{
+			ChoiceSpawn();
+		}
+	}
+	if (round == 0) {
 		round++;
 		AudioManager::Play("round_start");
 		CreateRound round1;
@@ -186,6 +202,7 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	for (size_t i = 0; i < enemies.size(); i++) {
 		GameObject* enemy = enemies[i];
 		Entity* enemyComponent = enemy->GetComponent<Entity>();
+		
 		Maths::Vector2i goal;
 		bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
 
@@ -204,23 +221,17 @@ void SceneGameLVSR::Update(sf::Time _delta)
 				TakeNexusDamage(enemyComponent->GetHealthPoint());
 				std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
 				enemyComponent->Die();
+				ressource->GetComponent<Ressource>()->AddGold(100.0f);
 			}
 			else {
 				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
 			}
 		}
 	}
-	SceneGameAbstract::Update(_delta);
-	if(isChoice)
-	{
-		ChoiceTower();
-	}
-	else
-	{
-		ChoiceSpawn();
-	}
 }
+
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {
 	SceneGameAbstract::Render(_window);
 }
+
