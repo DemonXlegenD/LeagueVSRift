@@ -6,6 +6,7 @@
 
 #include "Components/Button.h"
 #include "Components/Carre.h"
+#include "Components/Spawn.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/Ressource.h"
@@ -15,6 +16,12 @@
 #include "Components/Entities/Enemies/EnemyB.h"
 #include "Components/Entities/Enemies/EnemyC.h"
 #include "Components/Entities/Towers/Nexus.h"
+#include "Components/Entities/Towers/Bat1.h"
+#include "Components/Entities/Towers/Bat2.h"
+#include "Components/Entities/Towers/Lulu.h"
+#include "Components/Entities/Towers/Malphite.h"
+#include "Components/Entities/Towers/Varus.h"
+#include "Components/Entities/Towers/XinZhao.h"
 
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
@@ -173,7 +180,6 @@ GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, fl
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
 
-
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
 	sprite->SetScale(scalex, scaley);
@@ -191,6 +197,26 @@ GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name,
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	Entity* entity;
+	if (name == "Bat1") {
+		entity = gameObject->CreateComponent<Bat1>();
+	}
+	else if (name == "Bat2") {
+		entity = gameObject->CreateComponent<Bat2>();
+	}
+	else if (name == "Lulu") {
+		entity = gameObject->CreateComponent<Lulu>();
+	}
+	else if (name == "Malphite") {
+		entity = gameObject->CreateComponent<Malphite>();
+	}
+	else if (name == "Varus") {
+		entity = gameObject->CreateComponent<Varus>();
+	}
+	else if (name == "XinZhao") {
+		entity = gameObject->CreateComponent<XinZhao>();
+	}
 
 	Ressource* ressource = gameObject->CreateComponent<Ressource>();
 	ressource->SetGold(prixGold);
@@ -251,7 +277,9 @@ GameObject* SceneGameAbstract::CreateCarreGameObject(const std::string& name, fl
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(x, y));
-	gameObject->SetActive(true);
+	gameObject->SetActive(false);
+
+	Spawn* spawn = gameObject->CreateComponent<Spawn>();
 
 	Carre* carre = gameObject->CreateComponent<Carre>();
 	carre->SetPosition(x, y);
