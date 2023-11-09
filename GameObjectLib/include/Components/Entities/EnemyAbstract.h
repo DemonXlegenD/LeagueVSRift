@@ -14,6 +14,7 @@ protected:
 		float speed;
 		float attackSpeed;
 		float range;
+		int count;
 	};
 public:
     EnemyAbstract();
@@ -30,7 +31,4 @@ public:
 
     void fichierStatsEnemey();
 	std::vector<EnemyStats> listStatsEnemy = {};
-
-    
-
 };

@@ -10,13 +10,12 @@ CreateRound::CreateRound()
 
 void CreateRound::CreateRound1()
 {
-	AudioManager::Play("round_start");
 
-	GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("Jin", 1411, 150, 0.1, 0.1, 0, *AssetManager::GetAsset("minionMelee"));
+	GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("EnemyA", 1411, 150, 0.1, 0.1, 0, *AssetManager::GetAsset("minionMelee"));
 
-	GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("Jin", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("minionSiege"));
+	GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("EnemyB", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("minionSiege"));
 
-	GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("Jin", 1411, 150, 0.1, 0.1, 2, *AssetManager::GetAsset("minionMage"));
+	GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("EnemyC", 1411, 150, 0.1, 0.1, 2, *AssetManager::GetAsset("minionMage"));
 };
 void CreateRound::CreateRound2()
 {

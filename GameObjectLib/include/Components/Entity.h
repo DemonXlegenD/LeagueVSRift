@@ -17,8 +17,8 @@ public:
     void SetMaxHealthPoint(const int _maxHp)  { maxHealthPoint = _maxHp;}
     void SetDamage(const int _damage)  { damage = _damage; }
     void SetSpeed(const float _speed)  {  speed = _speed; }
-    void SetAttackSpeed(const float _attackspeed) { speed = _attackspeed; }
-    void SetRange(const float _range) { speed = _range; }
+    void SetAttackSpeed(const float _attackspeed) { attackSpeed = _attackspeed; }
+    void SetRange(const float _range) { range = _range; }
 
     void MoveToPoint(Maths::Vector2i point, float speed);
     void SetCurrPathPoint(int newPathPoint);
@@ -27,12 +27,17 @@ public:
     void SetLane(int newLane) { lane = newLane; }
     int GetLane() { return lane; }
 
+    void IncrementCount() { count++; }
+    void ResetCount() { count = 0; }
+    int GetCount() { return count; }
+
     void TakeDamage(int damage);
     virtual void Die();
     void Update(sf::Time _delta) override;
 
 protected:
     int currPathPoint = 0;
+    int count = 0;
 
     int healthPoint;
     int maxHealthPoint;

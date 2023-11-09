@@ -9,6 +9,7 @@
 #include "Components/Carre.h"
 #include "Components/Entities/Enemies/EnemyA.h"
 #include "Components/Carre.h"
+#include "Components/Spawn.h"
 #include "Components/Button.h"
 #include "Components/Ressource.h"
 #include "HUDManager.h"
@@ -48,6 +49,11 @@ void SceneGameLVSR::ChoiceTower()
 	{
 		if (HUDManager::GetHudGameObject(i)->GetComponent<Button>()->IsClicked() && GetIsActive())
 		{
+			for (size_t i = 0; i < spawns.size(); i++) {
+				if (spawns[i]->GetComponent<Spawn>()->IsSpawnAvailable()) {
+					spawns[i]->SetActive(true);
+				}
+			}
 			isChoice = false;
 			index = i;
 			break;
@@ -59,11 +65,19 @@ void SceneGameLVSR::ChoiceSpawn()
 {
 	for (size_t i = 0; i < spawns.size(); i++)
 	{
-		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive() && spawns[i]->GetActive())
+		if (spawns[i]->GetComponent<Carre>()->IsClicked() && GetIsActive())
 		{
-			spawns[i]->SetActive(false);
-			CreateTower(gameTowers[index]->GetName(), spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			if (spawns[i]->GetComponent<Spawn>()->IsSpawnAvailable() && CanPlaceTower(gameTowers[index]->GetName())) {
+				spawns[i]->GetComponent<Spawn>()->SetSpawnAvailable(false);
+				CreateTower(gameTowers[index]->GetName(), spawns[i]->GetPosition().x, spawns[i]->GetPosition().y);
+			}
+			else {
+				AudioManager::Play("tower_already_placed");
+			}
 			isChoice = true;
+			for (size_t j = 0; j < spawns.size(); j++) {
+				spawns[j]->SetActive(false);
+			}
 		}
 	}
 }
@@ -82,7 +96,15 @@ void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _
 	if (CanPlaceTower(towerName))
 	{
 		float scale = GetGameObject(towerName)->GetComponent<Sprite>()->GetSize().x > 200 ? 0.2f : 0.5f;
-		CreateBatimentGameObject(towerName, _positionX, _positionY, *AssetManager::GetAsset(towerName), scale, scale, 400.f, 30.f);
+		towers.push_back(CreateBatimentGameObject(towerName, _positionX, _positionY, *AssetManager::GetAsset(towerName), scale, scale, 400.f, 30.f));
+
+		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() - GetGameObject(towerName)->GetComponent<Ressource>()->GetGold());
+		GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() - GetGameObject(towerName)->GetComponent<Ressource>()->GetMana());
+
+		AudioManager::Play("tower_placed");
+	}
+	else {
+		AudioManager::Play("tower_already_placed");
 	}
 }
 
@@ -118,15 +140,50 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-
-	if (round == 0) {
-		round++;
-		CreateRound round1;
-		round1.CreateRound1();
-		std::cout << "round started";
+	if (ManaClock.getElapsedTime().asSeconds() > 1.0f)
+	{
+		ManaClock.restart();
+		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
+			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10);
+		}
+		else {
+			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana());
+		}
+		std::cout << "Mana: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() << std::endl;
 	}
 
-	for (int i = 0; i < enemies.size(); i++) {
+	if (enemies.size() == 0 && round < 20) {
+		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
+		round++;
+		AudioManager::Play("round_start");
+		CreateRound round1;
+		round1.CreateRound1();
+		std::cout << "Round " << round << " started" << std::endl;
+	}
+
+	for (size_t i = 0; i < towers.size(); i++) {
+		GameObject* tower = towers[i];
+		//tower->GetComponent<Entity>()->IncrementCount();
+		if (tower->GetComponent<Entity>()->GetCount() >= tower->GetComponent<Entity>()->GetAttackSpeed() * 500) {
+			for (size_t j = 0; j < enemies.size(); j++) {
+				int EnemyGold = enemies[j]->GetComponent<Entity>()->GetMaxHealthPoint() * 3;
+				int currHealth = enemies[j]->GetComponent<Entity>()->GetHealthPoint();
+				if (Maths::Vector2f(tower->GetPosition() - enemies[j]->GetPosition()).Magnitude() < tower->GetComponent<Entity>()->GetRange() + 100) {
+					tower->GetComponent<Entity>()->ResetCount();
+					std::cout << enemies[j]->GetName() << " took " << tower->GetComponent<Entity>()->GetDamage() << " damage. HP LEFT: " << enemies[j]->GetComponent<Entity>()->GetHealthPoint() - tower->GetComponent<Entity>()->GetDamage() << std::endl;
+					enemies[j]->GetComponent<Entity>()->TakeDamage(tower->GetComponent<Entity>()->GetDamage());
+					if (currHealth - tower->GetComponent<Entity>()->GetDamage() <= 0) {
+						std::cout << "Old gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold();
+						GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + EnemyGold);
+						std::cout << ". New gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() << std::endl;
+					}
+					AudioManager::Play(tower->GetName() + "_attack");
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < enemies.size(); i++) {
 		GameObject* enemy = enemies[i];
 		Entity* enemyComponent = enemy->GetComponent<Entity>();
 		Maths::Vector2i goal;

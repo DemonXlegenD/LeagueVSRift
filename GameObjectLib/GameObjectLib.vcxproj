@@ -26,6 +26,7 @@
     <ClInclude Include="include\Components\Entities\Towers\Nexus.h" />
     <ClInclude Include="include\Components\Entities\Towers\XinZhao.h" />
     <ClInclude Include="include\Components\Carre.h" />
+    <ClInclude Include="include\Components\Spawn.h" />
     <ClInclude Include="include\HUDManager.h" />
     <ClInclude Include="include\EventManager.h" />
     <ClInclude Include="include\Round\CreateRound.h" />
