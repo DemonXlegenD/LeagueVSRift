@@ -28,6 +28,7 @@ public:
 	GameObject* CreateBulletGameObject(const std::string& name, const sf::Texture textureBullet, float scalex, float scaley, GameObject* _player);
 	GameObject* CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana);
 	GameObject* CreateGruntGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateTexteRessourceGameObject(const std::string& name, float _x, float _y, const sf::String text, float scalex, float scaley);
 
 	GameObject* CreateEnemyAGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
 	GameObject* CreateEnemyBGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
@@ -63,11 +64,13 @@ protected:
 	//GameObject* bat2 = nullptr;
 	GameObject* nexus = nullptr;
 	GameObject* ressource = nullptr;
+	GameObject* ressourceText = nullptr;
 	GameObject* pausePlayButton = nullptr;
 	GameObject* pauseOptionsButton = nullptr;
 	GameObject* pauseMenuPrincipalButton = nullptr;
 	GameObject* pauseQuitButton = nullptr;
 	GameObject* pauseBongoButton = nullptr;
 	sf::Texture* texture;
+	sf::Text text;
 };
 
