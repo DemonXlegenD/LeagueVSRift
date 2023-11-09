@@ -141,6 +141,7 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
+	SceneGameAbstract::Update(_delta);
 	if (ManaClock.getElapsedTime().asSeconds() > 1.0f)
 	{
 		ManaClock.restart();
@@ -156,8 +157,8 @@ void SceneGameLVSR::Update(sf::Time _delta)
 
 	if (enemies.size() == 0 && round < 20) {
 		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
-
-	SceneGameAbstract::Update(_delta);
+	}
+	
 	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
 		GameEnd(false, _delta);
 		if (isChoice)
