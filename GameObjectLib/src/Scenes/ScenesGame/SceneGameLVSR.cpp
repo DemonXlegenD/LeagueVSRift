@@ -120,7 +120,18 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
-
+	SceneGameAbstract::Update(_delta);
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+		GameEnd(false, _delta);
+		if (isChoice)
+		{
+			ChoiceTower();
+		}
+		else
+		{
+			ChoiceSpawn();
+		}
+	}
 	if (round == 0) {
 		round++;
 		CreateRound round1;
@@ -155,18 +166,8 @@ void SceneGameLVSR::Update(sf::Time _delta)
 			}
 		}
 	}
-	SceneGameAbstract::Update(_delta);
-	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
-		GameEnd(false, _delta);
-	if(isChoice)
-	{
-		ChoiceTower();
-	}
-	else
-	{
-		ChoiceSpawn();
-	}
 }
+
 void SceneGameLVSR::Render(sf::RenderWindow* _window) 
 {
 	SceneGameAbstract::Render(_window);

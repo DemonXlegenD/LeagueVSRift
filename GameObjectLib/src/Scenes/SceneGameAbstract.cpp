@@ -32,7 +32,7 @@ void SceneGameAbstract::Create() {
 	this->CreatePauseMenuButtons();
 
 	this->victory = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Victory"));
-	this->defeat = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
+	this->defeat = CreateImageGameObject("Defeat", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
 	this->victory->SetActive(false);
 	this->defeat->SetActive(false);
 	endTime = 5.0f;
@@ -232,36 +232,6 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	return gameObject;
-
-}
-//ENEMY
-GameObject* SceneGameAbstract::CreateGruntGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, sf::Texture _texture)
-{
-	GameObject* gameObject = CreateGameObject(name);
-	gameObject->SetPosition(Maths::Vector2f(_x, _y));
-
-	Grunt* enemy = gameObject->CreateComponent<Grunt>();
-
-	Sprite* sprite = gameObject->CreateComponent<Sprite>();
-	sprite->SetTexture(_texture);
-	sprite->SetScale(scalex, scaley);
-	sprite->SetSprite();
-
-	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
-	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
-	squareCollider->SetScale(scalex, scaley);
-
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
-	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
-	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
-	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
-	healthPointBar->SetPosition(_x, _y);
-	healthPointBar->SetSize(sprite->GetBounds().x, 5);
-	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
-
 
 	return gameObject;
 
