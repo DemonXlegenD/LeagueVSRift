@@ -36,4 +36,5 @@ private:
 	std::vector<GameObject*> spawns;
 	bool isChoice = true;
 	int index = 0;
+	std::string gold;
 };

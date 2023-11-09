@@ -75,7 +75,7 @@ void SceneGameAbstract::CreateTower()
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreatePlayerRessourceGameObject("Ressources", 0.f, 0.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Ressources", 50.f, 50.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 200.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -215,6 +215,7 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	Ressource* ressource = gameObject->CreateComponent<Ressource>();
 	ressource->SetGold(ressourceGold);
 	ressource->SetMana(ressourceMana);
+	ressource->SetText();
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -226,7 +227,6 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	squareCollider->SetScale(scalex, scaley);
 
 	return gameObject;
-
 }
 
 GameObject* SceneGameAbstract::CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture)
