@@ -20,12 +20,20 @@ public:
     void SetAttackSpeed(const float _attackspeed) { speed = _attackspeed; }
     void SetRange(const float _range) { speed = _range; }
 
+    void MoveToPoint(Maths::Vector2i point, float speed);
+    void SetCurrPathPoint(int newPathPoint);
+    int GetCurrPathPoint() { return currPathPoint; }
+    
+    void SetLane(int newLane) { lane = newLane; }
+    int GetLane() { return lane; }
 
     void TakeDamage(int damage);
     virtual void Die();
     void Update(sf::Time _delta) override;
 
 protected:
+    int currPathPoint = 0;
+
     int healthPoint;
     int maxHealthPoint;
     int damage;
@@ -33,6 +41,4 @@ protected:
     float speed;
     float attackSpeed;
     float range;
-
-
 };

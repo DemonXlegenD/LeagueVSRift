@@ -3,6 +3,7 @@
 
 std::vector<GameObject*> CreateTours::tower;
 
+
 void CreateTours::CreateTower(int _index, float _positionX, float _positionY)
 {
 	switch (_index) {
@@ -46,8 +47,16 @@ void CreateTours::CreateVarus(float _positionX, float _positionY)
 	{
 		std::cout << " JIN PLACE ZOIJZPOY";
 		tower.push_back(SceneManager::GetActiveGameScene()->CreateBatimantGameObject("Varus", _positionX, _positionY, *AssetManager::GetAsset("Varus"), 1.0f, 1.0f, 400.f, 30.f));
+
+void CreateTours::CreateVarus(float _poisitionX, float _positionY, sf::Texture _texture) 
+{
+	if (SceneManager::GetActiveGameScene()->GetGameObject("Varus")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Gold")->GetComponent<Ressource>()->GetRessource() &&
+		SceneManager::GetActiveGameScene()->GetGameObject("Varus")->GetComponent<Ressource>()->GetRessource() <= SceneManager::GetActiveGameScene()->GetGameObject("Mana")->GetComponent<Ressource>()->GetRessource())
+	{
+		tower.push_back(SceneManager::GetActiveGameScene()->CreateBatimantGameObject("Varus", _poisitionX, _positionY, _texture, 4.f, 4.f, 400.f, 30.f));
 	}
 }
+    
 void CreateTours::CreateLulu(float _positionX, float _positionY)
 {
 	if (CreateTours::CanPlaceTower("Lulu"))

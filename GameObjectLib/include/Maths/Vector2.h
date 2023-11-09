@@ -116,6 +116,7 @@ namespace Maths
 		static const Vector2 Down;
 		static const Vector2 Left;
 		static const Vector2 Right;
+		static const Vector2 DiagonaleLeft;
 
 		friend bool operator==(const Vector2& _lhs, const Vector2& _rhs)
 		{

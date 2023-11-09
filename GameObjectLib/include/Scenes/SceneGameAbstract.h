@@ -29,11 +29,13 @@ public:
 	GameObject* CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana);
 	GameObject* CreateGruntGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 
-	GameObject* CreateEnemyAGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
-	GameObject* CreateEnemyBGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
-	GameObject* CreateEnemyCGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateEnemyAGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
+	GameObject* CreateEnemyBGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
+	GameObject* CreateEnemyCGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
 
 	GameObject* CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
+	GameObject* CreateNexusGameObject();
+
 
 	GameObject* CreateCarreGameObject(const std::string& name, float x, float y);
 
@@ -58,6 +60,7 @@ protected:
 	GameObject* xinZhao = nullptr;
 	GameObject* bat2 = nullptr;
 	GameObject* bat3 = nullptr;
+	GameObject* nexus = nullptr;
 	GameObject* ressource = nullptr;
 	GameObject* pausePlayButton = nullptr;
 	GameObject* pauseOptionsButton = nullptr;

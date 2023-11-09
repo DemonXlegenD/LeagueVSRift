@@ -18,7 +18,7 @@ void EventManager::Update(sf::Time _delta)
 		{
 			if (event.key.code == sf::Keyboard::LAlt) if (event.key.code == sf::Keyboard::F4) window->close();
 		}
-		if (SceneManager::GetActiveGameScene())
+		if (SceneManager::GetActiveGameScene() == SceneManager::GetSceneByKey("SceneGameLVSR"))
 		{
 			CameraManager::Event(event);
 		}

@@ -1,11 +1,11 @@
 #include "Components/Entities/EnemyAbstract.h"
+#include "Components/Entities/TowerAbstract.h"
 #include "WindowManager.h"
 #include "SceneManager.h"
 
 EnemyAbstract::EnemyAbstract() : Entity() {}
 
 EnemyAbstract::EnemyAbstract(int _hp, int _damage, int _lane, float _speed,float _attackSpeed, float _range ) : Entity(_hp, _damage, _lane, _speed, _attackSpeed, _range) {}
-
 
 void EnemyAbstract::Update(sf::Time _delta)
 {
@@ -25,6 +25,19 @@ void EnemyAbstract::Die()
 {
 	SceneManager::GetActiveGameScene()->RemoveEnemy(GetOwner());
 	Entity::Die();
+}
+
+
+void EnemyAbstract::Attack(GameObject* _nexus) {
+	_nexus->GetComponent<TowerAbstract>()->SetHealthPoint(-this->GetDamage());
+}
+
+void EnemyAbstract::setLane(int _lane) {
+	this->lane = _lane;
+}
+
+int EnemyAbstract::getLane() {
+	return this->lane;
 }
 
 void EnemyAbstract::fichierStatsEnemey()
@@ -61,8 +74,3 @@ void EnemyAbstract::fichierStatsEnemey()
 		fichierStats.close();
 	}
 }
-
-void EnemyAbstract::Attack(GameObject* tour) {
-	std::cout << "L'ennemie attaque la tour" << std::endl;
-}
-

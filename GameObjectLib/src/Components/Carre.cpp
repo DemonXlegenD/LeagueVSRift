@@ -1,5 +1,6 @@
 #include "Components/Carre.h"
 #include "WindowManager.h"
+#include "CameraManager.h"
 
 Carre::Carre() {
 	this->clicked = false;
@@ -11,6 +12,7 @@ void Carre::Render(sf::RenderWindow* _window) {
 	Component::Render(_window);
 	const auto position = GetOwner()->GetPosition();
 	carre.setPosition(position.x, position.y);
+	_window->setView(CameraManager::GetView());
 	_window->draw(carre);
 }
 
