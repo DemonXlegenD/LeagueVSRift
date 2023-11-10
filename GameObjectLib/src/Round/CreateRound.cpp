@@ -73,16 +73,21 @@ void CreateRound::SpawnEnemy() {
 	if (TimeInRound > TimeToWait) {
 		if (WavesSpawned < Info.Waves) {
 			TimeToWait = 1.f;
-			int EnnemyType = rand() % 3 + 1;
-			int Lane = rand() % 3;
-			if (EnnemyType == 1) {
-				GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("EnemyA", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionMelee"));
-			}
-			else if (EnnemyType == 2) {
-				GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("EnemyB", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionSiege"));
+			if (round != 4) {
+				int EnnemyType = rand() % 3 + 1;
+				int Lane = rand() % 3;
+				if (EnnemyType == 1) {
+					GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("EnemyA", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionMelee"));
+				}
+				else if (EnnemyType == 2) {
+					GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("EnemyB", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionSiege"));
+				}
+				else {
+					GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("EnemyC", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionMage"));
+				}
 			}
 			else {
-				GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("EnemyC", 1411, 150, 0.1, 0.1, Lane, *AssetManager::GetAsset("minionMage"));
+				GameObject* Boss = SceneManager::GetActiveGameScene()->CreateBossGameObject("Boss", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("bossErald"));
 			}
 			TimeInRound = 0.f;
 			EnemiesSpawnedInWave++;

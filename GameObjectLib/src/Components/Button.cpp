@@ -10,7 +10,6 @@ Button::Button() {
 	this->window = WindowManager::GetWindow();
 }
 
-
 void Button::SetButton(unsigned int fontSize) {
 	
 

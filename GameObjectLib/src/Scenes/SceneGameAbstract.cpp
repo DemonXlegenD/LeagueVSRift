@@ -364,8 +364,10 @@ GameObject* SceneGameAbstract::CreateBossGameObject(const std::string& name, flo
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
-	EnemyC* enemy = gameObject->CreateComponent<EnemyC>();
+	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
 	enemy->SetLane(lane);
+	enemy->SetMaxHealthPoint(1000);
+	enemy->SetHealthPoint(1000);
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(_texture);
