@@ -54,20 +54,14 @@ public:
 	GameObject* CreatePlatformObject(const std::string& name, float x, float y, float scaleX, float scaleY, const sf::Texture texture, sf::IntRect* _rectSource);
 
 	GameObject* CreateBackgroundGameObject(const std::string& name, float x, float y, sf::Texture texture);
-
+	GameObject* CreateInputGameObject(std::string _name, float _x, float _y);
 
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _maxData);
 	GameObject* CreateSliderGameObject(const std::string& name, float x, float y, float _widthBar, float _heightBar, float _widthCursor, float _heightCursor, unsigned int _fontSize, float _data, float _minData, float _maxData);
 
-
-
 protected:
 	InputGame* inputGame = nullptr;
 	std::vector<GameObject*> gameObjects;
-	static sf::RenderWindow* window;
-	std::vector<GameObject*> gameObjectsGrunt;
-	bool balleTiree;
+	sf::RenderWindow* window;	 
 	bool isActive = true;
-	sf::Time interval;
-	sf::Clock clock;
 };

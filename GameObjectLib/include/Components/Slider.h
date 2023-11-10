@@ -30,7 +30,7 @@ public:
 	void SetData(float _data) { data = _data; }
 
 	int GetMaxDataInt() const { return (int)maxData; }
-	//float GetMaxDataFloat() const  { return maxData; }
+	float GetMaxDataFloat() const  { return maxData; }
 	void SetMaxData(float _max_data) { maxData = _max_data - minData; }
 	void SetMinData(float _min_data) { minData = _min_data; }
 	

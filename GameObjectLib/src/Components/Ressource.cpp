@@ -31,8 +31,8 @@ void Ressource::Render(sf::RenderWindow* _window)
 		std::cout << "fonts pas charge";
 	}
 
-	goldText.setString(std::to_string(GetGold()));
-	manaText.setString(std::to_string(GetMana()));
+	goldText.setString(std::to_string((int)GetGold()));
+	manaText.setString(std::to_string((int)GetMana()));
 	goldText.setPosition(150.0f, 50.0f);
 	manaText.setPosition(300.0f, 50.0f);
 

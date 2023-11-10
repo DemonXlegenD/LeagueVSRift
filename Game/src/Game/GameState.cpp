@@ -1,6 +1,6 @@
 #include "Game/GameState.h"
 #include "SceneManager.h"
-//#include "AudioManager.h"
+#include "AudioManager.h"
 #include "AssetManager.h"
 #include "WindowManager.h"
 #include "CameraManager.h"
@@ -11,6 +11,7 @@
 #include "SceneCreditsMenu.h"
 #include "SceneRankMenu.h"
 #include "SceneGameLVSR.h"
+#include "SceneLoginSignup.h"
 
 GameState::GameState(sf::RenderWindow* _window, int _FPS) {
 	this->window = _window;
@@ -39,6 +40,7 @@ void GameState::PreloadScenes() {
 	SceneManager::AddScene("SceneRankMenu", new SceneRankMenu(this->window));
 	SceneManager::AddScene("SceneCreditsMenu", new SceneCreditsMenu(this->window));
 	SceneManager::AddScene("SceneGameLVSR", new SceneGameLVSR(this->window));
+	//SceneManager::AddScene("SceneLoginSignup", new SceneLoginSignup(this->window));
 }
 
 void GameState::PreloadAssets() {
@@ -81,7 +83,18 @@ void GameState::PreloadAssets() {
 }
 
 void GameState::PreloadAudio() {
-
+	AudioManager::AddMusic(std::string("soundtrack"), std::string("../assets/Sounds/soundtrack.ogg"));
+	AudioManager::AddMusic(std::string("round_start"), std::string("../assets/Sounds/round_start.ogg"));
+	AudioManager::AddMusic(std::string("nexus_under_attack"), std::string("../assets/Sounds/nexus_under_attack.ogg"));
+	AudioManager::AddMusic(std::string("tower_placed"), std::string("../assets/Sounds/tower_placed.ogg"));
+	AudioManager::AddMusic(std::string("tower_already_placed"), std::string("../assets/Sounds/tower_already_placed.ogg"));
+	AudioManager::AddMusic(std::string("Lulu_attack"), std::string("../assets/Sounds/Lulu/Lulu_Select_SFX.ogg"));
+	AudioManager::AddMusic(std::string("Malphite_attack"), std::string("../assets/Sounds/Malphite/Malphite_Select_SFX.ogg"));
+	AudioManager::AddMusic(std::string("Varus_attack"), std::string("../assets/Sounds/Varus/Varus_Select_SFX.ogg"));
+	AudioManager::AddMusic(std::string("XinZhao_attack"), std::string("../assets/Sounds/Xin_Zhao/Xin_Zhao_Select_SFX.ogg"));
+	AudioManager::AddMusic(std::string("Bat1_attack"), std::string("../assets/Sounds/Bat_SFX.ogg"));
+	AudioManager::AddMusic(std::string("Bat2_attack"), std::string("../assets/Sounds/Bat_SFX.ogg"));
+	AudioManager::Play(std::string("soundtrack"));
 }
 
 

@@ -1,22 +1,20 @@
 #include "Scene.h"
 #include "WindowManager.h"
+#include "WindowManager.h"
 
 #include "Components/Button.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/SquareCollider.h"
 #include "Components/Slider.h"
+#include "Components/Input.h"
 
-sf::RenderWindow* Scene::window = nullptr;
 
 Scene::Scene(sf::RenderWindow* _window) {
 	window = _window;
-	this->balleTiree = false;
 	this->inputGame = new InputGame();
 }
 
 void Scene::Create() {
-	balleTiree = false;
-	interval = sf::seconds(0.1f);
 }
 
 void Scene::Delete() {
@@ -165,6 +163,20 @@ GameObject* Scene::CreateSliderGameObject(const std::string& name, float _x, flo
 	slider->SetCursorText(_fontSize);
 	slider->SetTitleText();
 	slider->SetPosition(_x, _y);
+
+	return gameObject;
+}
+
+GameObject* Scene::CreateInputGameObject(std::string _name, float _x, float _y)
+{
+	GameObject* gameObject = CreateGameObject(_name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	Input* input = gameObject->CreateComponent<Input>();
+	input->SetInput(50);
+	input->SetPosition(_x, _y);
+	input->SetOrigin();
+	input->SetSize(WindowManager::GetWindowWidth() / 1.5, WindowManager::GetWindowWidth() / 8);
 
 	return gameObject;
 }

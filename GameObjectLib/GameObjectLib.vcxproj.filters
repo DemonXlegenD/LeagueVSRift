@@ -45,6 +45,8 @@
     <ClCompile Include="src\Round\CreateRound.cpp" />
     <ClCompile Include="src\Components\Entities\TowerAbstract.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Malphite.cpp" />
+    <ClCompile Include="src\Scenes\SceneLoginSignup.cpp" />
+    <ClCompile Include="src\Components\Input.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Components\Entities\Towers\Bat1.h" />
@@ -92,6 +94,8 @@
     <ClInclude Include="include\Components\Entities\Towers\Malphite.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="include\Components\Spawn.h" />
+    <ClInclude Include="include\Scenes\SceneLoginSignup.h" />
+    <ClInclude Include="include\Components\Input.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
