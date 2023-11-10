@@ -85,7 +85,7 @@ void SceneGameLVSR::ChoiceSpawn()
 
 bool SceneGameLVSR::CanPlaceTower(std::string name) {
 	if (GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() &&
-		GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
+		GetGameObject(name)->GetComponent<Ressource>()->GetMana() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
 	{
 		return true;
 	}
@@ -142,28 +142,29 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
 	SceneGameAbstract::Update(_delta);
-	if (ManaClock.getElapsedTime().asSeconds() > 1.0f)
+
+	ManaClock += _delta.asSeconds();
+
+	if (ManaClock > 1.0f)
 	{
-		ManaClock.restart();
-		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
-			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10);
+		ManaClock = 0;
+		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 2 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
+			GetGameObject("Ressources")->GetComponent<Ressource>()->AddMana(2);
 		}
 		else {
 			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana());
 		}
-		std::cout << "Mana: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() << std::endl;
 	}
 
-
-	if (enemies.size() == 0 && round < 20) {
+	if (enemies.size() == 0 && round < 3) {
 		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
 	}
-	if (round == 0) {
-		round++;
+	if (round < 3 && enemies.size() == 0) {
 		AudioManager::Play("round_start");
 		CreateRound round1;
 		round1.CreateRound1();
-		std::cout << "Round " << round << " started" << std::endl;
+		std::cout << "Round " << round + 1 << " started" << std::endl;
+		round++;
 	}
 
 	for (size_t i = 0; i < towers.size(); i++) {
@@ -210,7 +211,6 @@ void SceneGameLVSR::Update(sf::Time _delta)
 				TakeNexusDamage(enemyComponent->GetHealthPoint());
 				std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
 				enemyComponent->Die();
-				ressource->GetComponent<Ressource>()->AddGold(100.0f);
 			}
 			else {
 				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
@@ -225,7 +225,8 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	{
 		ChoiceSpawn();
 	}
-	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() <= 0) {
 		GameEnd(false, _delta);
 	}
 }
