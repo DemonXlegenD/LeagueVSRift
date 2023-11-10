@@ -19,7 +19,9 @@ void Carre::Render(sf::RenderWindow* _window) {
 
 bool Carre::IsClicked() 
 {
-	return carre.getGlobalBounds().contains(sf::Vector2f(sf::Mouse::getPosition(*WindowManager::GetWindow()))) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !clicked;
+	sf::Vector2i mousePos = sf::Mouse::getPosition(*WindowManager::GetWindow());
+	sf::Vector2f worldPos = WindowManager::GetWindow()->mapPixelToCoords(mousePos, CameraManager::GetView());
+	return carre.getGlobalBounds().contains(worldPos) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && !clicked;
 }
 
 
