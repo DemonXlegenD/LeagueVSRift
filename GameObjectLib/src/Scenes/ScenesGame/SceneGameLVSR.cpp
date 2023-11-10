@@ -85,7 +85,7 @@ void SceneGameLVSR::ChoiceSpawn()
 
 bool SceneGameLVSR::CanPlaceTower(std::string name) {
 	if (GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() &&
-		GetGameObject(name)->GetComponent<Ressource>()->GetGold() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
+		GetGameObject(name)->GetComponent<Ressource>()->GetMana() <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana())
 	{
 		return true;
 	}
@@ -111,7 +111,6 @@ void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _
 
 void SceneGameLVSR::Create() 
 {
-	SceneGameAbstract::Create();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
 
 	SceneGameLVSR::CreateSpawn();
@@ -126,6 +125,10 @@ void SceneGameLVSR::Create()
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	
+	this->CreatePauseMenuButtons();
+	
+	SceneGameAbstract::Create();
 }
 
 void SceneGameLVSR::Delete() 
@@ -142,28 +145,32 @@ void SceneGameLVSR::TakeNexusDamage(int damage) {
 void SceneGameLVSR::Update(sf::Time _delta) 
 {
 	SceneGameAbstract::Update(_delta);
-	if (ManaClock.getElapsedTime().asSeconds() > 1.0f)
+
+	ManaClock += _delta.asSeconds();
+
+	if (ManaClock > 1.0f)
 	{
-		ManaClock.restart();
-		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
-			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 10);
+		ManaClock = 0;
+		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 2 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
+			GetGameObject("Ressources")->GetComponent<Ressource>()->AddMana(2);
 		}
-		else {
-			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana());
-		}
-		std::cout << "Mana: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() << std::endl;
 	}
 
-
-	if (enemies.size() == 0 && round < 20) {
-		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+		GameEnd(false, _delta);
 	}
-	if (round == 0) {
-		round++;
-		AudioManager::Play("round_start");
-		CreateRound round1;
-		round1.CreateRound1();
-		std::cout << "Round " << round << " started" << std::endl;
+
+	if (round.getRound() == 1) {
+		this->round.CreateRound1(_delta);
+	}
+	else if (round.getRound() == 2) {
+		this->round.CreateRound2(_delta);
+	}
+	else if (round.getRound() == 3) {
+		this->round.CreateRound3(_delta);
+	}
+	else {
+		this->round.CreateRound4(_delta);
 	}
 
 	for (size_t i = 0; i < towers.size(); i++) {
@@ -191,7 +198,7 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	for (size_t i = 0; i < enemies.size(); i++) {
 		GameObject* enemy = enemies[i];
 		Entity* enemyComponent = enemy->GetComponent<Entity>();
-		
+
 		Maths::Vector2i goal;
 		bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
 
@@ -217,6 +224,7 @@ void SceneGameLVSR::Update(sf::Time _delta)
 			}
 		}
 	}
+
 	if (isChoice)
 	{
 		ChoiceTower();
@@ -225,7 +233,8 @@ void SceneGameLVSR::Update(sf::Time _delta)
 	{
 		ChoiceSpawn();
 	}
-	if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+
+	if (nexus->GetComponent<Nexus>()->GetHealthPoint() <= 0) {
 		GameEnd(false, _delta);
 	}
 }

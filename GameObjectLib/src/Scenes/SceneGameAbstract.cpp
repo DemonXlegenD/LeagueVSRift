@@ -36,7 +36,6 @@ SceneGameAbstract::~SceneGameAbstract() {
 
 void SceneGameAbstract::Create() {
 	Scene::Create();
-	this->CreatePauseMenuButtons();
 
 	this->victory = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Victory"));
 	this->defeat = CreateImageGameObject("Defeat", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
@@ -56,7 +55,7 @@ void SceneGameAbstract::CreatePauseMenuButtons() {
 	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
 	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
 	//pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
-	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
+	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
 
@@ -123,14 +122,15 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 	if (isActive)
 	{
 		Scene::Update(_delta);
-
 	}
 	else
 	{
 		if (pausePlayButton->GetComponent<Button>()->IsClicked()) {
 			this->ManagePause();
+			isActive = true;
 		}
 		else if (pauseMenuPrincipalButton->GetComponent<Button>()->IsClicked()) {
+			this->ManagePause();
 			SceneManager::RunScene("SceneMainMenu");
 		}
 		//else if (pauseOptionsButton->GetComponent<Button>()->IsClicked()) {
@@ -144,7 +144,8 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 
 void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 {
-	float deltaSecond = _delta.asMilliseconds();
+	float deltaSecond = _delta.asSeconds();
+	endTime -= deltaSecond;
 	if (_win)
 	{
 		this->victory->SetActive(true);
@@ -154,9 +155,9 @@ void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 		this->defeat->SetActive(true);
 	}
 	if (endTime <= deltaSecond) {
+		SceneManager::StopScene();
 		SceneManager::RunScene("SceneMainMenu");
 	}
-	endTime -= deltaSecond;
 }
 
 void SceneGameAbstract::CreateBackground()
@@ -173,7 +174,6 @@ void SceneGameAbstract::CreateBackground()
 void SceneGameAbstract::Render(sf::RenderWindow* _window) {
 	Scene::Render(_window);
 }
-
 
 GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley)
 {
@@ -329,6 +329,13 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -350,6 +357,15 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
+
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
 
 	enemies.push_back(gameObject);
 
@@ -374,6 +390,47 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
+	enemies.push_back(gameObject);
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateBossGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+	enemy->SetLane(lane);
+	enemy->SetMaxHealthPoint(1000);
+	enemy->SetHealthPoint(1000);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(50);
+	healthPointBar->SetSize(50, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -381,11 +438,10 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 }
 
 
-
 GameObject* SceneGameAbstract::CreateNexusGameObject()
 {
 	GameObject* gameObject = CreateGameObject("nexus");
-	gameObject->SetPosition(Maths::Vector2f(WindowManager::GetWindowWidth() / 3.98, WindowManager::GetWindowHeight() / 1.22));
+	gameObject->SetPosition(Maths::Vector2f(WindowManager::GetWindowWidth() / 3.98, WindowManager::GetWindowHeight() / 1.30));
 
 	Nexus* nexus = gameObject->CreateComponent<Nexus>();
 

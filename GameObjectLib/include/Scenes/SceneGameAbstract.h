@@ -28,11 +28,10 @@ public:
 	GameObject* CreateBulletGameObject(const std::string& name, const sf::Texture textureBullet, float scalex, float scaley, GameObject* _player);
 	GameObject* CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana);
 
-	GameObject* CreateTexteRessourceGameObject(const std::string& name, float _x, float _y, const sf::String text, float scalex, float scaley);
-
 	GameObject* CreateEnemyAGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
 	GameObject* CreateEnemyBGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
 	GameObject* CreateEnemyCGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
+	GameObject* CreateBossGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, int lane, sf::Texture _texture);
 
 	GameObject* CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture);
 	GameObject* CreateNexusGameObject();

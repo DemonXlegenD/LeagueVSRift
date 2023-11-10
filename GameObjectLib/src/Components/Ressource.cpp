@@ -10,13 +10,13 @@ void Ressource::Update(sf::Time _delta)
 void Ressource::SetText()
 {
 	goldText.setFont(font);
-	goldText.setString(std::to_string(GetGold()));
+	goldText.setString(std::to_string((int)GetGold()));
 	goldText.setCharacterSize(24);
 	goldText.setFillColor(sf::Color::Yellow);
 	goldText.setStyle(sf::Text::Bold);
 
 	manaText.setFont(font);
-	manaText.setString(std::to_string(GetMana()));
+	manaText.setString(std::to_string((int)GetMana()));
 	manaText.setCharacterSize(24);
 	manaText.setFillColor(sf::Color::Blue);
 	manaText.setStyle(sf::Text::Bold);
@@ -31,8 +31,9 @@ void Ressource::Render(sf::RenderWindow* _window)
 		std::cout << "fonts pas charge";
 	}
 
-	goldText.setString(std::to_string((int)GetGold()));
-	manaText.setString(std::to_string((int)GetMana()));
+
+	goldText.setString(std::to_string((int)GetGold()) + " Gold");
+	manaText.setString(std::to_string((int)GetMana()) + " Mana");
 	goldText.setPosition(150.0f, 50.0f);
 	manaText.setPosition(300.0f, 50.0f);
 
