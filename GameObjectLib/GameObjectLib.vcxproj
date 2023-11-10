@@ -63,9 +63,13 @@
     <ClInclude Include="include\WindowManager.h" />
     <ClInclude Include="include\Components\Entities\TowerAbstract.h" />
     <ClInclude Include="include\Components\Entities\Towers\Malphite.h" />
+    <ClInclude Include="include\Components\Input.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="include\Scenes\SceneLoginSignup.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Components\Input.cpp" />
+    <ClCompile Include="src\Scenes\SceneLoginSignup.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Bat1.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Bat2.cpp" />
     <ClCompile Include="src\Components\Entities\Towers\Lulu.cpp" />

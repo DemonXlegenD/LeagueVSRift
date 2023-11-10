@@ -13,6 +13,7 @@ void AudioManager::Play(std::string _key) {
 	{
 		AudioManager::music = AudioManager::musics.at(_key);
 		AudioManager::Stop();
+		AudioManager::music->setVolume(volume);
 		AudioManager::music->play();
 	}
 	else
@@ -25,6 +26,7 @@ void AudioManager::PlaySound(std::string _key) {
 	if (AudioManager::sounds.find(_key) != AudioManager::sounds.end())
 	{
 		AudioManager::sound = AudioManager::sounds.at(_key);
+		AudioManager::sound->setVolume(volume);
 		AudioManager::sound->play();
 	}
 	else

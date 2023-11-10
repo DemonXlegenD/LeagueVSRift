@@ -1,4 +1,4 @@
-ENH: Affichage du HUD
+FIX: Hud
 
-- Affichage du HUD
+- Les assets sont affichés dans le HUD
 

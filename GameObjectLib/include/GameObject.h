@@ -36,9 +36,9 @@ public:
 	
 	template<typename T>
 	T* GetComponent() {
-		for (Component* component : components) {
+		for (size_t i = 0; i < components.size(); i++) {
 			// Vérifie si le composant est un Collider
-			T* componentResult = dynamic_cast<T*>(component);
+			T* componentResult = dynamic_cast<T*>(components[i]);
 			if (componentResult) {
 				return componentResult; // Renvoie le Collider trouvé
 			}

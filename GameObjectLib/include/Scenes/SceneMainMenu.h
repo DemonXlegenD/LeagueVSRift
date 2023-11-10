@@ -24,11 +24,13 @@ private:
 	GameObject* successButton = nullptr;
 	GameObject* rankButton = nullptr;
 	GameObject* creditsButton = nullptr;
+	GameObject* signupLoginButton = nullptr;
 	GameObject* player = nullptr;
 	GameObject* bullet = nullptr;
 	GameObject* sliderVolume = nullptr;
 	GameObject* sliderFPS = nullptr;
 	sf::Texture* texture;
 	sf::Texture* textureBullet;
+	bool option = false;
 };
 
