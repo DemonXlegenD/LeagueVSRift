@@ -114,6 +114,10 @@ void SceneGameAbstract::ManagePause()
 	{
 		enemy->SetActive(isActive);
 	}
+	for (GameObject* tower : this->towers)
+	{
+		tower->SetActive(isActive);
+	}
 }
 
 void SceneGameAbstract::Update(sf::Time _delta) {
