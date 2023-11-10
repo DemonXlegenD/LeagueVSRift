@@ -48,6 +48,16 @@ void CreateRound::CreateRound1(sf::Time _delta)
 	TimeInRound += _delta.asSeconds();
 	CreateRound::SetRoundInfos(1);
 	CreateRound::SpawnEnemy();
+
+void CreateRound::CreateRound1()
+{
+
+	GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("EnemyA", 1411, 150, 0.1, 0.1, 0, *AssetManager::GetAsset("minionMelee"));
+
+	GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("EnemyB", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("minionSiege"));
+
+	GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("EnemyC", 1411, 150, 0.1, 0.1, 2, *AssetManager::GetAsset("minionMage"));
+
 };
 void CreateRound::CreateRound2(sf::Time _delta)
 {

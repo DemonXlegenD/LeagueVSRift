@@ -13,6 +13,9 @@ void Entity::TakeDamage(int _damage) {
 	{
 		healthPoint -= _damage;
 	}
+	else {
+		healthPoint = 0;
+	}
 
 	if(healthPoint <= 0)
 	{
@@ -36,6 +39,10 @@ void Entity::MoveToPoint(Maths::Vector2i point, float speed) {
 
 void Entity::Update(sf::Time _delta) {
 	Component::Update(_delta);
+
+	if (count < attackSpeed * 500) {
+		count++;
+	}
 
 	if (GetOwner()->GetPosition().GetX() > WindowManager::GetWindowWidth()
 		|| GetOwner()->GetPosition().GetY() > WindowManager::GetWindowHeight()

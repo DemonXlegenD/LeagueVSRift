@@ -6,6 +6,7 @@
 
 #include "Components/Button.h"
 #include "Components/Carre.h"
+#include "Components/Spawn.h"
 #include "Components/SquareCollider.h"
 #include "Components/SpriteRenderer.h"
 #include "Components/Ressource.h"
@@ -15,6 +16,12 @@
 #include "Components/Entities/Enemies/EnemyB.h"
 #include "Components/Entities/Enemies/EnemyC.h"
 #include "Components/Entities/Towers/Nexus.h"
+#include "Components/Entities/Towers/Bat1.h"
+#include "Components/Entities/Towers/Bat2.h"
+#include "Components/Entities/Towers/Lulu.h"
+#include "Components/Entities/Towers/Malphite.h"
+#include "Components/Entities/Towers/Varus.h"
+#include "Components/Entities/Towers/XinZhao.h"
 
 
 SceneGameAbstract::SceneGameAbstract(sf::RenderWindow* _window) : Scene(_window) {
@@ -29,7 +36,6 @@ SceneGameAbstract::~SceneGameAbstract() {
 
 void SceneGameAbstract::Create() {
 	Scene::Create();
-	this->CreatePauseMenuButtons();
 
 	this->victory = CreateImageGameObject("Victory", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Victory"));
 	this->defeat = CreateImageGameObject("Defeat", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, 2.f, 2.f, *AssetManager::GetAsset("Defeat"));
@@ -49,7 +55,7 @@ void SceneGameAbstract::CreatePauseMenuButtons() {
 	pausePlayButton = CreateButtonGameObject("Continue", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 4.0, 50);
 	pauseMenuPrincipalButton = CreateButtonGameObject("Menu Principal", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2.5, 50);
 	//pauseOptionsButton = CreateButtonGameObject("Options", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
-	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.4, 50);
+	pauseQuitButton = CreateButtonGameObject("Quit", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 1.8, 50);
 	this->ManageSceneGameButtonsPause(false);
 }
 
@@ -75,7 +81,7 @@ void SceneGameAbstract::CreateTower()
 
 void SceneGameAbstract::CreateRessource()
 {
-	ressource = this->CreatePlayerRessourceGameObject("Ressources", 0.f, 0.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 300.f);
+	ressource = this->CreatePlayerRessourceGameObject("Ressources", 50.f, 50.f, *AssetManager::GetAsset("Gold"), 2.5f, 2.5f, 300.f, 200.f);
 };
 
 void SceneGameAbstract::RemoveEnemy(GameObject* _enemyToRemove) {
@@ -116,14 +122,15 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 	if (isActive)
 	{
 		Scene::Update(_delta);
-
 	}
 	else
 	{
 		if (pausePlayButton->GetComponent<Button>()->IsClicked()) {
 			this->ManagePause();
+			isActive = true;
 		}
 		else if (pauseMenuPrincipalButton->GetComponent<Button>()->IsClicked()) {
+			this->ManagePause();
 			SceneManager::RunScene("SceneMainMenu");
 		}
 		//else if (pauseOptionsButton->GetComponent<Button>()->IsClicked()) {
@@ -137,7 +144,8 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 
 void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 {
-	float deltaSecond = _delta.asMilliseconds();
+	float deltaSecond = _delta.asSeconds();
+	endTime -= deltaSecond;
 	if (_win)
 	{
 		this->victory->SetActive(true);
@@ -147,9 +155,9 @@ void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 		this->defeat->SetActive(true);
 	}
 	if (endTime <= deltaSecond) {
+		SceneManager::StopScene();
 		SceneManager::RunScene("SceneMainMenu");
 	}
-	endTime -= deltaSecond;
 }
 
 void SceneGameAbstract::CreateBackground()
@@ -167,12 +175,10 @@ void SceneGameAbstract::Render(sf::RenderWindow* _window) {
 	Scene::Render(_window);
 }
 
-
 GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley)
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(positionx, positiony));
-
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
@@ -192,6 +198,26 @@ GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name,
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(_x, _y));
 
+	Entity* entity;
+	if (name == "Bat1") {
+		entity = gameObject->CreateComponent<Bat1>();
+	}
+	else if (name == "Bat2") {
+		entity = gameObject->CreateComponent<Bat2>();
+	}
+	else if (name == "Lulu") {
+		entity = gameObject->CreateComponent<Lulu>();
+	}
+	else if (name == "Malphite") {
+		entity = gameObject->CreateComponent<Malphite>();
+	}
+	else if (name == "Varus") {
+		entity = gameObject->CreateComponent<Varus>();
+	}
+	else if (name == "XinZhao") {
+		entity = gameObject->CreateComponent<XinZhao>();
+	}
+
 	Ressource* ressource = gameObject->CreateComponent<Ressource>();
 	ressource->SetGold(prixGold);
 	ressource->SetMana(prixMana);
@@ -205,14 +231,6 @@ GameObject* SceneGameAbstract::CreateBatimentGameObject(const std::string& name,
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
-	/*HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
-	healthPointBar->SetHealthPoint(player->GetHealthPoint());
-	healthPointBar->SetMaxHealthPoint(player->GetMaxHealthPoint());
-	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
-	healthPointBar->SetSize(sprite->GetBounds().x, 5);
-	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();*/
-
 	return gameObject;
 }
 GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string& name, float _x, float _y, const sf::Texture texture, float scalex, float scaley, float ressourceGold, float ressourceMana)
@@ -223,18 +241,19 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	Ressource* ressource = gameObject->CreateComponent<Ressource>();
 	ressource->SetGold(ressourceGold);
 	ressource->SetMana(ressourceMana);
+	ressource->SetText();
 
 	Sprite* sprite = gameObject->CreateComponent<Sprite>();
 	sprite->SetTexture(texture);
 	sprite->SetScale(scalex, scaley);
 	sprite->SetSprite();
+	sprite->SetHud(true);
 
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
 	return gameObject;
-
 }
 
 GameObject* SceneGameAbstract::CreateTurretGameObject(const std::string& name, float positionx, float positiony, float scalex, float scaley, sf::Texture _texture)
@@ -259,7 +278,9 @@ GameObject* SceneGameAbstract::CreateCarreGameObject(const std::string& name, fl
 {
 	GameObject* gameObject = CreateGameObject(name);
 	gameObject->SetPosition(Maths::Vector2f(x, y));
-	gameObject->SetActive(true);
+	gameObject->SetActive(false);
+
+	Spawn* spawn = gameObject->CreateComponent<Spawn>();
 
 	Carre* carre = gameObject->CreateComponent<Carre>();
 	carre->SetPosition(x, y);
@@ -308,6 +329,13 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -329,6 +357,16 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
+
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
 
 	enemies.push_back(gameObject);
 
@@ -352,6 +390,7 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
+
 
 	enemies.push_back(gameObject);
 
@@ -378,6 +417,15 @@ GameObject* SceneGameAbstract::CreateBossGameObject(const std::string& name, flo
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
+
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -385,11 +433,10 @@ GameObject* SceneGameAbstract::CreateBossGameObject(const std::string& name, flo
 }
 
 
-
 GameObject* SceneGameAbstract::CreateNexusGameObject()
 {
 	GameObject* gameObject = CreateGameObject("nexus");
-	gameObject->SetPosition(Maths::Vector2f(482.f, 838.f));
+	gameObject->SetPosition(Maths::Vector2f(WindowManager::GetWindowWidth() / 3.98, WindowManager::GetWindowHeight() / 1.30));
 
 	Nexus* nexus = gameObject->CreateComponent<Nexus>();
 
@@ -401,6 +448,14 @@ GameObject* SceneGameAbstract::CreateNexusGameObject()
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(1.f, 1.f);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(nexus->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(nexus->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
+	healthPointBar->SetSize(sprite->GetBounds().x, 5);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
 
 	this->nexus = gameObject;
 

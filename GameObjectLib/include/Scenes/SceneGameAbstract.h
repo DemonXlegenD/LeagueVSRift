@@ -64,6 +64,7 @@ protected:
 	//GameObject* bat2 = nullptr;
 	GameObject* nexus = nullptr;
 	GameObject* ressource = nullptr;
+	GameObject* ressourceText = nullptr;
 	GameObject* pausePlayButton = nullptr;
 	GameObject* pauseOptionsButton = nullptr;
 	GameObject* pauseMenuPrincipalButton = nullptr;
@@ -73,5 +74,6 @@ protected:
 	GameObject* defeat = nullptr;
 	float endTime = 5.f;
 	sf::Texture* texture;
+	sf::Text text;
 };
 

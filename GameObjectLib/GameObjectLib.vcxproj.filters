@@ -91,6 +91,7 @@
     <ClInclude Include="include\Components\Entities\TowerAbstract.h" />
     <ClInclude Include="include\Components\Entities\Towers\Malphite.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="include\Components\Spawn.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="include\Maths\Vector2.inl" />
