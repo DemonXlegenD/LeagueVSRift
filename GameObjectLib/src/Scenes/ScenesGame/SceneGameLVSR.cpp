@@ -132,11 +132,17 @@ void SceneGameLVSR::Update(sf::Time _delta)
 			ChoiceSpawn();
 		}
 	}
-	if (round == 0) {
-		round++;
-		CreateRound round1;
-		round1.CreateRound1();
-		std::cout << "round started";
+	if (round.getRound() == 1) {
+		this->round.CreateRound1(_delta);
+	}
+	else if (round.getRound() == 2) {
+		this->round.CreateRound2(_delta);
+	}
+	else if(round.getRound() == 3){
+		this->round.CreateRound3(_delta);
+	}
+	else {
+		this->round.CreateRound4(_delta);
 	}
 
 	for (int i = 0; i < enemies.size(); i++) {

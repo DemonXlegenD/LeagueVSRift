@@ -5,11 +5,27 @@ class CreateRound
 {
 public:
 	CreateRound();
-	void CreateRound1();
-	void CreateRound2();
-	void CreateRound3();
-	void CreateRound4();
+	void setRound(int _round);
+	int getRound();
+	void SetRoundInfos(int _roundInt);
+	void CreateRound1(sf::Time _delta);
+	void CreateRound2(sf::Time _delta);
+	void CreateRound3(sf::Time _delta);
+	void CreateRound4(sf::Time _delta);
+	void SpawnEnemy();
 private:
-	int count;
+	int round = 1;
 	std::vector<GameObject*> enemy;
+	struct RoundInfo
+	{
+		int Round;
+		int Waves;
+		int Ennemies;
+		int TimeBetweenWaves;
+	};
+	RoundInfo Info;
+	int EnemiesSpawnedInWave = 0;
+	int WavesSpawned = 0;
+	float TimeInRound = 0.f;
+	float TimeToWait = 1.f;
 };

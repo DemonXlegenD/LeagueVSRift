@@ -308,15 +308,6 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
-	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
-	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
-	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
-	healthPointBar->SetPosition(_x, _y);
-	healthPointBar->SetSize(sprite->GetBounds().x, 5);
-	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
-
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -338,15 +329,6 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
-	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
-	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
-	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
-	healthPointBar->SetPosition(_x, _y);
-	healthPointBar->SetSize(sprite->GetBounds().x, 5);
-	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
 
 	enemies.push_back(gameObject);
 
@@ -370,15 +352,6 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
-
-	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
-	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
-	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
-	healthPointBar->SetAboveSprite(sprite->GetBounds().y / 2 + 50.f);
-	healthPointBar->SetPosition(_x, _y);
-	healthPointBar->SetSize(sprite->GetBounds().x, 5);
-	healthPointBar->SetScale(scalex, scaley);
-	healthPointBar->SetHealthPointBar();
 
 	enemies.push_back(gameObject);
 
