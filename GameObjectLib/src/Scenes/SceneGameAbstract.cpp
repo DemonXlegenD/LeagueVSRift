@@ -144,7 +144,8 @@ void SceneGameAbstract::Update(sf::Time _delta) {
 
 void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 {
-	float deltaSecond = _delta.asMilliseconds();
+	float deltaSecond = _delta.asSeconds();
+	endTime -= deltaSecond;
 	if (_win)
 	{
 		this->victory->SetActive(true);
@@ -154,9 +155,9 @@ void SceneGameAbstract::GameEnd(bool _win, sf::Time _delta)
 		this->defeat->SetActive(true);
 	}
 	if (endTime <= deltaSecond) {
+		SceneManager::StopScene();
 		SceneManager::RunScene("SceneMainMenu");
 	}
-	endTime -= deltaSecond;
 }
 
 void SceneGameAbstract::CreateBackground()

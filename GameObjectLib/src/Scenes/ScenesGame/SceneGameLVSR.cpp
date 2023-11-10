@@ -111,8 +111,6 @@ void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _
 
 void SceneGameLVSR::Create() 
 {
-	SceneGameAbstract::Create();
-	
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
 
 	SceneGameLVSR::CreateSpawn();
@@ -129,6 +127,8 @@ void SceneGameLVSR::Create()
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
 	
 	this->CreatePauseMenuButtons();
+	
+	SceneGameAbstract::Create();
 }
 
 void SceneGameLVSR::Delete() 
@@ -166,6 +166,7 @@ void SceneGameLVSR::Update(sf::Time _delta)
 
 		if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
 			GameEnd(false, _delta);
+
 			if (isChoice)
 			{
 				ChoiceTower();
