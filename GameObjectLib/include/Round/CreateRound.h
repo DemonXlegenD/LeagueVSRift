@@ -13,6 +13,8 @@ public:
 	void CreateRound3(sf::Time _delta);
 	void CreateRound4(sf::Time _delta);
 	void SpawnEnemy();
+
+	int getRoundInfos() { return Info.Waves; }
 private:
 	int round = 1;
 	std::vector<GameObject*> enemy;

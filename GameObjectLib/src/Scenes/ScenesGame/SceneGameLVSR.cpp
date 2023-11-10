@@ -132,13 +132,14 @@ void SceneGameLVSR::Update(sf::Time _delta)
 			ChoiceSpawn();
 		}
 	}
+
 	if (round.getRound() == 1) {
 		this->round.CreateRound1(_delta);
 	}
 	else if (round.getRound() == 2) {
 		this->round.CreateRound2(_delta);
 	}
-	else if(round.getRound() == 3){
+	else if (round.getRound() == 3) {
 		this->round.CreateRound3(_delta);
 	}
 	else {
