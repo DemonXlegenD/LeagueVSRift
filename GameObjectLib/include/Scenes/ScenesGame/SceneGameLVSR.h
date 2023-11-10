@@ -30,7 +30,6 @@ public:
 
 private:
 	float ManaClock = 0;
-	int round = 0;
 
 	std::vector<Maths::Vector2i> lane1 = { Maths::Vector2i(1364, 138), Maths::Vector2i(696, 150) , Maths::Vector2i(578, 219), Maths::Vector2i(483, 646) };
 	std::vector<Maths::Vector2i> lane2 = { Maths::Vector2i(1373, 203), Maths::Vector2i(1092, 418) , Maths::Vector2i(931, 524), Maths::Vector2i(720, 686) };

@@ -2,6 +2,7 @@
 #include "SceneManager.h"
 #include "AssetManager.h"
 #include "AudioManager.h"
+#include "Components/Ressource.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -48,17 +49,8 @@ void CreateRound::CreateRound1(sf::Time _delta)
 	TimeInRound += _delta.asSeconds();
 	CreateRound::SetRoundInfos(1);
 	CreateRound::SpawnEnemy();
+}
 
-void CreateRound::CreateRound1()
-{
-
-	GameObject* EnemyA = SceneManager::GetActiveGameScene()->CreateEnemyAGameObject("EnemyA", 1411, 150, 0.1, 0.1, 0, *AssetManager::GetAsset("minionMelee"));
-
-	GameObject* EnemyB = SceneManager::GetActiveGameScene()->CreateEnemyBGameObject("EnemyB", 1411, 150, 0.1, 0.1, 1, *AssetManager::GetAsset("minionSiege"));
-
-	GameObject* EnemyC = SceneManager::GetActiveGameScene()->CreateEnemyCGameObject("EnemyC", 1411, 150, 0.1, 0.1, 2, *AssetManager::GetAsset("minionMage"));
-
-};
 void CreateRound::CreateRound2(sf::Time _delta)
 {
 	TimeInRound += _delta.asSeconds();
@@ -111,6 +103,7 @@ void CreateRound::SpawnEnemy() {
 		} else {
 			//std::cout << "waiting for next round" << std::endl;
 			if (SceneManager::GetActiveGameScene()->GetEnemies().size() == 0) {
+				SceneManager::GetActiveGameScene()->GetGameObject("Ressources")->GetComponent<Ressource>()->AddGold(100 * round);
 				WavesSpawned = 0;
 				round++;
 				EnemiesSpawnedInWave = 0;
