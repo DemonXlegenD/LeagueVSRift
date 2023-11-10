@@ -111,7 +111,6 @@ void SceneGameLVSR::CreateTower(std::string towerName, float _positionX, float _
 
 void SceneGameLVSR::Create() 
 {
-	SceneGameAbstract::Create();
 	GameObject* background = CreateBackgroundGameObject("Background", WindowManager::GetWindowWidth() / 2, WindowManager::GetWindowHeight() / 2, *AssetManager::GetAsset("mapLol"));
 
 	SceneGameLVSR::CreateSpawn();
@@ -126,6 +125,10 @@ void SceneGameLVSR::Create()
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
 	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	
+	this->CreatePauseMenuButtons();
+	
+	SceneGameAbstract::Create();
 }
 
 void SceneGameLVSR::Delete() 
@@ -151,8 +154,30 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		if (GetGameObject("Ressources")->GetComponent<Ressource>()->GetMana() + 2 <= GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana()) {
 			GetGameObject("Ressources")->GetComponent<Ressource>()->AddMana(2);
 		}
-		else {
-			GetGameObject("Ressources")->GetComponent<Ressource>()->SetMana(GetGameObject("Ressources")->GetComponent<Ressource>()->GetMaxMana());
+
+
+		if (enemies.size() == 0 && round < 20) {
+			GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
+		}
+
+		if (nexus->GetComponent<Nexus>()->GetHealthPoint() == 0) {
+			GameEnd(false, _delta);
+
+			if (isChoice)
+			{
+				ChoiceTower();
+			}
+			else
+			{
+				ChoiceSpawn();
+			}
+		}
+		if (round == 0) {
+			round++;
+			AudioManager::Play("round_start");
+			CreateRound round1;
+			round1.CreateRound1();
+			std::cout << "Round " << round << " started" << std::endl;
 		}
 	}
 
@@ -167,53 +192,61 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		round++;
 	}
 
-	for (size_t i = 0; i < towers.size(); i++) {
-		GameObject* tower = towers[i];
-		//tower->GetComponent<Entity>()->IncrementCount();
-		if (tower->GetComponent<Entity>()->GetCount() >= tower->GetComponent<Entity>()->GetAttackSpeed() * 500) {
-			for (size_t j = 0; j < enemies.size(); j++) {
-				int EnemyGold = enemies[j]->GetComponent<Entity>()->GetMaxHealthPoint() * 3;
-				int currHealth = enemies[j]->GetComponent<Entity>()->GetHealthPoint();
-				if (Maths::Vector2f(tower->GetPosition() - enemies[j]->GetPosition()).Magnitude() < tower->GetComponent<Entity>()->GetRange() + 100) {
-					tower->GetComponent<Entity>()->ResetCount();
-					std::cout << enemies[j]->GetName() << " took " << tower->GetComponent<Entity>()->GetDamage() << " damage. HP LEFT: " << enemies[j]->GetComponent<Entity>()->GetHealthPoint() - tower->GetComponent<Entity>()->GetDamage() << std::endl;
-					enemies[j]->GetComponent<Entity>()->TakeDamage(tower->GetComponent<Entity>()->GetDamage());
-					if (currHealth - tower->GetComponent<Entity>()->GetDamage() <= 0) {
-						std::cout << "Old gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold();
-						GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + EnemyGold);
-						std::cout << ". New gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() << std::endl;
+		for (size_t i = 0; i < towers.size(); i++) {
+			GameObject* tower = towers[i];
+			//tower->GetComponent<Entity>()->IncrementCount();
+			if (tower->GetComponent<Entity>()->GetCount() >= tower->GetComponent<Entity>()->GetAttackSpeed() * 500) {
+				for (size_t j = 0; j < enemies.size(); j++) {
+					int EnemyGold = enemies[j]->GetComponent<Entity>()->GetMaxHealthPoint() * 3;
+					int currHealth = enemies[j]->GetComponent<Entity>()->GetHealthPoint();
+					if (Maths::Vector2f(tower->GetPosition() - enemies[j]->GetPosition()).Magnitude() < tower->GetComponent<Entity>()->GetRange() + 100) {
+						tower->GetComponent<Entity>()->ResetCount();
+						std::cout << enemies[j]->GetName() << " took " << tower->GetComponent<Entity>()->GetDamage() << " damage. HP LEFT: " << enemies[j]->GetComponent<Entity>()->GetHealthPoint() - tower->GetComponent<Entity>()->GetDamage() << std::endl;
+						enemies[j]->GetComponent<Entity>()->TakeDamage(tower->GetComponent<Entity>()->GetDamage());
+						if (currHealth - tower->GetComponent<Entity>()->GetDamage() <= 0) {
+							std::cout << "Old gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold();
+							GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + EnemyGold);
+							std::cout << ". New gold: " << GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() << std::endl;
+						}
+						AudioManager::Play(tower->GetName() + "_attack");
 					}
-					AudioManager::Play(tower->GetName() + "_attack");
 				}
 			}
 		}
-	}
 
-	for (size_t i = 0; i < enemies.size(); i++) {
-		GameObject* enemy = enemies[i];
-		Entity* enemyComponent = enemy->GetComponent<Entity>();
-		
-		Maths::Vector2i goal;
-		bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
+		for (size_t i = 0; i < enemies.size(); i++) {
+			GameObject* enemy = enemies[i];
+			Entity* enemyComponent = enemy->GetComponent<Entity>();
 
-		if (isGoalNexus) {
-			goal = Maths::Vector2i(480, 840);
-		}
-		else {
-			goal = lanes[enemyComponent->GetLane()][enemyComponent->GetCurrPathPoint()];
-		}
+			Maths::Vector2i goal;
+			bool isGoalNexus = enemyComponent->GetCurrPathPoint() >= lanes[enemyComponent->GetLane()].size();
 
-		float distance = (enemy->GetPosition() - Maths::Vector2f(goal.x, goal.y)).Magnitude();
-		enemyComponent->MoveToPoint(goal, enemyComponent->GetSpeed() / 10);
-
-		if (distance < 10) {
 			if (isGoalNexus) {
+
+				goal = Maths::Vector2i(480, 840);
+
 				TakeNexusDamage(enemyComponent->GetHealthPoint());
 				std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
 				enemyComponent->Die();
+
 			}
 			else {
-				enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
+				goal = lanes[enemyComponent->GetLane()][enemyComponent->GetCurrPathPoint()];
+			}
+
+			float distance = (enemy->GetPosition() - Maths::Vector2f(goal.x, goal.y)).Magnitude();
+			enemyComponent->MoveToPoint(goal, enemyComponent->GetSpeed() / 10);
+
+			if (distance < 10) {
+				if (isGoalNexus) {
+					TakeNexusDamage(enemyComponent->GetHealthPoint());
+					std::cout << "LE NEXUS A PRIT " << enemyComponent->GetHealthPoint() << " DEGATS. IL LUI RESTE " << nexus->GetComponent<Entity>()->GetHealthPoint() << " PV" << std::endl;
+					enemyComponent->Die();
+					ressource->GetComponent<Ressource>()->AddGold(100.0f);
+				}
+				else {
+					enemyComponent->SetCurrPathPoint(enemyComponent->GetCurrPathPoint() + 1);
+				}
 			}
 		}
 	}
