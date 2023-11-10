@@ -181,6 +181,19 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		}
 	}
 
+
+	if (round.getRound() == 1) {
+		this->round.CreateRound1(_delta);
+	}
+	else if (round.getRound() == 2) {
+		this->round.CreateRound2(_delta);
+	}
+	else if (round.getRound() == 3) {
+		this->round.CreateRound3(_delta);
+	}
+	else {
+		this->round.CreateRound4(_delta);
+
 	if (enemies.size() == 0 && round < 3) {
 		GetGameObject("Ressources")->GetComponent<Ressource>()->SetGold(GetGameObject("Ressources")->GetComponent<Ressource>()->GetGold() + 100 * round);
 	}
@@ -190,6 +203,7 @@ void SceneGameLVSR::Update(sf::Time _delta)
 		round1.CreateRound1();
 		std::cout << "Round " << round + 1 << " started" << std::endl;
 		round++;
+
 	}
 
 		for (size_t i = 0; i < towers.size(); i++) {

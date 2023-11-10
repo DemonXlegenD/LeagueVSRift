@@ -336,7 +336,6 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	healthPointBar->SetSize(25, 2);
 	healthPointBar->SetScale(2.f, 2.f);
 	healthPointBar->SetHealthPointBar();
-
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -359,6 +358,7 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+
 	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
 	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
 	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
@@ -366,6 +366,7 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	healthPointBar->SetSize(25, 2);
 	healthPointBar->SetScale(2.f, 2.f);
 	healthPointBar->SetHealthPointBar();
+
 
 	enemies.push_back(gameObject);
 
@@ -390,6 +391,32 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+
+	enemies.push_back(gameObject);
+
+	return gameObject;
+
+}
+
+GameObject* SceneGameAbstract::CreateBossGameObject(const std::string& name, float _x, float _y, float scalex, float scaley, int lane, sf::Texture _texture)
+{
+	GameObject* gameObject = CreateGameObject(name);
+	gameObject->SetPosition(Maths::Vector2f(_x, _y));
+
+	EnemyB* enemy = gameObject->CreateComponent<EnemyB>();
+	enemy->SetLane(lane);
+	enemy->SetMaxHealthPoint(1000);
+	enemy->SetHealthPoint(1000);
+
+	Sprite* sprite = gameObject->CreateComponent<Sprite>();
+	sprite->SetTexture(_texture);
+	sprite->SetScale(scalex, scaley);
+	sprite->SetSprite();
+
+	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
+	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
+	squareCollider->SetScale(scalex, scaley);
+
 	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
 	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
 	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
@@ -397,6 +424,7 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	healthPointBar->SetSize(25, 2);
 	healthPointBar->SetScale(2.f, 2.f);
 	healthPointBar->SetHealthPointBar();
+
 
 	enemies.push_back(gameObject);
 
