@@ -25,7 +25,7 @@ private:
 	float gold;
 	float mana;
 
-	float maxMana = 300.f;
+	float maxMana = 200.f;
 
 	sf::Text goldText;
 	sf::Text manaText;

@@ -175,7 +175,6 @@ void SceneGameAbstract::Render(sf::RenderWindow* _window) {
 	Scene::Render(_window);
 }
 
-
 GameObject* SceneGameAbstract::CreateTowerGameObject(const std::string& name, float positionx, float positiony, const sf::Texture texture, float scalex, float scaley)
 {
 	GameObject* gameObject = CreateGameObject(name);
@@ -248,6 +247,7 @@ GameObject* SceneGameAbstract::CreatePlayerRessourceGameObject(const std::string
 	sprite->SetTexture(texture);
 	sprite->SetScale(scalex, scaley);
 	sprite->SetSprite();
+	sprite->SetHud(true);
 
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
@@ -329,6 +329,14 @@ GameObject* SceneGameAbstract::CreateEnemyAGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -350,6 +358,14 @@ GameObject* SceneGameAbstract::CreateEnemyBGameObject(const std::string& name, f
 	SquareCollider* squareCollider = gameObject->CreateComponent<SquareCollider>();
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
+
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
 
 	enemies.push_back(gameObject);
 
@@ -374,6 +390,14 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 	squareCollider->SetSize(sprite->GetBounds().x, sprite->GetBounds().y);
 	squareCollider->SetScale(scalex, scaley);
 
+	HealthPointBar* healthPointBar = gameObject->CreateComponent<HealthPointBar>();
+	healthPointBar->SetHealthPoint(enemy->GetHealthPoint());
+	healthPointBar->SetMaxHealthPoint(enemy->GetMaxHealthPoint());
+	healthPointBar->SetAboveSprite(25);
+	healthPointBar->SetSize(25, 2);
+	healthPointBar->SetScale(2.f, 2.f);
+	healthPointBar->SetHealthPointBar();
+
 	enemies.push_back(gameObject);
 
 	return gameObject;
@@ -381,11 +405,10 @@ GameObject* SceneGameAbstract::CreateEnemyCGameObject(const std::string& name, f
 }
 
 
-
 GameObject* SceneGameAbstract::CreateNexusGameObject()
 {
 	GameObject* gameObject = CreateGameObject("nexus");
-	gameObject->SetPosition(Maths::Vector2f(WindowManager::GetWindowWidth() / 3.98, WindowManager::GetWindowHeight() / 1.22));
+	gameObject->SetPosition(Maths::Vector2f(WindowManager::GetWindowWidth() / 3.98, WindowManager::GetWindowHeight() / 1.30));
 
 	Nexus* nexus = gameObject->CreateComponent<Nexus>();
 
