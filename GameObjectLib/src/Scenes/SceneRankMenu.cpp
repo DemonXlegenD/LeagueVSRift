@@ -4,12 +4,14 @@
 #include "Components/Button.h"
 #include "AssetManager.h"
 
-SceneRankMenu::SceneRankMenu(sf::RenderWindow* _window) : Scene(_window) {
+SceneRankMenu::SceneRankMenu(sf::RenderWindow* _window) : Scene(_window) 
+{
 	this->Awake();
 	Scene::Create();
 }
 
-void SceneRankMenu::Create() {
+void SceneRankMenu::Create() 
+{
 	Scene::Create();
 	sf::Texture backgroundTexture2;
 
@@ -21,7 +23,8 @@ void SceneRankMenu::Create() {
 	this->CreateSceneButtonsMenu();
 }
 
-void SceneRankMenu::Render(sf::RenderWindow* _window) {
+void SceneRankMenu::Render(sf::RenderWindow* _window) 
+{
 	Scene::Render(_window);
 }
 
@@ -57,7 +60,8 @@ void SceneRankMenu::SetOrigin() {
 
 void SceneRankMenu::Update(sf::Time _delta) {
 	Scene::Update(_delta);
-	if (backButton->GetComponent<Button>()->IsClicked()) {
+	if (backButton->GetComponent<Button>()->IsClicked()) 
+	{
 		SceneManager::RunScene("SceneMainMenu");
 	}
 }

@@ -69,10 +69,10 @@ void SceneGameAbstract::CreatePlayer() {
 void SceneGameAbstract::CreateTower()
 {
 	gameTowers.push_back(CreateBatimentGameObject("Varus", 0.f, 0.f, *AssetManager::GetAsset("Varus"), 0.5f, 0.5f, 300.f, 30.f));
-	gameTowers.push_back(CreateBatimentGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 0.5f, 0.5f, 300.f, 30.f));
-	gameTowers.push_back(CreateBatimentGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f, 300.f, 30.f));
-	gameTowers.push_back(CreateBatimentGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f, 300.f, 30.f));
-	gameTowers.push_back(CreateBatimentGameObject("Bat1", 0.f, 0.f, *AssetManager::GetAsset("Bat1"), 2.5f, 2.5f,300.f, 0.f));
+	gameTowers.push_back(CreateBatimentGameObject("Lulu", 0.f, 0.f, *AssetManager::GetAsset("Lulu"), 0.5f, 0.5f, 200.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Malphite", 0.f, 0.f, *AssetManager::GetAsset("Malphite"), 2.5f, 2.5f, 2500.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("XinZhao", 0.f, 0.f, *AssetManager::GetAsset("XinZhao"), 2.5f, 2.5f, 1000.f, 30.f));
+	gameTowers.push_back(CreateBatimentGameObject("Bat1", 0.f, 0.f, *AssetManager::GetAsset("Bat1"), 2.5f, 2.5f,500.f, 0.f));
 	gameTowers.push_back(CreateBatimentGameObject("Bat2", 0.f, 0.f, *AssetManager::GetAsset("Bat2"), 2.5f, 2.5f,300.f, 5.f));
 	for (int i = 0; i < gameTowers.size(); i++) {
 		gameTowers[i]->SetActive(false);

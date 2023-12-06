@@ -120,15 +120,15 @@ void SceneGameLVSR::Create()
 	//GameObject* enemy = CreateEnemyAGameObject("enemy", 1411.f, 157.f, 0.3f , 0.3f, 1, *AssetManager::GetAsset("EnemyA"));
 	GameObject* nexus = CreateNexusGameObject();
 
-	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 1", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
-	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 2", HUDManager::GetSquareCenter("17").x, HUDManager::GetSquareCenter("17").y, 20));
-	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 3", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
-	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 4", HUDManager::GetSquareCenter("35").x, HUDManager::GetSquareCenter("35").y, 20));
-	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour 5", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Varus", HUDManager::GetSquareCenter("8").x, HUDManager::GetSquareCenter("8").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Lulu", HUDManager::GetSquareCenter("26").x, HUDManager::GetSquareCenter("26").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Malphite", HUDManager::GetSquareCenter("44").x, HUDManager::GetSquareCenter("44").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Xin Zhao", HUDManager::GetSquareCenter("62").x, HUDManager::GetSquareCenter("62").y, 20));
+	HUDManager::AddGameObjectHud(CreateButtonGameObject("Tour", HUDManager::GetSquareCenter("80").x, HUDManager::GetSquareCenter("80").y, 20));
 	
 	this->CreatePauseMenuButtons();
 	
-	SceneGameAbstract::Create();
+	SceneGameAbstract::Create();	
 }
 
 void SceneGameLVSR::Delete() 
