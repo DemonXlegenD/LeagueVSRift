@@ -1,4 +1,5 @@
-FIX: Hud
+FIX: Propriété
 
-- Les assets sont affichés dans le HUD
+- fix des propriétés du projet
+- ajout des copies
 
